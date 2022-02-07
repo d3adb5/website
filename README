@@ -1,0 +1,18 @@
+personal website
+
+This repository houses both the source and generated files for my personal
+website. It's not meant to serve as a CV or a portfolio, it's just a static
+website like any other. Or so I intend for it to be as of the time of this
+writing.
+
+It uses Hugo, a static site generator written in Go. A long time ago I wrote a
+few shell and python scripts to generate the HTML that would be served for my
+website. It was pretty messy, and after creating template after template and
+excitedly speaking of it to people on IRC, I was pointed to static site
+generators.
+
+For the longest time, I had Makefiles to convert things like SASS to CSS and
+place the generated files in Hugo's static directory. Now I'm trying to use Hugo
+Pipes. Forgive the old man in me for using POSIX sh, Python and GNU Make in the
+past. You can't teach an old dog new tricks, so I guess this means I'm not an
+old dog.
