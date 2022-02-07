@@ -1,0 +1,6 @@
+<header>
+  <h1>{{ default .Title .Params.articleTitle }}</h1>
+  {{ with .Params.subtitle }}
+  <p class="subtitle">{{ . }}</p>
+  {{ end }}
+</header>

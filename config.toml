@@ -1,3 +1,4 @@
 baseURL      = 'https://d3adb5.net/'
 title        = "d3adb5's personal website"
 languageCode = 'en-us'
+theme        = "7c978e"
