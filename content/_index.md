@@ -1,17 +1,32 @@
 +++
 title = "d3adb5"
-date  = 2022-02-05
+date  = 2022-03-08
+
+subtitle = "Dead... bees?"
+
+pageTitle = "d3adb5"
 
 draft = false
 +++
 
-Welcome! There's not much to see here, and I wonder if there ever will be much
-to see, but you're free to stick around for as long as you like.
+I know, looks pretty "l33t", and it was somewhat randomly generated.
 
-This entire site is a work in progress. I'm not a front-end web developer, so
-don't expect a shiny, sophisticated website with kilograms of JavaScript and CSS
-that make your CPU work as hard as it can to render every little character you
-see on the screen. Instead, expect it to be barebones, almost like handmade
-HTML.
+There's not a lot to see here, but feel free to look around. Hopefully there's
+something of use to you on this website. I'll write about whatever comes to mind
+_as_ it comes to mind, so if my words read like scattered thoughts, they
+probably are.
 
-Yes, I'm using a monospace font. I like it. It's cute.
+The website is a constant work in progress. I'm not a front-end developer, never
+will be. All I can really give you are pages without kilograms of JavaScript on
+them.
+
+## source, hosting, etc.
+
+The website is hosted on [GitHub Pages][ghpages], and the pages are generated
+through [Hugo][hugo]. You can find the entire source code, including the GitHub
+Actions workflow that publishes it to the `gh-pages` branch on [this
+repository][ghrepo].
+
+[ghpages]: https://pages.github.com
+[ghrepo]: https://github.com/d3adb5/website
+[hugo]: https://gohugo.io
