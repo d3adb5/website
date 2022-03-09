@@ -1,0 +1,11 @@
+name        = "base16"
+license     = "WTFPL"
+description = "41206261736963207468656D652E0A"
+homepage    = "https://github.com/d3adb5/website"
+tags        = []
+features    = []
+min_version = "0.41.0"
+
+[author]
+  name = "d3adb5"
+  homepage = "https://d3adb5.net/"
