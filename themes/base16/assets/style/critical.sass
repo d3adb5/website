@@ -1,0 +1,132 @@
+@import '_colorscheme'
+
+%page-item
+  background: transparent
+  padding: 1em
+
+html
+  background: $bg-site
+
+body
+  width: 80%
+  max-width: 50em
+  margin: 2em auto
+
+  line-height: 1.5em
+  font-family: 'DejaVu Sans Mono', monospace
+  font-size: 85%
+
+  color: $fg-normal
+
+  border-radius: 1em
+  box-shadow: 0.25em 0.25em 0.5em $term-bg
+
+h1, h2, h3, h4, h5, h6
+  color: $fg-header
+  margin: 1.1em 0 .83em
+
+h1
+  font-size:  1.5em
+h2
+  font-size: 1.23em
+h3
+  font-size: 1.05em
+h4
+  font-size: .83em
+h5
+  font-size: .67em
+h6
+  font-size: .51em
+
+a
+  text-decoration: initial
+  color: $fg-anchor
+
+a:hover
+  text-decoration: underline
+
+em
+  color: $term-11
+strong
+  color: $term-09
+
+p code
+    font-family: 'DejaVu Sans Mono', monospace
+    background: $term-00
+    font-size: inherit
+    padding: 0 0.5em
+    border-radius: 0.5em
+
+nav#site-nav
+  @extend %page-item
+
+  display: grid
+  grid-auto-flow: column
+
+  background: $bg-navbar
+  color: $fg-navbar
+
+  border-radius: 1em 1em 0 0
+
+  a
+    font-weight: bold
+    text-align: center
+    color: $fg-navbar
+
+footer
+  @extend %page-item
+
+  background: $bg-footer
+  color: $fg-footer
+  border-radius: 0 0 1em 1em
+
+  p#timestamp
+    text-align: center
+    margin: 0
+
+article
+  background: $bg-normal
+  padding: 0.1em 1.5em 0.1em 1.5em
+
+  header
+    font-weight: bold
+
+    h1
+      color: $fg-header
+      margin-bottom: 0.25em
+
+    p.subtitle
+      color: $fg-header-sub
+      margin: 0
+
+
+  blockquote
+    color: $fg-blockquote
+    padding-left: 1em
+    border-width: 0 0 0 0.5em
+    border-style: solid
+    border-color: $fg-border
+
+  table
+    width: 100%
+
+    th
+      color: $fg-table-head
+    td
+      color: $fg-table-data
+
+  li::marker
+    color: $fg-list-bullet
+
+  figure
+    margin: 1.25em 0
+    text-align: center
+
+    img
+      min-height: 5em
+      max-height: 15em
+      width: 100%
+      object-fit: cover
+
+    figcaption p
+        margin-top: 0
