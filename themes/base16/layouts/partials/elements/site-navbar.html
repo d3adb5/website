@@ -1,4 +1,4 @@
-<nav id="site-nav">
+<nav>
   <a href="{{ .Site.Home.RelPermalink }}">Home</a>
   {{ range .Site.RegularPages }}
   <a href="{{ .RelPermalink }}">{{ default .Title .Params.navTitle }}</a>
