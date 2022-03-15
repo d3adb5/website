@@ -1,25 +1,22 @@
+@import '_settings'
 @import '_colorscheme'
-
-%page-item
-  background: transparent
-  padding: 1em
+@import '_abstract'
 
 html
   background: $bg-site
 
 body
-  width: 80%
-  max-width: 50em
+  width: $body-width
+  max-width: $body-max-width
   margin: 2em auto
 
   line-height: 1.5em
-  font-family: 'DejaVu Sans Mono', monospace
-  font-size: 85%
+  font-family: $common-font
+  font-size: $body-font-size
 
   color: $fg-normal
 
   border-radius: 1em
-  box-shadow: 0.25em 0.25em 0.5em $term-bg
 
 h1, h2, h3, h4, h5, h6
   color: $fg-header
@@ -50,43 +47,25 @@ em
 strong
   color: $term-09
 
-p code
-    font-family: 'DejaVu Sans Mono', monospace
-    background: $term-00
-    font-size: inherit
-    padding: 0 0.5em
-    border-radius: 0.5em
-
-nav#site-nav
-  @extend %page-item
-
-  display: grid
-  grid-auto-flow: column
-
+nav
+  @extend %basic-page-navigation
+  border-radius: 1em 1em 0 0
   background: $bg-navbar
   color: $fg-navbar
 
-  border-radius: 1em 1em 0 0
-
-  a
-    font-weight: bold
-    text-align: center
-    color: $fg-navbar
-
 footer
-  @extend %page-item
-
+  @extend %basic-page-extremity
   background: $bg-footer
   color: $fg-footer
-  border-radius: 0 0 1em 1em
 
   p#timestamp
-    text-align: center
+    text-align: right
     margin: 0
 
 article
   background: $bg-normal
-  padding: 0.1em 1.5em 0.1em 1.5em
+  padding: 0.1em 1.5em 0.8em 1.5em
+  border-radius: $body-border-radius
 
   header
     font-weight: bold
@@ -130,3 +109,17 @@ article
 
     figcaption p
         margin-top: 0
+
+  code
+    font-family: $mono-font
+    font-size: $code-font-size
+
+  pre
+    background: $bg-codeblock
+    border-radius: 0.5em
+    padding: 0.5em 1em
+
+  p code
+    background: $bg-codeblock
+    padding: 0 0.3em
+    border-radius: 0.25em
