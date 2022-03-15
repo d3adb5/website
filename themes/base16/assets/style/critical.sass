@@ -1,9 +1,6 @@
 @import '_settings'
 @import '_colorscheme'
-
-%page-item
-  background: transparent
-  padding: 1em
+@import '_abstract'
 
 html
   background: $bg-site
@@ -61,27 +58,16 @@ p code
   border-radius: 0.5em
 
 nav#site-nav
-  @extend %page-item
-
-  display: grid
-  grid-auto-flow: column
-
+  @extend %basic-page-navigation
+  border-radius: 1em 1em 0 0
   background: $bg-navbar
   color: $fg-navbar
 
-  border-radius: 1em 1em 0 0
-
-  a
-    font-weight: bold
-    text-align: center
-    color: $fg-navbar
-
 footer
-  @extend %page-item
-
+  @extend %basic-page-extremity
+  border-radius: 0 0 1em 1em
   background: $bg-footer
   color: $fg-footer
-  border-radius: 0 0 1em 1em
 
   p#timestamp
     text-align: center

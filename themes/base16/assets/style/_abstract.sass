@@ -1,0 +1,21 @@
+@import '_settings'
+@import '_colorscheme'
+
+%basic-page-item
+  background: $common-background
+  padding: $common-padding
+
+%basic-page-extremity
+  @extend %basic-page-item
+  background: $bg-extremity
+  color: $fg-extremity
+
+%basic-page-navigation
+  @extend %basic-page-extremity
+  display: grid
+  grid-auto-flow: column
+
+  a
+    font-weight: bold
+    text-align: center
+    color: inherit
