@@ -47,15 +47,6 @@ em
 strong
   color: $term-09
 
-code
-  font-family: $mono-font
-  font-size: inherit
-
-p code
-  background: $term-00
-  padding: 0 0.5em
-  border-radius: 0.5em
-
 nav
   @extend %basic-page-navigation
   border-radius: 1em 1em 0 0
@@ -118,3 +109,17 @@ article
 
     figcaption p
         margin-top: 0
+
+  code
+    font-family: $mono-font
+    font-size: $code-font-size
+
+  pre
+    background: $bg-codeblock
+    border-radius: 0.5em
+    padding: 0.5em 1em
+
+  p code
+    background: $bg-codeblock
+    padding: 0 0.3em
+    border-radius: 0.25em
