@@ -17,7 +17,6 @@ body
   color: $fg-normal
 
   border-radius: 1em
-  box-shadow: 0.25em 0.25em 0.5em $term-bg
 
 h1, h2, h3, h4, h5, h6
   color: $fg-header
@@ -65,7 +64,6 @@ nav#site-nav
 
 footer
   @extend %basic-page-extremity
-  border-radius: 0 0 1em 1em
   background: $bg-footer
   color: $fg-footer
 
@@ -75,7 +73,8 @@ footer
 
 article
   background: $bg-normal
-  padding: 0.1em 1.5em 0.1em 1.5em
+  padding: 0.1em 1.5em 0.8em 1.5em
+  border-radius: $body-border-radius
 
   header
     font-weight: bold
