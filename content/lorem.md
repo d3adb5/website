@@ -3,7 +3,7 @@ title = "Lorem ipsum"
 date  = 2022-02-05
 
 subtitle = "And the art of trying to make this work"
-navTitle = "lorem"
+navTitle = "Lorem"
 
 draft = false
 +++
