@@ -5,6 +5,8 @@ date  = 2022-03-08
 subtitle = "Dead... bees?"
 
 pageTitle = "d3adb5"
+navTitle = "Home"
+navIndex = 0
 
 draft = false
 +++

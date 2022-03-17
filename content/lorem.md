@@ -4,6 +4,7 @@ date  = 2022-02-05
 
 subtitle = "And the art of trying to make this work"
 navTitle = "Lorem"
+navIndex = 99
 
 draft = false
 +++

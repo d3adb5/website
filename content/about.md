@@ -3,6 +3,8 @@ title = "About me and this website"
 subtitle = "Not that anyone would like to know, but..."
 date  = 2022-03-12T22:28:31-03:00
 
+navIndex = 1
+
 navTitle = "About"
 pageTitle = "About"
 
