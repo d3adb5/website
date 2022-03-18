@@ -50,3 +50,15 @@ We're _going_ to have **some trouble.**
 ### another inner heading
 
 It's pretty cool, innit?
+
+Here's a code block:
+
+```
+#include <stdio.h>
+
+int main(void)
+{
+  puts("This is some C code. It's simple, right?");
+  return 0;
+}
+```
