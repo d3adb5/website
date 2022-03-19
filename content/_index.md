@@ -56,3 +56,13 @@ I'll do my best to make these pages available in multiple languages, both as a
 way to practice them and as a way to reach more people through them. If it all
 goes according to plan, other people will be helping me out by reviewing the
 different versions of the content in other languages.
+
+## Send me mail, encrypted or not
+
+If you wish to communicate with me, send a message to `me` at this domain. In
+case you want to send encrypted messages:
+
+```
+ECC: 1D6680F97A6617F4D9B2A0F9D989443FD3ADB5C7 (preferred)
+RSA: C3295D9E3A719FFE2EFD2EBB697797CED3ADB5C9
+```
