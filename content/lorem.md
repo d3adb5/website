@@ -1,6 +1,6 @@
 +++
 title = "Lorem ipsum"
-date  = 2022-02-05
+date  = 2022-03-17
 
 subtitle = "And the art of trying to make this work"
 navTitle = "Lorem"
