@@ -1,9 +1,10 @@
 +++
 title = "Lorem ipsum"
-date  = 2022-02-05
+date  = 2022-03-17
 
 subtitle = "And the art of trying to make this work"
 navTitle = "Lorem"
+navIndex = 99
 
 draft = false
 +++
@@ -49,3 +50,15 @@ We're _going_ to have **some trouble.**
 ### another inner heading
 
 It's pretty cool, innit?
+
+Here's a code block:
+
+```
+#include <stdio.h>
+
+int main(void)
+{
+  puts("This is some C code. It's simple, right?");
+  return 0;
+}
+```
