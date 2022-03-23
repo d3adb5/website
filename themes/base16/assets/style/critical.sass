@@ -2,21 +2,25 @@
 @import '_colorscheme'
 @import '_abstract'
 
+@media screen and (min-width: $body-max-width)
+  article
+    border-radius: $body-border-radius
+  body
+    margin: 2em auto !important
+
 html
   background: $bg-site
 
 body
   width: $body-width
   max-width: $body-max-width
-  margin: 2em auto
+  margin: 0 auto
 
   line-height: 1.5em
   font-family: $common-font
   font-size: $body-font-size
 
   color: $fg-normal
-
-  border-radius: 1em
 
 h1, h2, h3, h4, h5, h6
   color: $fg-header
@@ -68,7 +72,6 @@ footer
 article
   background: $bg-normal
   padding: 0.1em 1.5em 0.8em 1.5em
-  border-radius: $body-border-radius
 
   header
     font-weight: bold
