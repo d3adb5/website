@@ -10,6 +10,8 @@
   background: $bg-extremity
   color: $fg-extremity
 
+  line-height: 3em
+
 %basic-page-navigation
   @extend %basic-page-extremity
 
@@ -19,3 +21,7 @@
     font-weight: bold
     text-align: center
     color: inherit
+
+@media screen and (min-width: $body-max-width)
+  %basic-page-extremity
+    line-height: inherit
