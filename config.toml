@@ -5,3 +5,4 @@ theme        = 'base16'
 
 markup.goldmark.parser.attribute.block = true
 markup.goldmark.parser.attribute.title = true
+markup.goldmark.renderer.unsafe = true
