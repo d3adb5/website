@@ -48,10 +48,11 @@ a:hover
 
 em
   color: $term-11
+  font-style: normal
 strong
   color: $term-09
 
-nav
+nav#site-nav
   @extend %basic-page-navigation
   border-radius: 1em 1em 0 0
   background: $bg-navbar
@@ -59,6 +60,31 @@ nav
 
   a.current
     color: $fg-navbar-current
+
+nav#TableOfContents
+  float: right
+  margin: 1em 0 1em 0.5em
+  box-sizing: border-box
+  max-width: 40%
+  background: $term-00
+  padding: $common-padding
+  border-radius: $toc-border-radius
+  font-size: $toc-font-size
+
+  color: $fg-anchor
+
+  ul
+    margin: 0
+    padding: 0
+    list-style-type: none
+
+    li
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ' ...'
+
+    ul
+      padding-left: 1em
 
 footer
   @extend %basic-page-extremity
@@ -100,6 +126,11 @@ article
     td
       color: $fg-table-data
 
+    td.date
+      width: 1%
+      white-space: nowrap
+      padding: 0 0.5em 0 0
+
   li::marker
     color: $fg-list-bullet
 
@@ -112,6 +143,7 @@ article
       max-height: 15em
       width: 100%
       object-fit: cover
+      border-radius: $img-border-radius
 
     figcaption p
         margin-top: 0

@@ -1,0 +1,8 @@
+{{ define "content" }}
+<main aria-role="main">
+  <article id="content">
+    {{ partial "elements/article-header.html" . }}
+    {{ .Content }}
+  </article>
+</main>
+{{ end }}
