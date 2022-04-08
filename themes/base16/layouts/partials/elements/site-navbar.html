@@ -1,6 +1,6 @@
 {{ $listOfPages := slice .Site.Home | append .Site.Home.Pages }}
 {{ $currentPermalink := .Permalink }}
-<nav>
+<nav id="site-nav">
   {{ range sort $listOfPages ".Params.navIndex" "asc" }}
   {{ $isCurrentPage := eq .Permalink $currentPermalink }}
   <a href="{{ .RelPermalink }}" {{ if $isCurrentPage }}class="current"{{ end }}>
