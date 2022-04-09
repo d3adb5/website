@@ -1,3 +1,6 @@
 <footer>
+  {{ with .GitInfo }}
+  <p id="commit">{{ .AbbreviatedHash }}</p>
+  {{ end }}
   <p id="timestamp">Published in {{ .PublishDate.Format "January 2, 2006" }}</p>
 </footer>

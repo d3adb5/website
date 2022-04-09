@@ -1,7 +1,8 @@
-baseURL      = 'https://d3adb5.net/'
-title        = "d3adb5's personal website"
-languageCode = 'en-us'
-theme        = 'base16'
+baseURL       = 'https://d3adb5.net/'
+title         = "d3adb5's personal website"
+languageCode  = 'en-us'
+theme         = 'base16'
+enableGitInfo = true
 
 markup.goldmark.parser.attribute.block = true
 markup.goldmark.parser.attribute.title = true
