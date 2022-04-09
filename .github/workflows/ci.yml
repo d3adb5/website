@@ -10,6 +10,7 @@ jobs:
       - name: Checkout files in the repository
         uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           lfs: true
 
       - name: Setup Hugo
