@@ -91,9 +91,13 @@ footer
   background: $bg-footer
   color: $fg-footer
 
+  display: grid
+  grid-template-columns: 50% 50%
+
+  p#timestamp, p#commit
+    margin: 0
   p#timestamp
     text-align: right
-    margin: 0
 
 article
   background: $bg-normal
