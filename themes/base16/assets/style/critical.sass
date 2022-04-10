@@ -92,7 +92,8 @@ footer
   color: $fg-footer
 
   display: grid
-  grid-template-columns: 50% 50%
+  grid-auto-flow: column
+  grid-template-columns: minmax(0, 1fr)
 
   p#timestamp, p#commit
     margin: 0
