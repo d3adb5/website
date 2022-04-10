@@ -1,6 +1,20 @@
 <header>
-  <h1>{{ default .Title .Params.articleTitle }}</h1>
-  {{ with .Params.subtitle }}
-  <p class="subtitle">{{ . }}</p>
+  <div>
+    <h1>{{ default .Title .Params.articleTitle }}</h1>
+    {{ with .Params.subtitle }}
+    <p class="subtitle">{{ . }}</p>
+    {{ end }}
+  </div>
+
+  {{ if .IsTranslated }}
+  <aside id="translations">
+    <p style="text-align: right">
+    {{ range .Translations }}
+      <a href="{{ .RelPermalink }}" title="{{ .Site.Params.langName }}">
+        {{ .Site.Params.flag }}
+      </a>
+    {{ end }}
+    </p>
+  </aside>
   {{ end }}
 </header>
