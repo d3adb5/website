@@ -25,9 +25,9 @@ quilos de JavaScript.
 ## Código-fonte, build, hospedagem, etc.
 
 Este site está hospedado no [GitHub Pages][gh-pages], e as páginas são geradas
-pelo [Hugo][gohugo]. O código-fonte, bem como os workflows do [GitHub
-Actions][gh-actions] que o publicam para o branch `gh-pages`, pode ser
-encontrado [neste repositório][gh-repo] no GitHub.
+pelo [Hugo][gohugo]. O código-fonte e os workflows do [GitHub
+Actions][gh-actions] que o publicam para o branch `gh-pages` podem ser
+encontrados [neste repositório][gh-repo] no GitHub.
 
 Você pode encontrar repositórios para outros projetos meus no [meu perfil do
 GitHub][gh-profile], sejam besteiras que, contra meu bom senso, decidi colocar
