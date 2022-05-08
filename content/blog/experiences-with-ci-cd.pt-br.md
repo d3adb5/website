@@ -155,7 +155,7 @@ builds no repositório do XMonad de forma automática, e CD era um formato de
 mídia ótica.
 
 Começo a trabalhar e quase que de imediato, me deparo com o [Jenkins][jenkins].
-Ele me foi apresentando como a ferramenta de escolha para a maioria dos
+Ele me foi apresentado como a ferramenta de escolha para a maioria dos
 desenvolvedores para criar esteiras de CI/CD, e dá para ver por quê. No
 entanto, o sentimento que o Jenkins passa, quanto mais experiência com ele você
 adquire, é de um programa equivalente a um pano de prato feito de vários
