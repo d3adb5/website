@@ -24,9 +24,9 @@ Minha atitude para com serviços, programas e plataformas de CI/CD era de que
 uma força-tarefa altamente qualificada, precisariam e tirariam proveito.
 
 Tal posição com certeza mudou quando, trabalhando diretamente com o ciclo de
-desenvolvimento de software e melhorando-o, me toquei do seu valor e sentido.
-Agora eu sinto grande vontade de trazer testes automatizados, revisões de
-código, pull requests constantes, e deployment automático para todos os meus
+desenvolvimento de software e melhorando-o, tomei consciência do seu valor e
+sentido. Agora eu sinto grande vontade de trazer testes automatizados, revisões
+de código, pull requests constantes, e deployment automático para todos os meus
 projetos pessoais. É um ótimo jeito de definir e garantir um padrão de
 qualidade.
 
@@ -102,7 +102,7 @@ seriam geradas. Consigo até lembrar de momentos em que quebrei a geração das
 páginas enquanto testava as capacidades de template do Hugo --- a versão
 instalada na minha máquina era diferente da instalada no servidor.
 
-A falta de um ambiente facilmento reproduzido para testes (e obviamente os
+A falta de um ambiente facilmente reproduzido para testes (e obviamente os
 testes em si) significava que todo deployment feito arriscava quebrar a
 "produção".
 
@@ -154,12 +154,12 @@ CI era a segunda parte de [Travis CI][travis-ci], uma ferramenta que rodava
 builds no repositório do XMonad de forma automática, e CD era um formato de
 mídia ótica.
 
-Começo a trabalhar e quase que de imediato, me mostram o [Jenkins][jenkins]. Me
-foi apresentando como a ferramenta de escolha para a maioria dos desenvolvedores
-para criar esteiras de CI/CD, e dá para ver por quê. No entanto, o sentimento
-que o Jenkins passa, quanto mais experiência com ele você adquire, é de um
-programa equivalente a um pano de prato feito de vários remendos e que consome
-mais recursos do que deve ser necessário.
+Começo a trabalhar e quase que de imediato, me deparo com o [Jenkins][jenkins].
+Ele me foi apresentando como a ferramenta de escolha para a maioria dos
+desenvolvedores para criar esteiras de CI/CD, e dá para ver por quê. No
+entanto, o sentimento que o Jenkins passa, quanto mais experiência com ele você
+adquire, é de um programa equivalente a um pano de prato feito de vários
+remendos e que consome mais recursos do que deve ser necessário.
 
 Inexperiente e com os olhos brilhando, refletindo uma nova admiração pela
 construção de esteiras de desenvolvimento, busquei escrever algumas
@@ -199,12 +199,12 @@ pipeline {
 ```
 
 As opções de build (`options`) costumam ocupar múltiplas linhas, bem como a
-specificação de `agent` e os `parameters`, no caso de uma pipeline
-parametrizada. Em cima disso, uma pipeline com um único estágio é bem raro,
-então replique o estágio no arquivo acima alguma vezes. Como que de costume,
-cada estágio terá mais de um `step`, provavelmente. Ademais, suponha que a
-cláusula `when` será usada para pular alguns passos, e agora você tem níveis
-absurdos de indentação e de linhas.
+especificação de `agent` e os `parameters`, no caso de uma pipeline
+parametrizada. Em cima disso, uma pipeline com um único estágio é algo bem
+raro, então replique o estágio no arquivo acima alguma vezes. Como que de
+costume, cada estágio terá mais de um `step`, provavelmente. Ademais, suponha
+que a cláusula `when` será usada para pular alguns passos, e agora você tem
+níveis absurdos de indentação e de linhas.
 
 É simplesmente cansativo. Necessário, de vez em quando, mas bem cansativo.
 
@@ -469,7 +469,7 @@ GitOps.
 
 Eu acredito que dá para ignorar as partes do estado do sistema não gerenciadas
 pelo Ansible, já que há "partes não contempladas" também em fluxos de trabalho
-rodeando Kubernetes (pense em autenticação ou `PersistentVolume`s). Sejamos
+envolvendo Kubernetes (pense em autenticação ou `PersistentVolume`s). Sejamos
 felizes em dizer que _tudo de que precisamos para mudar o sistema é um `git
 commit`_ e contentes na simplicidade dos nossos setups de CI/CD.
 
