@@ -1,9 +1,22 @@
-baseURL       = 'https://d3adb5.net/'
-title         = "d3adb5's personal website"
-languageCode  = 'en-us'
-theme         = 'base16'
+baseURL = "https://d3adb5.net/"
+theme   = "base16"
+
 enableGitInfo = true
 
 markup.goldmark.parser.attribute.block = true
 markup.goldmark.parser.attribute.title = true
 markup.goldmark.renderer.unsafe = true
+
+defaultContentLanguage = "en"
+
+[languages]
+  [languages.en]
+    title = "d3adb5's personal website"
+    [languages.en.params]
+      langName = "English (US)"
+      flag = "🇺🇸"
+  [languages.pt-br]
+    title = "website pessoal de d3adb5"
+    [languages.pt-br.params]
+      langName = "Português Brasileiro"
+      flag = "🇧🇷"

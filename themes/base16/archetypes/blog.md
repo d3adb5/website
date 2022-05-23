@@ -1,6 +1,6 @@
 +++
 draft = true
-date  = {{ .Date.Format "2006-01-02" }}
+date  = {{ time.Format "2006-01-02" .Date }}
 
 title    = "{{ replace .Name "-" " " | title }}"
 subtitle = "Subtitle yet to be determined"
