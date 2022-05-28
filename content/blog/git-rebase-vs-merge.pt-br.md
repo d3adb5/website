@@ -37,7 +37,7 @@ Exemplo de um histórico linear:
 * 3016bae chore: starting this repository
 ```
 
-Claramente as commits seguem uma ordem direta: `3016bae`, depois `0750dab`, e
+Claramente as commits seguem uma ordem direta: `3016bae`, depois `f26b0a5`, e
 por aí vai até chegarmos à commit `a64cdd6`. Perfeito para entendermos a
 evolução do projeto, se pudermos contar com o fato das mensagens de commit
 resumirem bem o propósito das mudanças que introduzem.
