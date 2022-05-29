@@ -9,6 +9,9 @@ markup.goldmark.renderer.unsafe = true
 
 defaultContentLanguage = "en"
 
+[params]
+  repoUrl = "https://github.com/d3adb5/website"
+
 [languages]
   [languages.en]
     title = "d3adb5's personal website"

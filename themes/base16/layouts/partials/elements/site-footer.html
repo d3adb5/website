@@ -1,6 +1,8 @@
 <footer>
   {{ with .GitInfo }}
-  <p id="commit">{{ .AbbreviatedHash }}</p>
+  <p id="commit"><a
+     href="{{ $.Site.Params.repoUrl }}/commit/{{ .Hash }}"
+  >{{ .AbbreviatedHash }}</a></p>
   {{ end }}
   <p id="timestamp">Published in {{ .PublishDate.Format "January 2, 2006" }}</p>
 </footer>
