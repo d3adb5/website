@@ -1,0 +1,51 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Usando Git para além de programação</title><style type=text/css>@import "https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;600&family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap";@import "https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;600&family=Source+Sans+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap";footer,nav#site-nav{background:0 0;padding:1em}footer,nav#site-nav{background:#282a2e;color:#c5c8c6;line-height:3em}nav#site-nav a{display:inline-block;width:6em;font-weight:700;text-align:center;color:inherit}@media screen and (min-width:60em){footer,nav#site-nav{line-height:inherit}}@media screen and (min-width:60em){article{border-radius:.5em}body{margin:2em auto!important}}html{background:#252628}body{width:100%;max-width:60em;margin:0 auto;line-height:1.5em;font-family:source sans pro,sans-serif;font-size:100%;color:#c5c8c6}h1,h2,h3,h4,h5,h6{color:#8c9440;margin:1.1em 0 .83em}h1{font-size:1.5em}h2{font-size:1.23em}h3{font-size:1.05em}h4{font-size:.83em}h5{font-size:.67em}h6{font-size:.51em}a{text-decoration:initial;color:#de935f}a:hover{text-decoration:underline}em{color:#f0c674;font-style:normal}strong{color:#c66}nav#site-nav{border-radius:1em 1em 0 0;background:0 0;color:#c5c8c6}nav#site-nav a.current{color:#81a2be}nav#TableOfContents{float:right;margin:1em 0 1em .5em;box-sizing:border-box;max-width:40%;background:#282a2e;padding:1em;border-radius:.5em;font-size:80%;color:#de935f}nav#TableOfContents ul{margin:0;padding:0;list-style-type:none}nav#TableOfContents ul li{overflow:hidden;white-space:nowrap;text-overflow:' ...'}nav#TableOfContents ul ul{padding-left:1em}footer{background:0 0;color:#707880;display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr)}footer a{color:#707880}footer p#timestamp,footer p#commit{margin:0}footer p#timestamp{text-align:right}article{background:#1d1f21;padding:.1em 1.5em .8em}article header{font-weight:700;display:grid;grid-template-columns:minmax(50%,100%)auto;align-items:center}article header h1{color:#8c9440;margin-bottom:.25em}article header p.subtitle{color:#5e8d87;margin:0}article blockquote{color:#707880;padding-left:1em;border-width:0 0 0 .5em;border-style:solid;border-color:#707880}article table{width:100%}article table th{color:#81a2be}article table td{color:#c5c8c6}article table td.date{width:1%;white-space:nowrap;padding:0 .5em 0 0}article li::marker{color:#f0c674}article figure{margin:1.25em 0;text-align:center}article figure img{min-height:5em;max-height:15em;width:100%;object-fit:cover;border-radius:1em}article figure figcaption p{margin-top:0}article code{font-family:inconsolata,monospace;font-size:100%}article pre{background:#282a2e;border-radius:.5em;padding:.5em 1em;overflow-x:scroll}article p code{background:#282a2e;padding:0 .3em;border-radius:.25em}</style></head><body><nav id=site-nav><a href=/pt-br/>Índice</a>
+<a href=/pt-br/blog/>Blog</a></nav><main aria-role=main><article id=content><header><div><h1>Usando Git para além de programação</h1><p class=subtitle>Como trabalho colaborativo se beneficia (e muito) do Git</p></div><aside id=translations><p style=text-align:right><a href=/blog/git-outside-programming/ title="English (US)">🇺🇸</a></p></aside></header><p>É de conhecimento público que versionamento é importante quando escrevemos
+qualquer tipo de documento, seja código-fonte escrito em uma linguagem de
+programação, rascunhos de um livro, ou atas de reunião. O GitHub, por exemplo,
+usa Git para <em>a política do site, documentação,</em> e seu <em>roadmap,</em> nenhum dos
+quais envolve ou foca em programação. Mas e se a gente não liga muito para o
+versionamento em si?</p><p>Manter um histórico de versões de uma obra não é algo que nos vem naturalmente,
+especialmente se você é do tipo que não quer mostrar no que está trabalhando
+para ninguém até o momento em que está perfeitamente contente com o resultado.
+Nós esquecemos do simples fato de que o histórico nos serve muito mais do que
+qualquer outra coisa: você teve uma ideia para lidar com uma limitação X?
+<em>Anota em algum lugar!</em></p><p>Para programadores, aplicar o Git em qualquer projeto é trivial e não requer
+esforço. O fato é que é necessário um bom entendimento da ferramenta para
+explorar o seu verdadeiro potencial, e para aqueles que não programam e que
+nunca tiveram contato com Git, a linha de comando é a maior barreira de
+entrada. Por que tentar aprender que botões apertar quando o <em>Google Docs</em> me
+deixa só digitar o que eu quero e automaticamente salva o histórico de
+mudanças? Isso não me é legal. Bacana que a ferramenta faz isso para você, mas
+e quanto a <em>colaborar em paralelo</em> com outras pessoas que trabalham de maneiras
+e em ritmos diferentes?</p><h2 id=trabalhando-no-seu-próprio-ritmo>Trabalhando no seu próprio ritmo</h2><p>Git tem controle descentralizado, o que significa que você pode ter múltiplos
+repositórios de onde puxar mudanças ao mesmo tempo. Cada um conterá objetos do
+Git criados por aqueles que têm poder de escrita sobre o repositório, e os
+<em>mantenedores</em> de cada um podem decidir que objetos importar de outros lugares
+para fazer <em>mesclagem</em> a qualquer momento e de qualquer jeito. Não há real
+controle, o que é bem libertador, nos permitindo manter diferentes versões até
+mesmo do repositório em si.</p><p>Combinado com o fato do Git ser capaz de mesclar históricos que se separaram há
+um tempo arbitrariamente longo, contanto que consígamos resolver conflitos que
+surgirem, isso permite que um bocado de gente trabalhe em seus próprios
+repositórios e no seu próprio ritmo:</p><ul><li><p>Tem um time trabalhando na escrita de artigos para a seção A do site? Eles
+podem ter um fork deles para trabalhar, e periodicamente pedir aos
+mantenedores do repositório principal que puxem mudanças para o site em si.</p></li><li><p>Alguém de fora do projeto quer fazer uma contribuição? Eles podem criar um
+fork do repositório, fazer suas mudanças nele, e enviar um pedido de pull da
+mesma maneira que um membro do projeto. Seu time pode revisar as mudanças e
+quem sabe este alguém não se torna parte do time no futuro?</p></li><li><p>Uma parte do projeto vai demorar semanas para ficar pronta, e outras pessoas
+querem focar em algo não relacionado? Deixe que aconteça tudo em paralelo e
+lide com os conflitos de mesclagem depois! O Git vai ajudar a mesclar o
+trabalho todo.</p></li></ul><p>Esse site, apesar de pessoal, é versionado com Git e se qualquer um quiser
+adicionar alguma coisa, pode sempre enviar um Pull Request no GitHub. Não é
+nenhum Wikipedia ou site de notícias, mas tem louco para tudo.</p><h2 id=tirando-a-interface-do-caminho>Tirando a interface do caminho</h2><p>A resposta para o problema de não-programadores acharem difícil usar Git é
+simples: criar uma interface amigável que usa o Git por trás para
+versionamento. Você nunca vai alcançar a flexibilidade de usar o Git
+diretamente, então deixe que os mantenedores do repositório que gruda tudo o
+façam.</p><p>GitHub, GitLab, e outras suítes têm interfaces Web para uso do Git para
+propósito geral, enquanto ferramentas de wiki como Wiki.js permitem o uso do
+Git como módulo de armazenamento ou como real plano de fundo da operação. Estes
+projetos permitem criar usuários de Git que nem se tocam do que estão usando, e
+para alguns servem como porta de entrada para uso direto da ferramenta depois.</p><p>Sou do tipo que patrocina ou faz esse tipo de coisa eu mesmo? Não. Se você sabe
+que existe e vê os benefícios em potencial, que aprenda a usar, eu diria. Soa
+como uma atitude arrogante, mas eu tenho certeza de que a principal razão para
+não-programadores não usarem Git nos seus projetos é o fato de <em>não saberem que
+existe.</em></p></article></main><footer><p id=commit><a href=https://github.com/d3adb5/website/commit/5e82b1abbff722c53adeebec9ae955ba1d4b6fc9>5e82b1a</a></p><p id=timestamp>Published in June 18, 2022</p></footer></body></html>
