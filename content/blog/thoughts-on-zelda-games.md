@@ -733,8 +733,8 @@ there's a motorbike.
 No spoilers, let's be brief:
 
 - Out of all the games in the franchise, it's safe to say this one gives you
-  the most freedom to explore and taken on the obstacles that stand in your
-  way, be it the weather, a mountain, or powerful enemies. You can set as many
+  the most freedom to explore and take on the obstacles that stand in your way,
+  be it the weather, a mountain, or powerful enemies. You can set as many
   restrictions as you like for youself and still somehow manage to save the
   world, including jumping straight into the final boss once the game starts.
 - The soundtrack, the ambience, the art style, they're all fantastic in this
