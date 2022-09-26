@@ -58,7 +58,7 @@ Se você quiser entrar em contato comigo, mande um email para `me` @ este
 domínio. Para mandar mensagens criptografadas:
 
 ```
-ECC: 1D6680F97A6617F4D9B2A0F9D989443FD3ADB5C7 (preferred)
+ECC: 1D6680F97A6617F4D9B2A0F9D989443FD3ADB5C7 (preferível)
 RSA: C3295D9E3A719FFE2EFD2EBB697797CED3ADB5C9
 ```
 
