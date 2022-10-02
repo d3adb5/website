@@ -1,0 +1,17 @@
+{{ define "content" }}
+<main aria-role="main">
+  <article id="content">
+    {{ partial "elements/article-header.html" . }}
+    {{ .Content }}
+
+    <table>
+      {{ range .Pages.ByTitle }}
+      <tr>
+        <td class="date">{{ .Date.Format "2006-01-02" }}</td>
+        <td class="title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
+      </tr>
+      {{ end }}
+    </table>
+  </article>
+</main>
+{{ end }}

@@ -1,0 +1,13 @@
+{{ define "content" }}
+<main aria-role="main">
+  <article id="content">
+    {{ partial "elements/article-header.html" . }}
+
+    {{ if .Params.toc }}
+      {{ .TableOfContents }}
+    {{ end }}
+
+    {{ .Content }}
+  </article>
+</main>
+{{ end }}
