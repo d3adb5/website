@@ -32,11 +32,17 @@ of support for managing multiple Service's --- and my inability to add it in
 time, being a Go newbie --- made it a non-starter. _"Can I do this with pure
 Helm?"_ I asked myself. Surprisingly, the answer was yes.
 
+A working version of these solutions --- not 1:1 with what you see here, but
+with the same usage --- is available on my [helm-playground][playground]
+repository, on GitHub. The implementations are named `bluegreen-simple` and
+`bluegreen-generic`.
+
 You can use the table of contents on the right to skip to the parts that
 interest you.
 
 [argo-rollouts]: https://argoproj.github.io/argo-rollouts/
 [helm]: https://helm.sh/
+[playground]: https://github.com/d3adb5/helm-playground
 
 ## Defining the Blue/Green strategy
 
@@ -143,6 +149,53 @@ In case you're wondering why they're called _charts,_ it may be because helm is
 what we call the steering wheel of a ship. The ship in this case is the
 Kubernetes cluster, and to navigate it we use a chart. Also, doesn't the
 Kubernetes logo look like a helm itself?
+
+### Partial templates or pseudo-functions?
+
+_Helm is Turing-complete._ Okay, that's a very bold claim to make. Brainf\*ck
+is a Turing complete esoteric language, and it is very much possible to
+implement an interpreter using purely Helm templates. With one caveat: due to
+[PR #7558][pr-7558], Helm limits recursive calls to partial templates to 1000
+calls. Due to the way that limit is implemented, one can circumvent it through
+multiple partial templates in a closed recursive loop, but I digress.
+
+Luckily for us one doesn't have to squint too hard to see how that may be the
+case. It's possible to emulate functions through Helm's _partial templates._ So
+much so that throughout this article I'll be referring to them as
+_pseudo-functions._
+
+What are partial templates, you ask? They're defined using `define`:
+
+```yaml
+{{- define "partial-template" -}}
+This is a partial template. This text appears literally when you 'include' it.
+{{- end -}}
+```
+
+They wouldn't be useful without their "argument", which we can call scope,
+context, or top value. It is the thing you use as the last argument of
+`include` (I will not cover the `template` function here):
+
+```yaml
+{{- include "partial-template" "this string is the scope" -}}
+```
+
+And you may refer to it in the partial template as `.`, as you can see here:
+
+```yaml
+{{- define "partial-template" -}}
+I was given: {{ . }}
+{{- end -}}
+```
+
+This scope can be many things, including a map, a list, a string, or a number.
+Usually we pass around the top scope of the entire chart, which is a map
+containing things like `.Values` and `.Release`.
+
+There are some examples and more explanation in my
+[helm-playground][playground] repository's README.
+
+[pr-7558]: https://github.com/helm/helm/pull/7558
 
 ## An example chart to start with
 
@@ -538,9 +591,8 @@ originally.
 ### Converting a generated Deployment
 
 For starters, make your original Deployment template into a partial template,
-and move it into a library chart. This way your actual charts have the library
-one as a dependency, and we can easily grab the rendered Deployment object as
-text.
+which you could even move to a library chart. With a partial template, we can
+easily grab the rendered Deployment object as text.
 
 ```yaml
 {{- define "app.deployment" -}}
@@ -555,9 +607,9 @@ We need to override a few of its keys. Let's start by making a partial template
 that contains these changes:
 
 ```yaml
-{{- define "bluegreen.deployment.override" -}}
+{{- define "bluegreen.deployment.override.preview" -}}
 metadata:
-  name: {{ include "lib.fullname" . }}-{{ include "bluegreen.current" . }}
+  name: {{ include "app.fullname" . }}-{{ include "bluegreen.current" . }}
 spec:
   selector:
     matchLabels:
@@ -574,28 +626,32 @@ to its _selector_ labels and its Pod _template._ This strimlined manifest will
 be superimposed over the originally rendered one. **It's important that this is
 understood,** because it'll be a recurring pattern from here on out.
 
-Let's overwrite the values, then:
+Let's overwrite the values, then. Given a rendered Deployment object in
+`$deployment` and an original scope in `$scope`, the following snippet should
+work:
 
 ```yaml
-{{- define "bluegreen.deployment" -}}
-  {{- $renderedDeployment := include "lib.deployment" . -}}
-  {{- $deployment := fromYaml $renderedDeployment -}}
-  {{- $deployment := mergeOverwrite $deployment (include "bluegreen.deployment.override" .) -}}
-  {{- toYaml $deployment -}}
-{{- end -}}
+{{- $overrides := include "bluegreen.deployment.override.preview" $scope | fromYaml -}}
+{{- $deployment = mergeOverwrite $deployment $overrides -}}
 ```
 
 Remember, though, _we want to keep the stable Deployment around._ Yet another
 partial template joins the collection:
 
 ```yaml
-{{- define "bluegreen.deployment.all" -}}
-  {{- $stableName   := printf "%s-%s" (include "lib.fullname" .) (include "bluegreen.stable" .) -}}
-  {{- $stableDeploy := lookup "apps/v1" "Deployment" .Release.Namespace $stableName -}}
+{{- define "bluegreen.deployments" -}}
+  {{- $scope      := index . 0 -}}
+  {{- $deployment := index . 1 | fromYaml -}}
+  {{- $overrides  := include "bluegreen.deployment.override.preview" $scope | fromYaml -}}
 
-{{ include "bluegreen.deployment" . }}
+  {{- $stableName   := printf "%s-%s" $deployment.metadata.name (include "bluegreen.stable" $scope) -}}
+  {{- $stableDeploy := lookup "apps/v1" "Deployment" $scope.Release.Namespace $stableName -}}
 
-  {{- if not .Values.promote | and $stableDeploy }}
+  {{- $deployment = mergeOverwrite $deployment $overrides -}}
+
+  {{- toYaml $deployment -}}
+
+  {{- if not $scope.Values.promote | and $stableDeploy }}
 ---
 {{ toYaml $stableDeploy }}
   {{- end }}
@@ -615,7 +671,8 @@ the following template:
 
 ```yaml
 # app/templates/deployment.yaml
-{{ include "bluegreen.deployment.all" }}
+{{- $deployment := include "app.deployment" . -}}
+{{ include "bluegreen.deployments" (list . $deployment) }}
 ```
 
 ### Creating preview versions of each Service
