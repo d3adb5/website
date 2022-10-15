@@ -4,14 +4,21 @@
     {{ partial "elements/article-header.html" . }}
     {{ .Content }}
 
-    <table>
-      {{ range .Pages.ByTitle }}
-      <tr>
-        <td class="date">{{ .Date.Format "2006-01-02" }}</td>
-        <td class="title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
-      </tr>
-      {{ end }}
-    </table>
+    <ul id="notebooks">
+      {{- range .Pages.ByPublishDate.Reverse }}
+        {{- if eq .Parent.RelPermalink "/notes/" }}
+      <li class="notebook">{{ .Title }}
+        {{- else }}
+      <li class="notebook"><a href="{{ .Permalink }}">{{ .Title }}</a>
+        {{- end }}
+        <ul class="notes">
+        {{- range .Pages.ByPublishDate }}
+          <li class="note"><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+        {{- end }}
+        </ul>
+      </li>
+      {{- end }}
+    </ul>
   </article>
 </main>
 {{ end }}
