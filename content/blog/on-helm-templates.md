@@ -17,8 +17,8 @@ loops come into play as need be. But it doesn't stop there.
 
 It would be a little boring if it did, especially since there's repetition that
 can be easily eliminated through the use of partial templates. _However, this
-is a bit of slippery slope._ Developers, mainly, are tempted to use partials to
-emulate functions. I myself call them pseudo-functions, and have been
+is a bit of a slippery slope._ Developers, mainly, are tempted to use partials
+to emulate functions. I myself call them pseudo-functions, and have been
 implementing algorithms with them.
 
 In this blogpost, I hope to convince you templating can quickly become
@@ -58,7 +58,7 @@ _Pros:_
 - No templating here, no need to understand Go templates.
 - You know what to expect from the output: exactly what you're reading.
 
-Those can be said to all be one and the same, huh? Time to list some cons.
+One can argue those are all the same thing, huh? Time to list some cons.
 
 _Cons:_
 
@@ -190,7 +190,7 @@ one, however...
 
 The reader is already familiarizing themselves with the partial templates,
 right? Might as well throw some more templating in, to achieve the flexibility
-we want. Or so one would thing. _What about you? Do you think this is already
+we want. Or so one would think. _What about you? Do you think this is already
 excessive?_
 
 ```yaml
@@ -282,7 +282,7 @@ spec:
 {{- end -}}
 ```
 
-This just for starters. But hey, this is how easy it is to define our Service
+This is just a start. But hey, this is how easy it is to define our Service
 now, and it applies to every chart using our base template:
 
 ```yaml
