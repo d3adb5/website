@@ -50,7 +50,11 @@ entire modules, are in use by other XMonad users.
 ## What can I expect to see on this site?
 
 Hopefully some tutorials, ramblings, and real life cases that I think bear some
-relevance and could be the source of insight for other like minded people.
+relevance and could be the source of insight for other like minded people. For
+example, it's no mystery that I like Git. This website is versioned with Git,
+and _there will always be a link in the page footer to the last commit_ that
+changed the page you are looking at. If you like Git, perhaps you'll find that
+pretty cool!
 
 I'll do my best to make these pages available in multiple languages, both as a
 way to practice them and as a way to reach more people through them. If it all
