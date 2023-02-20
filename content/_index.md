@@ -7,6 +7,7 @@ subtitle = "But I kinda want you to read it!"
 pageTitle = "d3adb5"
 navTitle = "Home"
 navIndex = 0
+navRight = false
 
 draft = false
 +++

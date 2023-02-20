@@ -6,6 +6,7 @@ subtitle = "Divagações digitadas por dedos inquietos, praticamente"
 
 pageTitle = "Blog"
 navTitle = "Blog"
+navRight = false
 
 draft = false
 +++
