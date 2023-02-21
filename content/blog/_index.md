@@ -7,6 +7,7 @@ title = "Thoughts, tutorials, whatever I feel like writing"
 subtitle = "Drivel typed by my restless fingers, pretty much"
 
 navIndex = 2
+navRight = false
 
 draft = false
 +++

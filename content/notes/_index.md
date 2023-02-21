@@ -4,6 +4,7 @@ date = 2022-09-27
 pageTitle = "Notes"
 navTitle = "Notes"
 navIndex = 3
+navRight = false
 
 title = "Study notes, observations, among other things"
 subtitle = "Just a public notebook others can read if they like"

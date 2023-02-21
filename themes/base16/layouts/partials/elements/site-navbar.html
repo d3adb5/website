@@ -1,10 +1,34 @@
 {{ $listOfPages := slice .Site.Home | append .Site.Home.Pages }}
 {{ $currentPermalink := .Permalink }}
 <nav id="site-nav">
-  {{ range sort $listOfPages ".Params.navIndex" "asc" }}
-  {{ $isCurrentPage := eq .Permalink $currentPermalink }}
-  <a href="{{ .RelPermalink }}" {{ if $isCurrentPage }}class="current"{{ end }}>
-    {{ default .Title .Params.navTitle }}
-  </a>
-  {{ end }}
+  {{- $leftPages  := sort (where $listOfPages "Params.navRight" false) ".Params.navIndex" "asc" }}
+  {{- $rightPages := sort (where $listOfPages "Params.navRight" true)  ".Params.navIndex" "asc" }}
+
+  {{- range $leftPages }}
+    {{- partial "elements/navbar-url.html"
+      (dict
+        "CurrentPermalink" $currentPermalink
+        "Page" .
+      )
+    -}}
+  {{- end }}
+
+  {{- range first 1 $rightPages }}
+    {{- partial "elements/navbar-url.html"
+      (dict
+        "CurrentPermalink" $currentPermalink
+        "Classes" "push-right"
+        "Page" .
+      )
+    -}}
+  {{- end }}
+
+  {{- range after 1 $rightPages }}
+    {{- partial "elements/navbar-url.html"
+      (dict
+        "CurrentPermalink" $currentPermalink
+        "Page" .
+      )
+    -}}
+  {{- end }}
 </nav>

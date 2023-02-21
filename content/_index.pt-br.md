@@ -6,6 +6,7 @@ subtitle = "Mas vem dar uma lida de qualquer jeito!"
 
 navTitle = "Índice"
 navIndex = 0
+navRight = false
 
 draft = false
 +++

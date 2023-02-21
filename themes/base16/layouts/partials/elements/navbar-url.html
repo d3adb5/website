@@ -1,0 +1,10 @@
+{{- $classes := default slice .Classes }}
+{{- if eq .Page.Permalink .CurrentPermalink }}
+  {{- $classes = print "current " $classes }}
+{{- end }}
+
+{{- with .Page }}
+<a href="{{ .RelPermalink }}" class="{{ $classes }}">
+  {{ default .Title .Params.navTitle }}
+</a>
+{{- end }}
