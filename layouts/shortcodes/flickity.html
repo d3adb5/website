@@ -1,0 +1,9 @@
+{{- $flickityOptions := dict
+  "contain" true
+  "pageDots" false
+  "prevNextButtons" true
+  "freeScroll" true
+-}}
+<section class="js-flickity" data-flickity-options='{{ jsonify $flickityOptions }}'>
+  {{ .Inner }}
+</section>
