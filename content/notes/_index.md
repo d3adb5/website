@@ -3,7 +3,7 @@ date = 2022-09-27
 
 pageTitle = "Notes"
 navTitle = "Notes"
-navIndex = 3
+navIndex = 4
 navRight = false
 
 title = "Study notes, observations, among other things"
