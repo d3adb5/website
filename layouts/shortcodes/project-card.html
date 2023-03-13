@@ -1,0 +1,38 @@
+{{- $project := .Get "project" -}}
+{{- $githubOwner := .Get "github" -}}
+{{- $githubAvatar := "" -}}
+
+{{- if $githubOwner }}
+  {{- $apiURL := print "https://api.github.com/users/" $githubOwner -}}
+  {{- $githubOwner = getJSON $apiURL -}}
+  {{- $githubAvatar = $githubOwner.avatar_url -}}
+{{- end }}
+
+{{- $url := .Get "url" | default "#" -}}
+{{- $avatar := .Get "avatar" | default $githubAvatar -}}
+{{- $description := .Get "description" -}}
+{{- $languages := split (.Get "languages") ", " -}}
+
+<section class="github-card">
+  <section id="header">
+    {{- if $avatar }}
+    <a href="{{ $url }}">
+      <img src="{{ $avatar }}" alt="{{ $project }}'s icon" />
+    </a>
+    {{- end }}
+    <section id="title">
+      <a href="{{ $url }}">
+        <p>{{ $project }}</p>
+      </a>
+    </section>
+  </section>
+  <section id="description">
+    <p>{{ $description | truncate 128 }}</p>
+  </section>
+  <hr/>
+  <section id="more">
+    {{ range $languages | default (slice "None? Uh...") | first 5 }}
+      <p class="language">{{ . }}</p>
+    {{ end }}
+  </section>
+</section>

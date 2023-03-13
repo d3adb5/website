@@ -1,0 +1,38 @@
+{{- $apiURL := .Get "path" | print "https://api.github.com/repos/" -}}
+{{- $repo := getJSON $apiURL -}}
+{{- $languages := getJSON $repo.languages_url -}}
+
+{{- range $l, $c:= $languages }}
+  {{- $languages = merge $languages (dict $l (dict "name" $l "count" $c)) -}}
+{{- end -}}
+
+{{- $languages = sort $languages "count" "desc" -}}
+
+<section class="github-card">
+  <section id="header">
+    <a href="{{ $repo.html_url }}">
+      <img src="{{ $repo.owner.avatar_url }}" alt="{{ $repo.owner.login }}'s avatar" />
+    </a>
+    <section id="title">
+      <a href="{{ $repo.html_url }}">
+        <p>{{ $repo.owner.login }}/{{ $repo.name }}</p>
+      </a>
+    </section>
+    <section id="stats">
+      {{- $star := resources.Get "svg/star.svg" }}
+      {{- $star.Content | safeHTML }}
+      <p class="github-star">
+        {{ $repo.stargazers_count }}
+      </p>
+    </section>
+  </section>
+  <section id="description">
+    <p>{{ .Get "description" | default $repo.description | truncate 128 }}</p>
+  </section>
+  <hr/>
+  <section id="more">
+    {{ range $languages | default (slice (dict "name" "None? Uh...")) | first 5 }}
+      <p class="language">{{ .name }}</p>
+    {{ end }}
+  </section>
+</section>

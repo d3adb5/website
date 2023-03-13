@@ -1,0 +1,38 @@
+@import '_colorscheme'
+
+section.js-flickity:not(.flickity-enabled)
+  white-space: nowrap
+  overflow-x: scroll
+
+section.flickity-enabled
+  section.github-card
+    margin: 0 0.5em
+
+  .flickity-button
+    border-radius: 0
+    width: 4em
+    height: 100%
+    color: #ffffff
+    background: transparent
+
+    svg
+      filter: drop-shadow(.1em .1em 0.1em #000)
+
+  .flickity-button.previous
+    left: 0
+  .flickity-button.next
+    right: 0
+
+  &:not(hover)
+    .flickity-button
+      opacity: 0
+      transition: 0.5s
+
+    .flickity-button.previous
+      background: linear-gradient(to right, rgba($fg-border, 0.5), transparent, transparent)
+    .flickity-button.next
+      background: linear-gradient(to left, rgba($fg-border, 0.5), transparent, transparent)
+
+  &:hover
+    .flickity-button:not(:disabled)
+      opacity: 1

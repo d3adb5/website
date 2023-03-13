@@ -3,6 +3,7 @@
   <head>
     {{ partial "metadata/page-meta.html" . }}
     {{ partial "metadata/page-title.html" . }}
+    {{ partial "metadata/extensions.html" . }}
     {{ partial "style/critical.html" . }}
   </head>
   <body>
@@ -18,4 +19,5 @@
     {{ partial "elements/site-footer.html" . }}
     {{ end }}
   </body>
+  {{ partial "script/extensions.html" . }}
 </html>
