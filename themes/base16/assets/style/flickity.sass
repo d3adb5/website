@@ -1,3 +1,4 @@
+@import '_settings'
 @import '_colorscheme'
 
 section.js-flickity:not(.flickity-enabled)
@@ -10,7 +11,7 @@ section.flickity-enabled
 
   .flickity-button
     border-radius: 0
-    width: 4em
+    width: 1.5em
     height: 100%
     color: #ffffff
     background: transparent
@@ -18,21 +19,34 @@ section.flickity-enabled
     svg
       filter: drop-shadow(.1em .1em 0.1em #000)
 
+    &:focus
+      outline: white solid thin !important
+      box-shadow: none
+
   .flickity-button.previous
-    left: 0
+    left: -1.5em
   .flickity-button.next
-    right: 0
-
-  &:not(hover)
-    .flickity-button
-      opacity: 0
-      transition: 0.5s
-
-    .flickity-button.previous
-      background: linear-gradient(to right, rgba($fg-border, 0.5), transparent, transparent)
-    .flickity-button.next
-      background: linear-gradient(to left, rgba($fg-border, 0.5), transparent, transparent)
+    right: -1.5em
 
   &:hover
     .flickity-button:not(:disabled)
       opacity: 1
+
+@media screen and (min-width: $body-max-width)
+  section.flickity-enabled
+    .flickity-button
+      width: 4em
+    .flickity-button.previous
+      left: 0
+    .flickity-button.next
+      right: 0
+
+    &:not(hover)
+      .flickity-button
+        opacity: 0
+        transition: 0.5s
+
+      .flickity-button.previous
+        background: linear-gradient(to right, rgba($fg-border, 0.5), transparent, transparent)
+      .flickity-button.next
+        background: linear-gradient(to left, rgba($fg-border, 0.5), transparent, transparent)

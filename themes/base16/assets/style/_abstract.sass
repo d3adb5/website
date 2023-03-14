@@ -16,6 +16,12 @@
   @extend %basic-page-extremity
 
   display: flex
+  overflow: auto
+
+  scrollbar-width: none
+
+  &::-webkit-scrollbar
+    display: none
 
   a
     display: inline-block
@@ -23,6 +29,7 @@
     font-weight: bold
     text-align: center
     color: inherit
+    flex-shrink: 0
 
 @media screen and (min-width: $body-max-width)
   %basic-page-extremity
