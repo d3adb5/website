@@ -23,6 +23,8 @@ jobs:
 
       - name: Generate static pages
         run: hugo --minify
+        env:
+          HUGO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to GitHub Pages (gh-pages)
         uses: peaceiris/actions-gh-pages@v3

@@ -1,10 +1,11 @@
+{{- $headers := dict "Authorization" (getenv "HUGO_GITHUB_TOKEN") -}}
 {{- $project := .Get "project" -}}
 {{- $githubOwner := .Get "github" -}}
 {{- $githubAvatar := "" -}}
 
 {{- if $githubOwner }}
   {{- $apiURL := print "https://api.github.com/users/" $githubOwner -}}
-  {{- $githubOwner = getJSON $apiURL -}}
+  {{- $githubOwner = getJSON $apiURL $headers -}}
   {{- $githubAvatar = $githubOwner.avatar_url -}}
 {{- end }}
 
