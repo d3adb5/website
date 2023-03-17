@@ -23,3 +23,29 @@ jobs:
         run: hugo --minify
         env:
           HUGO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: rendered-static-pages
+          path: public
+
+  lhci:
+    name: Lighthouse
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Download rendered files
+        uses: actions/download-artifact@v3
+        with:
+          name: rendered-static-pages
+
+      - name: Run Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.11.x
+          lhci autorun --collect.staticDistDir=.
