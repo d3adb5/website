@@ -48,4 +48,4 @@ jobs:
       - name: Run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.11.x
-          lhci autorun --collect.staticDistDir=.
+          lhci autorun --collect.staticDistDir=. --upload.target=temporary-public-storage
