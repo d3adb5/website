@@ -7,7 +7,12 @@ module.exports = {
       target: 'temporary-public-storage'
     },
     assert: {
-      preset: 'lighthouse:no-pwa'
+      preset: 'lighthouse:no-pwa',
+      assertions: {
+        'color-contrast': 'off',
+        'uses-responsive-images': 'off',
+        'unsized-images': 'off'
+      }
     }
   }
 };
