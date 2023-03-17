@@ -35,6 +35,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Checkout files in the repository
+        uses: actions/checkout@v3
+
       - name: Setup node.js
         uses: actions/setup-node@v3
         with:
@@ -44,8 +47,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: rendered-static-pages
+          path: public
 
       - name: Run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.11.x
-          lhci autorun --collect.staticDistDir=. --upload.target=temporary-public-storage
+          lhci autorun
