@@ -1,7 +1,7 @@
 {{- $cssopts := (dict "outputStyle" "compressed") -}}
 
 {{- if in .Params.extensions "flickity" -}}
-<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+<link rel="stylesheet" href="/style/flickity.min.css">
 <style type="text/css">
   {{- $css := resources.Get "style/flickity.sass" | toCSS $cssopts }}
   {{- $css.Content | safeCSS }}
