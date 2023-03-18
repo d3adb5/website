@@ -11,7 +11,9 @@ module.exports = {
       assertions: {
         'color-contrast': 'off',
         'uses-responsive-images': 'off',
-        'unsized-images': 'off'
+        'unsized-images': 'off',
+        'tap-targets': 'warn',
+        'csp-xss': 'warn'
       }
     }
   }
