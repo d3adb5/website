@@ -68,15 +68,30 @@ nav#site-nav
   a.current
     color: $fg-navbar-current
 
+label#toc-toggle
+  display: flex
+  width: 100%
+  margin-top: 1em
+  height: 3em
+  align-items: center
+  justify-content: center
+
+input#toc-toggle-box
+  display: none
+
+input#toc-toggle-box ~ nav#TableOfContents
+  display: none
+
+input#toc-toggle-box:checked ~ nav#TableOfContents
+  display: block
+
 nav#TableOfContents
-  float: right
-  margin: 1em 0 1em 0.5em
+  margin: 0.5em 0 0 0
   box-sizing: border-box
-  max-width: 40%
   background: $term-00
   padding: $common-padding
   border-radius: $toc-border-radius
-  font-size: $toc-font-size
+  overflow: hidden
 
   color: $fg-anchor
 
@@ -90,8 +105,31 @@ nav#TableOfContents
       white-space: nowrap
       text-overflow: ' ...'
 
+    li + li
+      margin-top: 1em
+
     ul
       padding-left: 1em
+      margin-top: 1em
+
+@media screen and (min-width: $body-max-width)
+  label#toc-toggle
+    display: none
+
+  input#toc-toggle-box ~ nav#TableOfContents
+    display: initial
+
+  nav#TableOfContents
+    float: right
+    margin: 1em 0 1em 0.5em
+    max-width: 40%
+    font-size: $toc-font-size
+
+    ul
+      li + li
+        margin-top: initial
+      ul
+        margin-top: initial
 
 footer
   @extend %basic-page-extremity

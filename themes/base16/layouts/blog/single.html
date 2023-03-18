@@ -4,6 +4,10 @@
     {{ partial "elements/article-header.html" . }}
 
     {{ if .Params.toc }}
+      <input type="checkbox" id="toc-toggle-box">
+      <label for="toc-toggle-box" id="toc-toggle">
+        <em>• Table of Contents •</em>
+      </label>
       {{ .TableOfContents }}
     {{ end }}
 
