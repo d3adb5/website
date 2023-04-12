@@ -25,3 +25,14 @@ defaultContentLanguage = "en"
     [languages.pt-br.params]
       langName = "Português Brasileiro"
       flag = "🇧🇷"
+
+[module]
+
+  [[module.imports]]
+    path = "github.com/metafizzy/flickity"
+    [[module.imports.mounts]]
+      source = "dist/flickity.pkgd.min.js"
+      target = "static/scripts/flickity.min.js"
+    [[module.imports.mounts]]
+      source = "dist/flickity.min.css"
+      target = "static/style/flickity.min.css"
