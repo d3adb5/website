@@ -1,0 +1,35 @@
+{{- $tableHeaders := slice -}}
+{{- $tableLines := slice -}}
+
+{{- range split (trim .Inner "\n") "\n" -}}
+  {{- $tableLines = $tableLines | append (trim . "|") -}}
+{{- end -}}
+
+{{- range split (index $tableLines 0) "|" -}}
+  {{- $tableHeaders = $tableHeaders | append (trim . " ") -}}
+{{- end -}}
+
+<table class="compare-table">
+  <thead>
+    {{- range $tableHeaders }}
+      <th>{{ . }}</th>
+    {{- end }}
+  </thead>
+  <tbody>
+    {{- range after 2 $tableLines }}
+      <tr>
+      {{- range split . "|" }}
+        <td>
+        {{- if trim . " " | eq "x" }}
+          ❌
+        {{- else if trim . " " | eq "o" }}
+          ✅
+        {{- else }}
+          {{ trim . " " }}
+        {{- end }}
+        </td>
+      {{- end }}
+      </tr>
+    {{- end }}
+  </tbody>
+</table>

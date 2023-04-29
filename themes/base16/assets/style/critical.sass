@@ -191,6 +191,27 @@ article
       white-space: nowrap
       padding: 0 0.5em 0 0
 
+  table.compare-table
+    border-collapse: collapse
+
+    th, td
+      padding: 0.5em 1em
+      box-sizing: border-box
+
+    th:first-child, td:first-child
+      padding-left: 0
+    th:last-child, td:last-child
+      padding-right: 0
+
+    th, td:nth-child(n+2)
+      text-align: center
+
+    td
+      border-top: 0.1em solid $fg-border
+
+    th:nth-child(n+2)
+      min-width: 4em
+
   li::marker
     color: $fg-list-bullet
 
