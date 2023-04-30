@@ -5,10 +5,12 @@ date: 2022-04-10
 title: Opiniões, tutoriais, o que quer que eu queira escrever
 subtitle: Divagações digitadas por dedos inquietos, praticamente
 
+navigation:
+  index: 1
+  right: false
+  title: Blog
+
 pageTitle: Blog
-navTitle: Blog
-navIndex: 2
-navRight: false
 ---
 
 Se um dia eu quiser compartilhar com o mundo algo que vem à minha mente, ou

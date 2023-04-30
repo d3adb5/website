@@ -5,9 +5,10 @@ date: 2023-02-20
 title: Sobre mim e este site
 subtitle: Quem eu sou, o que eu faço, qual o propósito deste site, etc.
 
-navTitle: Sobre
-navIndex: 1
-navRight: true
+navigation:
+  index: 0
+  right: true
+  title: Sobre
 ---
 
 Nesta página tentarei destacar minhas qualidade, conquistas, interesses e

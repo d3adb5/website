@@ -5,9 +5,10 @@ date: 2023-02-20
 title: About me and this website
 subtitle: Who I am, what I do, what's the point of the website, etc.
 
-navTitle: About
-navIndex: 1
-navRight: true
+navigation:
+  index: 0
+  right: true
+  title: About
 ---
 
 In this page I will try to put my best foot forward and highlight my qualities,

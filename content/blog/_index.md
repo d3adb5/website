@@ -5,10 +5,12 @@ date: 2022-03-23
 title: Thoughts, tutorials, whatever I feel like writing
 subtitle: Drivel typed by my restless fingers, pretty much
 
+navigation:
+  index: 1
+  right: false
+  title: Blog
+
 pageTitle: Blog
-navTitle: Blog
-navIndex: 2
-navRight: false
 ---
 
 Should I want to share anything on my mind with the world, or type something up

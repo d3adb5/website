@@ -5,9 +5,11 @@ date: 2023-03-06
 title: Personal projects, pet projects, side projects, etc.
 subtitle: Basically things I've had a hand in, one way or another!
 
-navTitle: Projects
-navIndex: 3
-navRight: false
+navigation:
+  index: 2
+  right: false
+  title: Projects
+
 extensions:
   - flickity
 ---

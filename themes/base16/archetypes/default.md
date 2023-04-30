@@ -5,6 +5,7 @@ date: {{ time.Format "2006-01-02" .Date }}
 title: {{ replace .Name "-" " " | title }}
 subtitle: Subtitle yet to be determined
 
-navIndex: 100
-navRight: false
+navigation:
+  index: 100
+  right: false
 ---

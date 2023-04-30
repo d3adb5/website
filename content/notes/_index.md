@@ -5,10 +5,12 @@ date: 2022-09-27
 title: Study notes, observations, among other things
 subtitle: Just a public notebook others can read if they like
 
+navigation:
+  index: 3
+  right: false
+  title: Notes
+
 pageTitle: Notes
-navTitle: Notes
-navIndex: 4
-navRight: false
 ---
 
 People often say that the best way to commit something to memory is by writing
