@@ -1,16 +1,15 @@
-+++
-date  = 2022-03-23
+---
+draft: false
+date: 2022-03-23
 
-pageTitle = "Blog"
-navTitle = "Blog"
-title = "Thoughts, tutorials, whatever I feel like writing"
-subtitle = "Drivel typed by my restless fingers, pretty much"
+title: Thoughts, tutorials, whatever I feel like writing
+subtitle: Drivel typed by my restless fingers, pretty much
 
-navIndex = 2
-navRight = false
-
-draft = false
-+++
+pageTitle: Blog
+navTitle: Blog
+navIndex: 2
+navRight: false
+---
 
 Should I want to share anything on my mind with the world, or type something up
 for people finding themselves in situations similar to my own, it'll probably

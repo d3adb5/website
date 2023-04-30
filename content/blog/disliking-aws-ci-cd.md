@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2023-04-29
+---
+draft: false
+date: 2023-04-29
 
-title    = "Finding out I dislike the AWS CI/CD stack of tools"
-subtitle = "Frustrated attempts at using AWS CodeCommit, CodeBuild, and CodePipeline"
+title: Finding out I dislike the AWS CI/CD stack of tools
+subtitle: Frustrated attempts at using AWS CodeCommit, CodeBuild, and CodePipeline
 
-toc = true
-+++
+toc: true
+---
 
 This article was originally written as a walkthrough of my adventures using the
 suite of CI/CD services offered by AWS. However, as I hit obstacles during

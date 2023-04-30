@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2023-02-01
+---
+draft: false
+date: 2023-02-01
 
-title    = "Back to playing games because of Breath of the Wild"
-subtitle = "The title says *games,* but for now it's really just the one!"
+title: Back to playing games because of Breath of the Wild
+subtitle: The title says *games,* but for now it's really just the one!
 
-toc = false
-+++
+toc: false
+---
 
 My wife has recently started playing _The Legend of Zelda: Breath of the Wild_
 on her Nintendo Switch OLED. I've been watching her play, and it rekindled my

@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-05-13
+---
+draft: false
+date: 2022-05-13
 
-title    = "On linear history with Git: rebase, merge, squash"
-subtitle = "To rebase or not to rebase, that is the question..."
+title: "On linear history with Git: rebase, merge, squash"
+subtitle: To rebase or not to rebase, that is the question...
 
-toc = false
-+++
+toc: false
+---
 
 **DISCLAIMER:** I do not claim to be an expert on Git, nor do I claim to have a
 lot of experience in source code management tools. This article is being

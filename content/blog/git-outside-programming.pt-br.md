@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-06-18
+---
+draft: false
+date: 2022-06-18
 
-title    = "Usando Git para além de programação"
-subtitle = "Como trabalho colaborativo se beneficia (e muito) do Git"
+title: Usando Git para além de programação
+subtitle: Como trabalho colaborativo se beneficia (e muito) do Git
 
-toc = false
-+++
+toc: false
+---
 
 É de conhecimento público que versionamento é importante quando escrevemos
 qualquer tipo de documento, seja código-fonte escrito em uma linguagem de

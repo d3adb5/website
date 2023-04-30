@@ -1,15 +1,14 @@
-+++
-date  = 2022-04-09
+---
+draft: false
+date: 2022-04-09
 
-title    = "Sendo bem honesto, não tem muita coisa aqui"
-subtitle = "Mas vem dar uma lida de qualquer jeito!"
+title: Sendo bem honesto, não tem muita coisa aqui
+subtitle: Mas vem dar uma lida de qualquer jeito!
 
-navTitle = "Índice"
-navIndex = 0
-navRight = false
-
-draft = false
-+++
+navTitle: Índice
+navIndex: 0
+navRight: false
+---
 
 Eu sei, meu nickname é bem "l33t", e foi até gerado aleatoriamente.
 

@@ -1,15 +1,14 @@
-+++
-date  = 2023-02-20T17:59:22-08:00
+---
+draft: false
+date: 2023-02-20
 
-title = "Sobre mim e este site"
-subtitle = "Quem eu sou, o que eu faço, qual o propósito deste site, etc."
+title: Sobre mim e este site
+subtitle: Quem eu sou, o que eu faço, qual o propósito deste site, etc.
 
-navIndex = 1
-navRight = true
-navTitle = "Sobre"
-
-draft = false
-+++
+navTitle: Sobre
+navIndex: 1
+navRight: true
+---
 
 Nesta página tentarei destacar minhas qualidade, conquistas, interesses e
 objetivos. Espero com isso transmitir uma imagem clara de quem eu sou e do que

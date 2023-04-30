@@ -1,15 +1,15 @@
-+++
-date  = 2022-04-10
+---
+draft: false
+date: 2022-04-10
 
-title    = "Opiniões, tutoriais, o que quer que eu queira escrever"
-subtitle = "Divagações digitadas por dedos inquietos, praticamente"
+title: Opiniões, tutoriais, o que quer que eu queira escrever
+subtitle: Divagações digitadas por dedos inquietos, praticamente
 
-pageTitle = "Blog"
-navTitle = "Blog"
-navRight = false
-
-draft = false
-+++
+pageTitle: Blog
+navTitle: Blog
+navIndex: 2
+navRight: false
+---
 
 Se um dia eu quiser compartilhar com o mundo algo que vem à minha mente, ou
 digitar alguma coisas para ajudar gente que esteja passando pelo mesmo que eu, o

@@ -1,16 +1,15 @@
-+++
-date = 2022-09-27
+---
+draft: false
+date: 2022-09-27
 
-pageTitle = "Notes"
-navTitle = "Notes"
-navIndex = 4
-navRight = false
+title: Study notes, observations, among other things
+subtitle: Just a public notebook others can read if they like
 
-title = "Study notes, observations, among other things"
-subtitle = "Just a public notebook others can read if they like"
-
-draft = false
-+++
+pageTitle: Notes
+navTitle: Notes
+navIndex: 4
+navRight: false
+---
 
 People often say that the best way to commit something to memory is by writing
 it over. Maybe it's because even if you don't understand what you're writing

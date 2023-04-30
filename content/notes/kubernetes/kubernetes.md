@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-09-27
+---
+draft: false
+date: 2022-09-27
 
-title = "Kubernetes, the container orchestrator!"
-subtitle = "Simple, yet much more complicated than it seems..."
+title: Kubernetes, the container orchestrator!
+subtitle: Simple, yet much more complicated than it seems...
 
-toc = true
-+++
+toc: true
+---
 
 I've worked with Kubernetes for a while now, and while the name made it seem a
 little daunting at first, it's actually quite simple. In fact it's simple
