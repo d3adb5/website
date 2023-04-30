@@ -9,6 +9,8 @@ navigation:
   index: 0
   right: true
   title: About
+
+extensions: []
 ---
 
 In this page I will try to put my best foot forward and highlight my qualities,

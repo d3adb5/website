@@ -9,6 +9,8 @@ navigation:
   index: 3
   right: false
   title: Notes
+
+extensions: []
 ---
 
 People often say that the best way to commit something to memory is by writing

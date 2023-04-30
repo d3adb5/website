@@ -9,6 +9,8 @@ navigation:
   index: 0
   right: false
   title: Índice
+
+extensions: []
 ---
 
 Eu sei, meu nickname é bem "l33t", e foi até gerado aleatoriamente.

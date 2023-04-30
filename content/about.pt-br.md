@@ -9,6 +9,8 @@ navigation:
   index: 0
   right: true
   title: Sobre
+
+extensions: []
 ---
 
 Nesta página tentarei destacar minhas qualidade, conquistas, interesses e

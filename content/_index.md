@@ -9,6 +9,8 @@ navigation:
   index: 0
   right: false
   title: Home
+
+extensions: []
 ---
 
 Yeah, I know, my username looks pretty "l33t", and it was somewhat randomly

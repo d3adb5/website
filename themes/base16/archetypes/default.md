@@ -8,4 +8,6 @@ subtitle: Subtitle yet to be determined
 navigation:
   index: 100
   right: false
+
+extensions: []
 ---
