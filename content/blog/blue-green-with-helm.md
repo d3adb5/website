@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-10-06
+---
+draft: false
+date: 2022-10-06
 
-title    = "Implementing the Blue/Green deployment strategy with Helm"
-subtitle = "Use the right tool for the job, don't follow in my footsteps"
+title: Implementing the Blue/Green deployment strategy with Helm
+subtitle: Use the right tool for the job, don't follow in my footsteps
 
-toc = true
-+++
+toc: true
+---
 
 **DISCLAIMER:** Heed the warning in this article's subtitle. Use the [right
 tool for the job,][argo-rollouts] this is just for fun. Well, it wasn't just

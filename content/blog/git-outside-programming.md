@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-06-18
+---
+draft: false
+date: 2022-06-18
 
-title    = "Using Git outside of programming"
-subtitle = "How collaborative work heavily benefits from Git"
+title: Using Git outside of programming
+subtitle: How collaborative work heavily benefits from Git
 
-toc = false
-+++
+toc: false
+---
 
 It is public knowledge that versioning is important when writing documents, be
 it source code for a project written in a programming language, drafts of a

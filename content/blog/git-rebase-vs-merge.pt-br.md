@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-05-13
+---
+draft: false
+date: 2022-05-13
 
-title    = "Histórico linear com Git: rebase, merge, squash"
-subtitle = "Rebase ou não, eis a questão..."
+title: "Histórico linear com Git: rebase, merge, squash"
+subtitle: Rebase ou não, eis a questão...
 
-toc = false
-+++
+toc: false
+---
 
 **DISCLAIMER:** Não me declaro exímio conhecedor de Git, muito menos alguém
 extremamente experiente com ferramentas de controle de versão. Este artigo está

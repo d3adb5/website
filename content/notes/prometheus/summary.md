@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-10-15
+---
+draft: false
+date: 2022-10-15
 
-title    = "Prometheus and metrics-based monitoring"
-subtitle = "The popular metrics-based monitoring and alerting stack"
+title: Prometheus and metrics-based monitoring
+subtitle: The popular metrics-based monitoring and alerting stack
 
-toc = false
-+++
+toc: false
+---
 
 Prometheus is an incredibly (the most?) popular tool for monitoring and
 alerting, especially in the cloud-native world. It aids in fetching, storing,

@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2023-02-17
+---
+draft: false
+date: 2023-02-17
 
-title    = "Experiencing 64 GB of RAM + 80 GB of swap"
-subtitle = "I am become Java, pursuer of RAM"
+title: Experiencing 64 GB of RAM + 80 GB of swap
+subtitle: I am become Java, pursuer of RAM
 
-toc = false
-+++
+toc: false
+---
 
 For the past couple of days I have been using a machine with _64 GB of RAM,_
 and _80 GB of swap space._ This amount of computer memory is more than I have

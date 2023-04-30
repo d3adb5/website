@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-07-01
+---
+draft: false
+date: 2022-07-01
 
-title    = "Some of my thoughts on The Legend of Zelda"
-subtitle = "Brief insights into the games I've played from the series"
+title: Some of my thoughts on The Legend of Zelda
+subtitle: Brief insights into the games I've played from the series
 
-toc = true
-+++
+toc: true
+---
 
 While I don't spend a lot of my time playing video games, there are a few
 franchises that will compell me to spend some of my spare hours in front of a

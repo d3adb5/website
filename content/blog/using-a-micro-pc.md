@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-08-13
+---
+draft: false
+date: 2022-08-13
 
-title    = "How does a micro form factor PC perform?"
-subtitle = "A desktop the size of a lunch box with surprising performance!"
+title: How does a micro form factor PC perform?
+subtitle: A desktop the size of a lunch box with surprising performance!
 
-toc = false
-+++
+toc: false
+---
 
 Not too long ago, I started looking into building myself a reasonable desktop
 so I could finally graduate from my ThinkPad X220. Don't get me wrong, the X220

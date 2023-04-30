@@ -1,16 +1,17 @@
-+++
-date  = 2022-03-17
+---
+draft: false
+date: 2022-03-17
 
-title = "Nothing to see here, frankly speaking"
-subtitle = "But I kinda want you to read it!"
+title: Nothing to see here, frankly speaking
+subtitle: But I kinda want you to read it!
 
-pageTitle = "d3adb5"
-navTitle = "Home"
-navIndex = 0
-navRight = false
+navigation:
+  index: 0
+  right: false
+  title: Home
 
-draft = false
-+++
+extensions: []
+---
 
 Yeah, I know, my username looks pretty "l33t", and it was somewhat randomly
 generated.

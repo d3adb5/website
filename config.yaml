@@ -1,0 +1,41 @@
+baseURL: https://d3adb5.net/
+theme: base16
+
+params:
+  repoUrl: https://github.com/d3adb5/website
+
+enableGitInfo: true
+
+markup:
+  tableOfContents:
+    endLevel: 4
+  goldmark:
+    parser:
+      attribute:
+        block: true
+        title: true
+    renderer:
+      unsafe: true
+
+defaultContentLanguage: en
+
+languages:
+  en:
+    title: d3adb5's personal website
+    params:
+      langName: English (US)
+      flag: 🇺🇸
+  pt-br:
+    title: website pessoal de d3adb5
+    params:
+      langName: Português Brasileiro
+      flag: 🇧🇷
+
+module:
+  imports:
+    - path: github.com/metafizzy/flickity
+      mounts:
+        - source: dist/flickity.pkgd.min.js
+          target: static/scripts/flickity.min.js
+        - source: dist/flickity.min.css
+          target: static/style/flickity.min.css

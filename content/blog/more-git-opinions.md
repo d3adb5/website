@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-11-01
+---
+draft: false
+date: 2022-11-01
 
-title    = "Updated Git opinions and lessons learned"
-subtitle = "More unanswerable questions, and some personal answers"
+title: Updated Git opinions and lessons learned
+subtitle: More unanswerable questions, and some personal answers
 
-toc = false
-+++
+toc: false
+---
 
 This is yet another foray into Git matters. I must say that, albeit not by
 much, my opinions have changed since [the last time I wrote down my thoughts on

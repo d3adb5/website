@@ -1,9 +1,13 @@
-+++
-title = "{{ replace .Name "-" " " | title }}"
-date  = {{ .Date }}
+---
+draft: true
+date: {{ time.Format "2006-01-02" .Date }}
 
-navIndex = 100
-navRight = false
+title: {{ replace .Name "-" " " | title }}
+subtitle: Subtitle yet to be determined
 
-draft = true
-+++
+navigation:
+  index: 100
+  right: false
+
+extensions: []
+---

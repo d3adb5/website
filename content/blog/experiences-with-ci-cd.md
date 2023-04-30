@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-03-16T20:02:15-03:00
+---
+draft: false
+date: 2022-03-16
 
-title    = "Experiences with CI/CD and DevOps"
-subtitle = "Practicing DevOps with pen and paper"
+title: Experiences with CI/CD and DevOps
+subtitle: Practicing DevOps with pen and paper
 
-toc = true
-+++
+toc: true
+---
 
 **WARNING:** This became such a lengthy article despite the relative lack of
 detail that it forced me to include a table of contents. Hopefully it isn't too

@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-10-27
+---
+draft: false
+date: 2022-10-27
 
-title    = "On excessive templating with Helm"
-subtitle = '{{ merge .isThis.perhaps (dict "a" $bit) | include "too much?" }}'
+title: On excessive templating with Helm
+subtitle: '{{ merge .isThis.perhaps (dict "a" $bit) | include "too much?" }}'
 
-toc = false
-+++
+toc: false
+---
 
 I've mentioned in other blogposts that I've been involved in a project making
 extensive use of Helm. It is known by some as the Kubernetes package manager,

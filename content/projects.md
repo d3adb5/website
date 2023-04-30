@@ -1,17 +1,18 @@
-+++
-date  = 2023-03-06T18:28:37-08:00
+---
+draft: false
+date: 2023-03-06
 
-title = "Personal projects, pet projects, side projects, etc."
-subtitle = "Basically things I've had a hand in, one way or another!"
+title: Personal projects, pet projects, side projects, etc.
+subtitle: Basically things I've had a hand in, one way or another!
 
-navIndex = 3
-navRight = false
-navTitle = "Projects"
+navigation:
+  index: 2
+  right: false
+  title: Projects
 
-draft = false
-
-extensions = ["flickity"]
-+++
+extensions:
+  - flickity
+---
 
 Presented to you in no particular order, here are some of the things I've
 worked on, in one way or another, that I think are worthy of some note. I'll

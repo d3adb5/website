@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2023-02-26
+---
+draft: false
+date: 2023-02-26
 
-title    = "Chronicles of XMonad and xmobar"
-subtitle = "The user, the status bar, and the window manager"
+title: Chronicles of XMonad and xmobar
+subtitle: The user, the status bar, and the window manager
 
-toc = false
-+++
+toc: false
+---
 
 This is a story about how the Haskell toolset, Arch Linux package maintainers,
 and font rendering engines made me lose a few hours of my life. Of course, I

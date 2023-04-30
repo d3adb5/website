@@ -1,15 +1,17 @@
-+++
-date  = 2023-02-20T12:38:29-08:00
+---
+draft: false
+date: 2023-02-20
 
-title = "About me and this website"
-subtitle = "Who I am, what I do, what's the point of the website, etc."
+title: About me and this website
+subtitle: Who I am, what I do, what's the point of the website, etc.
 
-navIndex = 1
-navRight = true
-navTitle = "About"
+navigation:
+  index: 0
+  right: true
+  title: About
 
-draft = false
-+++
+extensions: []
+---
 
 In this page I will try to put my best foot forward and highlight my qualities,
 accomplishments, aspirations and goals to you, the reader. This is not out of

@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2023-02-07
+---
+draft: false
+date: 2023-02-07
 
-title    = "Trying out Vale as a prose linter"
-subtitle = "Let's see how far we're going to take this!"
+title: Trying out Vale as a prose linter
+subtitle: Let's see how far we're going to take this!
 
-toc = false
-+++
+toc: false
+---
 
 I have recently discovered a linting tool for prose called [Vale][vale]. The
 way I discovered it was by going through [Stakater][stakater]'s public

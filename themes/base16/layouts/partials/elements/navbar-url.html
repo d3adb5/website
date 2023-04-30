@@ -5,6 +5,6 @@
 
 {{- with .Page }}
 <a href="{{ .RelPermalink }}" class="{{ $classes }}">
-  {{ default .Title .Params.navTitle }}
+  {{ default .Title .Params.navigation.title }}
 </a>
 {{- end }}

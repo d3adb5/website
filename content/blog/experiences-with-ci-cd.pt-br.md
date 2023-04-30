@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2022-04-10
+---
+draft: false
+date: 2022-04-10
 
-title    = "Experiências com CI/CD e DevOps"
-subtitle = "Praticando DevOps com papel e caneta"
+title: Experiências com CI/CD e DevOps
+subtitle: Praticando DevOps com papel e caneta
 
-toc = true
-+++
+toc: true
+---
 
 **AVISO:** Apesar da falta relativa de detalhes, esse artigo acabou tão extenso
 que fui obrigado a incluir uma tabela de conteúdo. Espero que não seja uma

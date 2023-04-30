@@ -1,12 +1,12 @@
-+++
-draft = false
-date  = 2023-02-03
+---
+draft: false
+date: 2023-02-03
 
-title    = "Sonos speakers are actually pretty good"
-subtitle = "It was a Christmas gift, but I use them more than my wife..."
+title: Sonos speakers are actually pretty good
+subtitle: It was a Christmas gift, but I use them more than my wife...
 
-toc = false
-+++
+toc: false
+---
 
 Last Christmas I got my wife a couple of Sonos One speakers so she wouldn't
 have to listen to music through her phone's tiny speaker. She does have a good

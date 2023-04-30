@@ -1,8 +1,10 @@
 {{ $listOfPages := slice .Site.Home | append .Site.Home.Pages }}
 {{ $currentPermalink := .Permalink }}
 <nav id="site-nav">
-  {{- $leftPages  := sort (where $listOfPages "Params.navRight" false) ".Params.navIndex" "asc" }}
-  {{- $rightPages := sort (where $listOfPages "Params.navRight" true)  ".Params.navIndex" "asc" }}
+  {{- $_leftPages  := where $listOfPages "Params.navigation.right" false }}
+  {{- $_rightPages := where $listOfPages "Params.navigation.right" true  }}
+  {{- $leftPages   := sort $_leftPages  ".Params.navigation.index" "asc" }}
+  {{- $rightPages  := sort $_rightPages ".Params.navigation.index" "asc" }}
 
   {{- range $leftPages }}
     {{- partial "elements/navbar-url.html"
