@@ -9,8 +9,6 @@ navigation:
   index: 1
   right: false
   title: Blog
-
-pageTitle: Blog
 ---
 
 Se um dia eu quiser compartilhar com o mundo algo que vem à minha mente, ou
