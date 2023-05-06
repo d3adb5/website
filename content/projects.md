@@ -67,12 +67,24 @@ and every one of them:
     description="Contributed a couple modules I wrote and changes I made to existing ones! XMonad is my window manager of choice."
   >}}
   {{< github
+    path="stakater/application"
+    description="Introduced chart unit tests, refactored chart, and reviewed some PRs. Was made a repository maintainer by Stakater."
+  >}}
+  {{< github
+    path="kolbusa/stalonetray"
+    description="Added a feature to ignore tray icons based on their window class."
+  >}}
+  {{< github
     path="mumble-voip/mumble-docker"
     description="Simplified their image's entrypoint script, making use of more Bash features and making it more legible overall."
   >}}
   {{< github
     path="lucasoshiro/oshit"
     description="Git reimplementation in Haskell. I'm responsible for the unit tests, CI pipeline, and huge codebase refactors."
+  >}}
+  {{< github
+    path="screensy/screensy"
+    description="Translated screensy's UI into Portuguese."
   >}}
   {{< github
     path="vaugusto92/cpp-assert"
@@ -85,10 +97,6 @@ and every one of them:
   {{< github
     path="taksan/xwiki-helm"
     description="Added CI through GitHub Actions and improvements to the Helm chart."
-  >}}
-  {{< github
-    path="screensy/screensy"
-    description="Translated screensy's UI into Portuguese."
   >}}
   {{< github
     path="soarqin/ReGBA"
