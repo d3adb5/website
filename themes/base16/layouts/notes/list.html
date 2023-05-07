@@ -6,7 +6,7 @@
 
     <ul id="notebooks">
       {{- range .Pages.ByPublishDate.Reverse }}
-        {{- if eq .Parent.RelPermalink "/notes/" }}
+        {{- if eq .Parent.RelPermalink "/extra/notes/" }}
       <li class="notebook">{{ .Title }}
         {{- else }}
       <li class="notebook"><a href="{{ .Permalink }}">{{ .Title }}</a>

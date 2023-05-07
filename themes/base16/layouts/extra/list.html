@@ -1,0 +1,22 @@
+{{ define "content" }}
+{{- $unmentioned := slice }}
+
+{{- range .Pages }}
+  {{- if strings.Contains $.Content .RelPermalink | not }}
+    {{- $unmentioned = $unmentioned | append . }}
+  {{- end }}
+{{- end }}
+
+<main role="main">
+  <article id="content" class="extra-pages">
+    {{ partial "elements/article-header.html" . }}
+    {{ .Content }}
+
+    {{ range $unmentioned }}
+    <h2><a href="{{ .RelPermalink }}">{{ .Params.navigation.title }}</a> - {{ .Title }}</h2>
+
+    <p>{{ .Summary }}</p>
+    {{ end }}
+  </article>
+</main>
+{{ end }}

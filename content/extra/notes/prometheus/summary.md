@@ -1,4 +1,6 @@
 ---
+type: notes
+
 draft: false
 date: 2022-10-15
 
