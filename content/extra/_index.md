@@ -19,6 +19,15 @@ a spot on the main navigation bar, discontinued sections and forgotten drafts,
 pages can end up here for a variety of reasons. This doesn't mean they're bad,
 they just belong with the other misfits.
 
+## [My impossible list]({{< relref "impossible.md" >}})
+
+A list of personal challenges and goals that evolves as life goes on. A type of
+evolving bucket list, according to [Joel Runyon.][impossible] Should be updated
+as I complete items on the list and add new ones. Hopefully it lives up to the
+original definition of an impossible list.
+
+[impossible]: https://impossiblehq.com/impossible-list/
+
 ## [Notes, a public notebook]({{< relref "notes" >}})
 
 **Dead as of 2023-05-06,** this section was supposed to contain some study notes
