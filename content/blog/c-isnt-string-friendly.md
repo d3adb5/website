@@ -128,7 +128,7 @@ more efficient, *but would it read as well?*
 
 ## The lazy programmer
 
-_Programmers strive to lazy._ Computer programming is a way to automate
+_Programmers strive to be lazy._ Computer programming is a way to automate
 otherwise tedious tasks: let the machine do the work we don't want to do
 ourselves, as it can crunch numbers much faster than we can. It is only natural
 for us to want to forget about how the underlying machine works, and focus on
