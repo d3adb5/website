@@ -1,0 +1,26 @@
+{{ define "content" }}
+<main role="main">
+  <article id="content">
+    {{ partial "elements/article-header.html" . }}
+
+    {{- if .Content }}
+      {{ .Content }}
+    {{- else if eq .Language.Lang "en" }}
+      <p>The following are pages with the <em>{{ .Data.Term }}</em> tag.</p>
+    {{- else if eq .Language.Lang "pt-br" }}
+      <p>As seguintes páginas contêm a tag <em>{{ .Data.Term }}.</em></p>
+    {{- else }}
+      {{ errorf "Unknown language: %s" .Language.Lang }}
+    {{- end }}
+
+    <table>
+      {{ range .Pages }}
+      <tr>
+        <td class="date">{{ .Date.Format "2006-01-02" }}</td>
+        <td class="title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
+      </tr>
+      {{ end }}
+    </table>
+  </article>
+</main>
+{{ end }}

@@ -5,6 +5,8 @@ date: 2023-05-11
 title: Writing your program in C can make it slower
 subtitle: Or rather, it can compell you to make it slower!
 
+tags: [ Programming, Technology, Opinions, Rants ]
+
 toc: false
 ---
 

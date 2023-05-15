@@ -5,6 +5,8 @@ date: 2023-02-01
 title: Back to playing games because of Breath of the Wild
 subtitle: The title says *games,* but for now it's really just the one!
 
+tags: [ Games, Nintendo, The Legend of Zelda, Rants ]
+
 toc: false
 ---
 

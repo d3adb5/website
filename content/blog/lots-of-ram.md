@@ -5,6 +5,8 @@ date: 2023-02-17
 title: Experiencing 64 GB of RAM + 80 GB of swap
 subtitle: I am become Java, pursuer of RAM
 
+tags: [ Hardware, Novelty, Technology ]
+
 toc: false
 ---
 

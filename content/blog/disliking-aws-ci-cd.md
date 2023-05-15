@@ -5,6 +5,8 @@ date: 2023-04-29
 title: Finding out I dislike the AWS CI/CD stack of tools
 subtitle: Frustrated attempts at using AWS CodeCommit, CodeBuild, and CodePipeline
 
+tags: [ DevOps, Technology, CI/CD ]
+
 toc: true
 ---
 

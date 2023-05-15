@@ -5,6 +5,8 @@ date: 2023-02-07
 title: Trying out Vale as a prose linter
 subtitle: Let's see how far we're going to take this!
 
+tags: [ Writing, Tools, Novelty, Vale ]
+
 toc: false
 ---
 

@@ -5,6 +5,8 @@ date: 2022-11-01
 title: Updated Git opinions and lessons learned
 subtitle: More unanswerable questions, and some personal answers
 
+tags: [ Versioning, Git, Opinions, Technology ]
+
 toc: false
 ---
 

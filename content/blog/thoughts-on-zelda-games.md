@@ -5,6 +5,8 @@ date: 2022-07-01
 title: Some of my thoughts on The Legend of Zelda
 subtitle: Brief insights into the games I've played from the series
 
+tags: [ Games, Nintendo, The Legend of Zelda, Opinions ]
+
 toc: true
 ---
 

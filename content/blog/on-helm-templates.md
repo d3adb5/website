@@ -5,6 +5,8 @@ date: 2022-10-27
 title: On excessive templating with Helm
 subtitle: '{{ merge .isThis.perhaps (dict "a" $bit) | include "too much?" }}'
 
+tags: [ DevOps, Helm, Kubernetes, Technology, Opinions ]
+
 toc: false
 ---
 
