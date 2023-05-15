@@ -155,21 +155,47 @@ article
 
   header
     font-weight: bold
-    display: grid
-    grid-template-columns: minmax(50%, 100%) auto
-    align-items: center
 
-    h1
-      color: $fg-header
-      margin-bottom: 0.25em
+    section.header-line
+      display: flex
+      justify-content: space-between
+      align-items: center
 
-    p.subtitle
-      color: $fg-header-sub
-      margin: 0
+      h1
+        color: $fg-header
+        margin-bottom: 0.25em
 
-      em
-        color: inherit
-        font-style: italic
+      aside#translations p
+        margin: 1.1em 0 0.25em
+
+    section.subheader-line
+      display: flex
+      justify-content: space-between
+      align-items: center
+      flex-wrap: wrap
+
+      p.subtitle
+        color: $fg-header-sub
+        margin: 0
+
+        em
+          color: inherit
+          font-style: italic
+
+      ul#article-tags
+        list-style-type: none
+        padding-left: 0
+        margin: 0
+        font-size: 85%
+
+        li
+          display: inline-block
+
+          &:nth-child(n + 2)
+            margin-left: 1em
+
+          a
+            color: $term-11
 
   blockquote
     color: $fg-blockquote

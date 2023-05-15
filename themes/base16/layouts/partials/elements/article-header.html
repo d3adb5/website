@@ -1,20 +1,30 @@
 <header>
-  <div>
+  <section class="header-line">
     <h1>{{ default .Title .Params.articleTitle }}</h1>
+
+    {{ if .IsTranslated }}
+    <aside id="translations">
+      <p style="text-align: right">
+      {{ range .Translations }}
+        <a href="{{ .RelPermalink }}" title="{{ .Site.Params.langName }}">
+          {{ .Site.Params.flag }}
+        </a>
+      {{ end }}
+      </p>
+    </aside>
+    {{ end }}
+  </section>
+
+  <section class="subheader-line">
     {{ with .Params.subtitle }}
     <p class="subtitle">{{ markdownify . }}</p>
     {{ end }}
-  </div>
-
-  {{ if .IsTranslated }}
-  <aside id="translations">
-    <p style="text-align: right">
-    {{ range .Translations }}
-      <a href="{{ .RelPermalink }}" title="{{ .Site.Params.langName }}">
-        {{ .Site.Params.flag }}
-      </a>
+    {{ with .Params.tags }}
+    <ul id="article-tags">
+      {{- range . }}
+      <li><a href="{{ relLangURL "/tags/" }}{{ urlize . }}">{{ . }}</a></li>
+      {{- end }}
+    </ul>
     {{ end }}
-    </p>
-  </aside>
-  {{ end }}
+  </section>
 </header>
