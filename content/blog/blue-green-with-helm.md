@@ -5,6 +5,8 @@ date: 2022-10-06
 title: Implementing the Blue/Green deployment strategy with Helm
 subtitle: Use the right tool for the job, don't follow in my footsteps
 
+tags: [ DevOps, Helm, Kubernetes, Technology ]
+
 toc: true
 ---
 

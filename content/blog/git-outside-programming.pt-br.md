@@ -5,6 +5,8 @@ date: 2022-06-18
 title: Usando Git para além de programação
 subtitle: Como trabalho colaborativo se beneficia (e muito) do Git
 
+tags: [ Versionamento, Git, Tecnologia, Opiniões ]
+
 toc: false
 ---
 

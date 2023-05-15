@@ -5,6 +5,8 @@ date: 2022-05-13
 title: "On linear history with Git: rebase, merge, squash"
 subtitle: To rebase or not to rebase, that is the question...
 
+tags: [ Versioning, Git, Technology, Opinions ]
+
 toc: false
 ---
 

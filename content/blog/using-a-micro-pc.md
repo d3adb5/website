@@ -5,6 +5,8 @@ date: 2022-08-13
 title: How does a micro form factor PC perform?
 subtitle: A desktop the size of a lunch box with surprising performance!
 
+tags: [ Hardware, Opinions, Technology, Equipment ]
+
 toc: false
 ---
 

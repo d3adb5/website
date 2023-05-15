@@ -5,6 +5,8 @@ date: 2022-05-13
 title: "Histórico linear com Git: rebase, merge, squash"
 subtitle: Rebase ou não, eis a questão...
 
+tags: [ Versionamento, Git, Tecnologia, Opiniões ]
+
 toc: false
 ---
 

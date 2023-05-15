@@ -5,6 +5,8 @@ date: 2022-04-10
 title: Experiências com CI/CD e DevOps
 subtitle: Praticando DevOps com papel e caneta
 
+tags: [ DevOps, CI/CD, Tecnologia ]
+
 toc: true
 ---
 

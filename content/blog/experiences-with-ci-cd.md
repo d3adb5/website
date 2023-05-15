@@ -5,6 +5,8 @@ date: 2022-03-16
 title: Experiences with CI/CD and DevOps
 subtitle: Practicing DevOps with pen and paper
 
+tags: [ DevOps, CI/CD, Technology ]
+
 toc: true
 ---
 

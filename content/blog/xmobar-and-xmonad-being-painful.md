@@ -5,6 +5,8 @@ date: 2023-02-26
 title: Chronicles of XMonad and xmobar
 subtitle: The user, the status bar, and the window manager
 
+tags: [ Ricing, Haskell, XMonad, X11, xmobar ]
+
 toc: false
 ---
 

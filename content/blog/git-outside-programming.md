@@ -5,6 +5,8 @@ date: 2022-06-18
 title: Using Git outside of programming
 subtitle: How collaborative work heavily benefits from Git
 
+tags: [ Versioning, Git, Technology, Opinions ]
+
 toc: false
 ---
 

@@ -5,6 +5,8 @@ date: 2023-02-03
 title: Sonos speakers are actually pretty good
 subtitle: It was a Christmas gift, but I use them more than my wife...
 
+tags: [ Audio, Music, Rants, Equipment, Opinions ]
+
 toc: false
 ---
 
