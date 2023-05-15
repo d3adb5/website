@@ -1,0 +1,21 @@
+{{ define "content" }}
+<main role="main">
+  <article id="content">
+    {{ partial "elements/article-header.html" . }}
+    {{ .Content }}
+
+    {{- $termPages := slice }}
+    {{- range .Pages }}
+      {{- $termPages = $termPages | append (dict "Page" . "Count" (len .Pages)) }}
+    {{- end }}
+
+    <ul class="terms-by-count">
+      {{ range sort $termPages "Count" "desc" }}
+      <li>
+        <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }} ({{ .Count }})</a>
+      </li>
+      {{ end }}
+    </ul>
+  </article>
+</main>
+{{ end }}
