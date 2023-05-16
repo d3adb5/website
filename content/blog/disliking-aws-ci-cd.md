@@ -780,7 +780,7 @@ decided to give up on this altogether.
 The reason I gave up on finishing this proof of concept has less to do with the
 shortcomings of these AWS services and more to do with the fact I don't feel a
 pressure to use them in the market currently. They're tools that are currently
-clunky, flaws and immature, and though that may very well describe some tools
+clunky, flawed and immature, and though that may very well describe some tools
 used daily in the industry, I don't see why these would be.
 
 To startups, established companies, and individuals, these services will most
@@ -802,7 +802,7 @@ showcase why:
 | CI builds can be used to merge the PR automatically | DIY    | o          | o      |
 {{< /compare-table >}}
 
-Believe me, _this is not meant as a insult to AWS._ There's opportunity to
+Believe me, _this is not meant as an insult to AWS._ There's opportunity to
 accommodate plenty of intricate, complicated, unique workflows, especially if
 you're already using AWS for the infrastructure that supports your applications
 --- I mean, you wouldn't be using these if all your workloads were elsewhere
