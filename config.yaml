@@ -23,8 +23,8 @@ languages:
   en:
     title: d3adb5's personal website
     params:
-      langName: English (US)
-      flag: 🇺🇸
+      langName: English
+      flag: 🇨🇦
   pt-br:
     title: website pessoal de d3adb5
     params:
