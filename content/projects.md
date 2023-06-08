@@ -72,7 +72,7 @@ and every one of them:
   >}}
   {{< github
     path="kolbusa/stalonetray"
-    description="Added a feature to ignore tray icons based on their window class."
+    description="Added a feature to ignore tray icons based on their window class, completely refactored the settings module."
   >}}
   {{< github
     path="mumble-voip/mumble-docker"
