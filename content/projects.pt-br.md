@@ -72,11 +72,15 @@ quais contribuí no GitHub,_ junto do meu envolvimento em cada um:
   >}}
   {{< github
     path="kolbusa/stalonetray"
-    description="Adicionei uma feature para ignorar ícones baseado nas classes de janela. Algumas refatorações também."
+    description="Adicionei uma feature para ignorar ícones baseado nas classes de janela, e refatorei o módulo de configuração por completo."
   >}}
   {{< github
     path="mumble-voip/mumble-docker"
     description="Simplifiquei o script de entrypoint da imagem deles, usando mais features de Bash e aumentando a legibilidade."
+  >}}
+  {{< github
+    path="binbashar/terraform-aws-tfstate-backend"
+    description="Adicionei suporte total à v4 do AWS provider para Terraform, e uma feature para geração automática de configuração backend."
   >}}
   {{< github
     path="lucasoshiro/oshit"

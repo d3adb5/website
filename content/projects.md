@@ -72,11 +72,15 @@ and every one of them:
   >}}
   {{< github
     path="kolbusa/stalonetray"
-    description="Added a feature to ignore tray icons based on their window class."
+    description="Added a feature to ignore tray icons based on their window class, completely refactored the settings module."
   >}}
   {{< github
     path="mumble-voip/mumble-docker"
     description="Simplified their image's entrypoint script, making use of more Bash features and making it more legible overall."
+  >}}
+  {{< github
+    path="binbashar/terraform-aws-tfstate-backend"
+    description="Added full compatibility with the Terraform AWS provider v4, and a feature to generate backend configuration."
   >}}
   {{< github
     path="lucasoshiro/oshit"
