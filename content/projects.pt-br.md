@@ -79,6 +79,10 @@ quais contribuí no GitHub,_ junto do meu envolvimento em cada um:
     description="Simplifiquei o script de entrypoint da imagem deles, usando mais features de Bash e aumentando a legibilidade."
   >}}
   {{< github
+    path="binbashar/terraform-aws-tfstate-backend"
+    description="Adicionei suporte total à v4 do AWS provider para Terraform, e uma feature para geração automática de configuração backend."
+  >}}
+  {{< github
     path="lucasoshiro/oshit"
     description="Reimplementação do Git em Haskell. Sou responsável pelos testes, pipeline de CI, e grandes refatorações da codebase."
   >}}

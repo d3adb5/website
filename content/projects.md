@@ -79,6 +79,10 @@ and every one of them:
     description="Simplified their image's entrypoint script, making use of more Bash features and making it more legible overall."
   >}}
   {{< github
+    path="binbashar/terraform-aws-tfstate-backend"
+    description="Added full compatibility with the Terraform AWS provider v4, and a feature to generate backend configuration."
+  >}}
+  {{< github
     path="lucasoshiro/oshit"
     description="Git reimplementation in Haskell. I'm responsible for the unit tests, CI pipeline, and huge codebase refactors."
   >}}
