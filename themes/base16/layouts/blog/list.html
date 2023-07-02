@@ -4,6 +4,20 @@
     {{ partial "elements/article-header.html" . }}
     {{ .Content }}
 
+    <p id="search-box-container">
+      <form id="search-form">
+        <input type="text" id="search-box" placeholder="Filter by title..." />
+      </form>
+    </p>
+
+    <noscript>
+      <style type="text/css">
+        input#search-box, p#search-box-container {
+          display: none;
+        }
+      </style>
+    </noscript>
+
     <table id="blog-index" cellspacing="0">
       {{ range .Pages }}
         {{- $mainTag := index .Params.tags 0 }}
@@ -16,6 +30,15 @@
       </tr>
       {{ end }}
     </table>
+
+    {{-
+      $script := resources.Get "script/fzf-search.js" | js.Build (dict "params" (dict
+        "inputSelector"      "input#search-box"
+        "resultsSelector"    "table#blog-index tbody"
+        "identifierSelector" "td.title"
+      )) | resources.Minify
+    }}
+    <script src="{{ $script.RelPermalink }}"></script>
   </article>
 </main>
 {{ end }}
