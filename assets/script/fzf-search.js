@@ -11,7 +11,8 @@ function extractIdentifier(element) {
 }
 
 function goToFirstResult() {
-  resultsElem.firstChild.querySelector("a").click();
+  window.location.href = resultsElem.firstChild.querySelector("a").href;
+  return false;
 }
 
 inputBox.addEventListener("input", (e) => {
@@ -19,4 +20,4 @@ inputBox.addEventListener("input", (e) => {
   resultsElem.replaceChildren(...matches);
 });
 
-inputBox.parentElement.addEventListener("submit", goToFirstResult);
+inputBox.parentElement.onsubmit = goToFirstResult;
