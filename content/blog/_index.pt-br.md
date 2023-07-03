@@ -13,11 +13,11 @@ navigation:
 extensions: []
 ---
 
-Se um dia eu quiser compartilhar com o mundo algo que vem à minha mente, ou
-digitar alguma coisas para ajudar gente que esteja passando pelo mesmo que eu,
-o resultado provavelmente vai aparecer na tabela abaixo. Você pode filtrar a
-tabela por título usando a barra de pesquisa. Ela usa fuzzy matching, usando a
-biblioteca [fzf-for-js,][fzf-for-js] para filtrar por título e apenas por
-título. Você também pode apertar _Enter_ para ir para o primeiro resultado.
+Se um dia eu quiser compartilhar algo com o mundo ou digitar alguma coisas para
+ajudar gente que esteja passando pelo mesmo que eu, o resultado provavelmente
+aparecerá na tabela abaixo. Você pode filtrar a tabela por título usando a
+barra de pesquisa. Ela usa fuzzy matching ([fzf-for-js,][fzf-for-js]) para
+filtrar por título e apenas por título. Se você apertar _Enter,_ irá para o
+primeiro resultado.
 
 [fzf-for-js]: https://github.com/ajitid/fzf-for-js/
