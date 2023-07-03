@@ -6,7 +6,10 @@
 
     <p id="search-box-container">
       <form id="search-form">
-        <input type="text" id="search-box" placeholder="Filter by title..." />
+        <input
+          type="text" id="search-box"
+          placeholder="{{ .Site.Params.strings.titleSearchPlaceholder }}"
+        />
       </form>
     </p>
 
