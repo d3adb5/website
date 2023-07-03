@@ -25,11 +25,15 @@ languages:
     params:
       langName: English
       flag: 🇨🇦
+      strings:
+        titleSearchPlaceholder: Filter by title...
   pt-br:
     title: website pessoal de d3adb5
     params:
       langName: Português Brasileiro
       flag: 🇧🇷
+      strings:
+        titleSearchPlaceholder: Filtrar por título...
 
 module:
   imports:

@@ -1,0 +1,12 @@
+{
+  "comments": {
+    "dependencies": {},
+    "devDependencies": {}
+  },
+  "dependencies": {
+    "fzf": "0.5.2"
+  },
+  "devDependencies": {},
+  "name": "website",
+  "version": "0.1.0"
+}
