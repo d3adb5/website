@@ -322,7 +322,7 @@ workspace="$(mktemp -d)"
 readonly workspace patchFile="$1" symbolsFile="$2"
 trap -- "rm -rf -- '$workspace'" EXIT INT HUP
 
-if [ id -u != 0 ]; then
+if [ "$(id -u)" != 0 ]; then
   echo "This script needs to be executed by root."
   exit 1
 elif ! command -v patch >/dev/null 2>&1; then
@@ -330,9 +330,9 @@ elif ! command -v patch >/dev/null 2>&1; then
   exit 2
 fi
 
-cp "$patchFile" "$layoutFile" -t "$workspace"
+cp "$patchFile" "$symbolsFile" -t "$workspace"
 
-tee -a /usr/share/X11/xkb/symbols/us < "$workspace/$(basename "$layoutFile)"
+tee -a /usr/share/X11/xkb/symbols/us < "$workspace/$(basename "$symbolsFile")"
 cd /usr/share/X11/xkb/rules && patch -p1 < "$workspace/$(basename "$patchFile")"
 ```
 
