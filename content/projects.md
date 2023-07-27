@@ -67,6 +67,10 @@ and every one of them:
     description="Contributed a couple modules I wrote and changes I made to existing ones! XMonad is my window manager of choice."
   >}}
   {{< github
+    path="phuhl/linux_notification_center"
+    description="Fixed build issues, a couple visual bugs, and am working on implementing unit tests and refactoring the existing codebase."
+  >}}
+  {{< github
     path="stakater/application"
     description="Introduced chart unit tests, refactored chart, and reviewed some PRs. Was made a repository maintainer by Stakater."
   >}}
