@@ -379,3 +379,87 @@ diff -crB a/evdev.xml b/evdev.xml
 ```
 
 And voilà, it's done. **Now let's hope Fcitx5 just works.**
+
+#### 2023-08-26 Update: an Ansible playbook
+
+Automation is great. Proper automation is better. Offloading effort to a tool
+while declaring intent is the best, which is why in this day and age we write
+declarative code and use convergence tools like Ansible. So forget the earlier
+patch and script, and use this thing I just wrote, which you can run as many
+times as you wish, to guarantee your variant of a given layout is present in
+your system:
+
+```yaml
+---
+
+- name: Install custom keyboard variant
+  hosts: localhost
+  become: yes
+
+  vars:
+    keyboard_layout: us
+    keyboard_variant: abnt2
+    keyboard_symbols_filepath: ./symbols.xkb
+    x11_xkb_dir: /usr/share/X11/xkb
+
+  tasks:
+    - name: Read contents of symbols file
+      ansible.builtin.set_fact:
+        custom_symbols: "{{ lookup('file', keyboard_symbols_filepath) }}"
+
+    - name: Ensure variant symbols is present
+      ansible.builtin.blockinfile:
+        path: "{{ x11_xkb_dir }}/symbols/{{ keyboard_layout }}"
+        block: "{{ custom_symbols }}"
+        marker: "// {mark} ANSIBLE MANAGED BLOCK - {{ keyboard_variant }}"
+        state: present
+
+    - name: Ensure variant is present in rules/base.lst and rules/evdev.lst
+      ansible.builtin.lineinfile:
+        path: "{{ item }}"
+        line: "  {{ keyboard_variant }} {{ keyboard_layout }}: {{ keyboard_variant | upper }}"
+        insertafter: "^! variant"
+        state: present
+      loop:
+        - "{{ x11_xkb_dir }}/rules/evdev.lst"
+        - "{{ x11_xkb_dir }}/rules/base.lst"
+
+    - name: Check for existing variant entry in list
+      community.general.xml:
+        path: "{{ item }}"
+        xpath: "/xkbConfigRegistry/layoutList/layout\
+                /configItem[name='{{ keyboard_layout }}']/..\
+                /variantList/variant/configItem[name='{{ keyboard_variant }}']"
+        count: true
+      register: xml_read
+      loop:
+        - "{{ x11_xkb_dir }}/rules/evdev.xml"
+        - "{{ x11_xkb_dir }}/rules/base.xml"
+
+    - name: Gather query results into dictionary
+      ansible.builtin.set_fact:
+        matches: "{{ xml_read.results | items2dict(key_name='item', value_name='count') }}"
+
+    - name: Add variant to rules/base.xml and rules/evdev.xml
+      when: matches[item] == 0
+      community.general.xml:
+        path: "{{ item }}"
+        xpath: "/xkbConfigRegistry/layoutList/layout\
+                /configItem[name='{{ keyboard_layout }}']/..\
+                /variantList"
+        pretty_print: true
+        add_children:
+          - variant:
+              _:
+                - configItem:
+                    _:
+                      - name: "{{ keyboard_variant }}"
+                      - description: "{{ keyboard_variant | upper }}"
+                      - languageList:
+                          _:
+                            - iso639Id: eng
+        state: present
+      loop:
+        - "{{ x11_xkb_dir }}/rules/evdev.xml"
+        - "{{ x11_xkb_dir }}/rules/base.xml"
+```
