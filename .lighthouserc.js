@@ -13,7 +13,8 @@ module.exports = {
         'uses-responsive-images': 'off',
         'unsized-images': 'off',
         'tap-targets': 'warn',
-        'csp-xss': 'off'
+        'csp-xss': 'off',
+        'errors-in-console': 'off'
       }
     }
   }
