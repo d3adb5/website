@@ -14,7 +14,8 @@ module.exports = {
         'unsized-images': 'off',
         'tap-targets': 'warn',
         'csp-xss': 'off',
-        'errors-in-console': 'off'
+        'errors-in-console': 'off',
+        'unminified-javascript': 'warn',
       }
     }
   }
