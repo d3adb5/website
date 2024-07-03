@@ -321,9 +321,50 @@ article
   &.extra-pages h2 ~ p
     margin-left: 2em
 
+  section.dialog
+    display: flex
+    padding: 1em
+    align-content: center
+    border-radius: $toc-border-radius
+
+    border-width: 0.2em
+    border-style: solid
+    border-color: $fg-border
+
+    margin: 0.5em 0 0 0
+
+    box-sizing: border-box
+    max-width: 100%
+
+    p:first-child
+      margin-top: 0
+    p:last-child
+      margin-bottom: 0
+
+    .dialog-icon
+      margin-right: 1em
+
+    &.dialog-info
+      border-color: $bg-dialog-info
+    &.dialog-warning
+      border-color: $bg-dialog-warning
+    &.dialog-error
+      border-color: $bg-dialog-error
+    &.dialog-success
+      border-color: $bg-dialog-success
+
+    &.dialog-info, &.dialog-success
+      strong, em
+        color: inherit
+      em
+        font-style: italic
+
 @media screen and (min-width: $body-max-width)
   article table#blog-index td.tag
     display: table-cell
+
+  article section.dialog
+    margin: 1em 0 0 0
 
 section.github-card
   display: inline-block

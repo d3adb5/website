@@ -1,0 +1,13 @@
+{{- $defaultIcons := dict "info" "ℹ️" "warning" "⚠️" "error" "❌" "success" "✅" -}}
+{{- $dialogIcons := merge $defaultIcons ($.Site.Params.dialogIcons | default dict) -}}
+{{- $dialogIcon := .Get "type" | index $dialogIcons -}}
+<section class="dialog dialog-{{ .Get "type" }}">
+  {{- with $dialogIcon }}
+  <section class="dialog-icon">
+    {{- $dialogIcon | safeHTML -}}
+  </section>
+  {{- end }}
+  <section class="dialog-content">
+    {{ .Inner }}
+  </section>
+</section>
