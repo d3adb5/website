@@ -10,10 +10,14 @@ tags: [ DevOps, Helm, Kubernetes, Technology ]
 toc: true
 ---
 
+{{% dialog type="info" %}}
+
 **DISCLAIMER:** Heed the warning in this article's subtitle. Use the [right
 tool for the job,][argo-rollouts] this is just for fun. Well, it wasn't just
 for fun in the beginning, but now that I did it and found a better alternative
 that fits my use case, it became just for fun.
+
+{{% /dialog %}}
 
 For better or for worse, one of the principal tools for any developer or
 operator using Kubernetes is [Helm.][helm] It's a powerful tool for sure, but
