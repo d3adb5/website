@@ -49,6 +49,6 @@ me at all, grill me about updating this list if you can.
 
 ## Financial
 
-- Purchase a government bond or make other low-risk investments.
+- ~~Purchase a government bond or make other low-risk investments.~~ _TFSA RRSP etc._
 - Save upwards of $100k (CAD) in my bank accounts collectively.
 - Create a trust fund for my future children.
