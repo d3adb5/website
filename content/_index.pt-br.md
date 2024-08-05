@@ -13,13 +13,13 @@ navigation:
 extensions: []
 ---
 
-Eu sei, meu nickname é bem "l33t", e foi até gerado aleatoriamente.
+Eu sei, meu nome de usuário é bem "l33t". Ele foi gerado aleatoriamente.
 
-Não tem muita coisa para ver nesse site, mas sinta-se livre para o bisbilhotar.
-Com alguma chance, há algo de útil para você por aqui. Pretendo escrever sobre o
-que quer que venha à mente _do jeito_ que vem à mente, então se minhas palavras
-parecem delírios, divagações ou linhas de raciocínio espalhadas, provavelmente o
-são.
+Não tem muita coisa para ver nesse site, mas sinta-se livre para bisbilhotar.
+Com alguma sorte, você encontrará algo de útil por aqui. Preten escrever sobre
+o que quer que venha à mente _do jeito_ que vem à mente, então se minhas
+palavras parecerem delírios, divagações ou linhas de raciocínio espalhadas, é
+porque provavelmente o são.
 
 Este site está sempre em construção. Eu não sou um desenvolvedor front-end, e
 provavelmente nunca o serei. Tudo que lhes consigo garantir são páginas sem
@@ -37,12 +37,12 @@ GitHub][gh-profile], sejam besteiras que, contra meu bom senso, decidi colocar
 na Internet, ou trabalho "de verdade" que pus online para que outras pessoas
 usem.
 
-Eu tento fazer contribuições a alguns dos projetos que uso pessoalmente. Um
-destes é o [xmonad/xmonad-contrib][gh-xmonad-contrib], repositório que contém
-módulos submetidos pela comunidade de usuários para uso com o
+Vez por outra eu faço contribuições a alguns dos projetos que uso pessoalmente.
+Um destes é o [xmonad/xmonad-contrib][gh-xmonad-contrib], repositório que
+contém módulos submetidos pela comunidade de usuários para uso com o
 [XMonad][gh-xmonad], um gerenciador de janelas puramente funcional para o X11
-escrito em Haskell. É bacana pensar que código que eu escrevi, até mesmo módulos
-inteiros, está sendo usado por outros usuários do XMonad.
+escrito em Haskell. É bacana pensar que código que eu escrevi, até mesmo
+módulos inteiros, está sendo usado por outros usuários do XMonad.
 
 ## O que se espera ver neste site?
 
@@ -55,7 +55,7 @@ como forma de praticá-los quanto para permitir que o conteúdo atinja um públi
 maior. Se tudo for de acordo com o planejado, outras pessoas me ajudarão com
 revisões das versões em idiomas diferentes.
 
-## Manda uma mensagem, criptografada ou não
+## Mande uma mensagem, criptografada ou não
 
 Se você quiser entrar em contato comigo, mande um email para `me` @ este
 domínio. Para mandar mensagens criptografadas:
