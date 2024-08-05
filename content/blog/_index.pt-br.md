@@ -3,7 +3,7 @@ draft: false
 date: 2022-04-10
 
 title: Opiniões, tutoriais, o que quer que eu queira escrever
-subtitle: Divagações digitadas por dedos inquietos, praticamente
+subtitle: Divagações digitadas por dedos inquietos, basicamente
 
 navigation:
   index: 1
