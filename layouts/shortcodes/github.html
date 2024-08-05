@@ -1,7 +1,7 @@
 {{- $headers := dict "Authorization" (getenv "HUGO_GITHUB_TOKEN") -}}
 {{- $apiURL := .Get "path" | print "https://api.github.com/repos/" -}}
-{{- $repo := getJSON $apiURL $headers -}}
-{{- $languages := getJSON $repo.languages_url $headers -}}
+{{- $repo := resources.GetRemote $apiURL $headers | unmarshal -}}
+{{- $languages := resources.GetRemote $repo.languages_url $headers | unmarshal -}}
 
 {{- range $l, $c:= $languages }}
   {{- $languages = merge $languages (dict $l (dict "name" $l "count" $c)) -}}
