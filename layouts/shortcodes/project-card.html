@@ -5,7 +5,7 @@
 
 {{- if $githubOwner }}
   {{- $apiURL := print "https://api.github.com/users/" $githubOwner -}}
-  {{- $githubOwner = getJSON $apiURL $headers -}}
+  {{- $githubOwner = resources.GetRemote $apiURL $headers | unmarshal -}}
   {{- $githubAvatar = $githubOwner.avatar_url -}}
 {{- end }}
 
