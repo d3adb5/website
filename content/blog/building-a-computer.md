@@ -22,7 +22,7 @@ built my own desktop computer before. While I won't claim to have the same
 knowledge as people who build computers as a job or hobby --- that can be quite
 the _expensive_ hobby --- I've known my way around computer hardware after
 messing with plenty of laptops and a pre-built desktop my mother gifted me
-circa 2023. Building the computer from scratch itself wasn't a challenge, but
+circa 2013. Building the computer from scratch itself wasn't a challenge, but
 shopping for the right parts, saving the money up, and convincing myself it was
 a good idea to go click "place order" sure was.
 
