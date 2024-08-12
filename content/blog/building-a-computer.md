@@ -138,10 +138,10 @@ had gone on for about a minute. **The only thing that worked was unplugging the
 computer from the wall and plugging it back in.**
 
 Turns out power management for the MediaTek chip is a bit wonky, and once it
-is... powered down or put into a low power state, it has trouble coming back a.
-It's a good thing this is a desktop PC, because _the only way I found to curb
-this issue was to disable power management for the WiFi chip._ Here is how I
-did that:
+is... powered down or put into a low power state, it has trouble coming back
+on. It's a good thing this is a desktop PC, because _the only way I found to
+curb this issue was to disable power management for the WiFi chip._ Here is how
+I did that:
 
 - On Arch Linux, I [followed the wiki][archwiki-pm] and installed `iw` then
   added the following to `/etc/udev/rules.d/81-wifi-powersave.rules`:
