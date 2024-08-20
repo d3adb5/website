@@ -7,7 +7,9 @@
       <p style="text-align: right">
       {{ range .Translations }}
         <a href="{{ .RelPermalink }}" title="{{ .Site.Params.langName }}">
-          {{ .Site.Params.flag }}
+          <span role="img" aria-label="{{ .Site.Params.strings.flagAriaLabel }}">
+            {{ .Site.Params.flag }}
+          </span>
         </a>
       {{ end }}
       </p>

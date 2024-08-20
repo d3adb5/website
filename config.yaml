@@ -27,6 +27,7 @@ languages:
       flag: 🇺🇸
       strings:
         titleSearchPlaceholder: Filter by title...
+        flagAriaLabel: United States flag
   pt-br:
     title: website pessoal de d3adb5
     params:
@@ -34,6 +35,7 @@ languages:
       flag: 🇧🇷
       strings:
         titleSearchPlaceholder: Filtrar por título...
+        flagAriaLabel: Bandeira do Brasil
 
 module:
   imports:
