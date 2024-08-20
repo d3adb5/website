@@ -13,17 +13,17 @@ navigation:
 extensions: []
 ---
 
-Yeah, I know, my username looks pretty "l33t", and it was somewhat randomly
-generated.
-
 There's not a lot to see here, but feel free to look around. Hopefully there's
 something of use to you on this website. I'll write about whatever comes to mind
 _as_ it comes to mind, so if my words read like scattered thoughts, they
 probably are.
 
-The website is a constant work in progress. I'm not a front-end developer, never
-will be. All I can really give you are pages without kilograms of JavaScript on
-them.
+_The website is a constant work in progress._ I'm not a front-end developer and
+never will be. When JavaScript is present, it is meant to enhance the user
+experience and will never be required to view the content. That means **no
+content will be assembled using React.js, Vue, or the like.** There is nothing
+wrong with those frameworks, I just don't believe they are necessary for a
+website like this one.
 
 ## Source code, generation, hosting, etc.
 
