@@ -24,7 +24,7 @@ languages:
     title: d3adb5's personal website
     params:
       langName: English
-      flag: 🇨🇦
+      flag: 🇺🇸
       strings:
         titleSearchPlaceholder: Filter by title...
   pt-br:
