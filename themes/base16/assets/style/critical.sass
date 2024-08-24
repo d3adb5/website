@@ -165,8 +165,21 @@ article
         color: $fg-header
         margin-bottom: 0.25em
 
-      aside#translations p
+      aside#translations
         margin: 1.1em 0 0.25em
+
+        ul#translations
+          list-style: none
+          padding: 0
+          margin: 0
+
+          display: flex
+          justify-content: space-around
+
+          font-size: 115%
+
+          li:not(:first-child)
+            margin-left: 1em
 
     section.subheader-line
       display: flex

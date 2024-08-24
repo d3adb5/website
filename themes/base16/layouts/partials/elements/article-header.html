@@ -4,15 +4,17 @@
 
     {{ if .IsTranslated }}
     <aside id="translations">
-      <p style="text-align: right">
+      <ul id="translations">
       {{ range .Translations }}
-        <a href="{{ .RelPermalink }}" title="{{ .Site.Params.langName }}">
-          <span role="img" aria-label="{{ .Site.Params.strings.flagAriaLabel }}">
-            {{ .Site.Params.flag }}
-          </span>
-        </a>
+        <li>
+          <a href="{{ .RelPermalink }}" title="{{ .Site.Params.langName }}">
+            <span role="img" aria-label="{{ .Site.Params.strings.flagAriaLabel }}">
+              {{ .Site.Params.flag }}
+            </span>
+          </a>
+        </li>
       {{ end }}
-      </p>
+      </ul>
     </aside>
     {{ end }}
   </section>
