@@ -24,9 +24,10 @@ languages:
     title: d3adb5's personal website
     params:
       langName: English
-      flag: 🇨🇦
+      flag: 🇺🇸
       strings:
         titleSearchPlaceholder: Filter by title...
+        flagAriaLabel: United States flag
   pt-br:
     title: website pessoal de d3adb5
     params:
@@ -34,6 +35,15 @@ languages:
       flag: 🇧🇷
       strings:
         titleSearchPlaceholder: Filtrar por título...
+        flagAriaLabel: Bandeira do Brasil
+  es:
+    title: sitio web personal de d3adb5
+    params:
+      langName: Spanish
+      flag: 🇪🇸
+      strings:
+        titleSearchPlaceholder: Filtrar por título...
+        flagAriaLabel: Bandera de España
 
 module:
   imports:

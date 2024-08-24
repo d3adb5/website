@@ -13,36 +13,36 @@ navigation:
 extensions: []
 ---
 
-Eu sei, meu nome de usuário é bem "l33t". Ele foi gerado aleatoriamente.
-
 Não tem muita coisa para ver nesse site, mas sinta-se livre para bisbilhotar.
-Com alguma sorte, você encontrará algo de útil por aqui. Preten escrever sobre
-o que quer que venha à mente _do jeito_ que vem à mente, então se minhas
-palavras parecerem delírios, divagações ou linhas de raciocínio espalhadas, é
-porque provavelmente o são.
+Com alguma sorte, você encontrará algo de útil por aqui. Pretendo escrever
+sobre o que der na telha _sem muitos filtros,_ então se minhas palavras
+parecerem delírios, divagações ou linhas de raciocínio desconexas, é porque
+provavelmente o são.
 
-Este site está sempre em construção. Eu não sou um desenvolvedor front-end, e
-provavelmente nunca o serei. Tudo que lhes consigo garantir são páginas sem
-quilos de JavaScript.
+_Este site está sempre em construção._ Eu não sou nem nunca serei um
+desenvolvedor front-end. Quando JavaScript se fizer presente em uma página, seu
+propósito é melhorar a experiência do usuário, jamais sendo necessário. Com
+isso quero dizer que **nenhum conteúdo será montado usando React.js, Vue, ou
+similares.** Não há nada de errado com esses frameworks, eu simplesmente não
+vejo necessidade de usá-los em um site como este.
 
 ## Código-fonte, build, hospedagem, etc.
 
 Este site está hospedado no [GitHub Pages][gh-pages], e as páginas são geradas
-pelo [Hugo][gohugo]. O código-fonte e os workflows do [GitHub
+com o [Hugo][gohugo]. O código-fonte e os workflows do [GitHub
 Actions][gh-actions] que o publicam para o branch `gh-pages` podem ser
 encontrados [neste repositório][gh-repo] no GitHub.
 
-Você pode encontrar repositórios para outros projetos meus no [meu perfil do
-GitHub][gh-profile], sejam besteiras que, contra meu bom senso, decidi colocar
-na Internet, ou trabalho "de verdade" que pus online para que outras pessoas
-usem.
+Você pode encontrar repositórios de outros projetos meus no [meu perfil do
+GitHub][gh-profile], sejam besteiras que contra meu bom senso decidi colocar na
+Internet, ou trabalho "de verdade" que pus online para que outras pessoas usem.
 
 Vez por outra eu faço contribuições a alguns dos projetos que uso pessoalmente.
 Um destes é o [xmonad/xmonad-contrib][gh-xmonad-contrib], repositório que
-contém módulos submetidos pela comunidade de usuários para uso com o
-[XMonad][gh-xmonad], um gerenciador de janelas puramente funcional para o X11
-escrito em Haskell. É bacana pensar que código que eu escrevi, até mesmo
-módulos inteiros, está sendo usado por outros usuários do XMonad.
+contém módulos submetidos pela comunidade de usuários do [XMonad][gh-xmonad],
+um gerenciador de janelas puramente funcional para o X11 escrito em Haskell. É
+bacana pensar que código que eu escrevi, até mesmo módulos inteiros, está sendo
+usado por outros usuários do XMonad.
 
 ## O que se espera ver neste site?
 
