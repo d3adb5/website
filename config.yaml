@@ -36,6 +36,14 @@ languages:
       strings:
         titleSearchPlaceholder: Filtrar por título...
         flagAriaLabel: Bandeira do Brasil
+  es:
+    title: sitio web personal de d3adb5
+    params:
+      langName: Spanish
+      flag: 🇪🇸
+      strings:
+        titleSearchPlaceholder: Filtrar por título...
+        flagAriaLabel: Bandera de España
 
 module:
   imports:
