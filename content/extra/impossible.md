@@ -19,7 +19,8 @@ me at all, grill me about updating this list if you can.
 ## Professional
 
 - ~~Acquire my first professional IT certification.~~ _CKAD (2022-09-25)_
-- Get all of the available Kubernetes certifications. (2/3) _CKAD CKA_
+- ~~Get all of the available Kubernetes certifications.~~ _CKAD CKA CKS
+  (2024-09-08)_
 - Attain the AWS Certified DevOps Engineer certification.
 - Become a principal engineer or architect.
 - Develop expert level competence in computer networking.
