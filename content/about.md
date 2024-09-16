@@ -27,8 +27,8 @@ country.
 
 Here are a few things about me:
 
-- _I'm Kubernetes certified:_ currently a certified administrator (CKA) and
-  application developer (CKAD).
+- _I'm Kubernetes certified:_ I hold all 3 Linux Foundation certifications for
+  Kubernetes: _CKA, CKAD,_ and _CKS._
 - _I'm AWS certified:_ currently a certified cloud practitioner (CCP), working
   slowly towards more certifications.
 - I've had contributions accepted into staging branches of the Linux kernel's
