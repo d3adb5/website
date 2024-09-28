@@ -26,7 +26,8 @@ de São Paulo (USP)_ e _Mackenzie._
 
 Algumas coisas sobre mim:
 
-- _Tenho certificações Kubernetes:_ atualmente sou um CKA e um CKAD.
+- _Tenho certificações Kubernetes:_ tenho todas as certificações da Linux
+  Foundation, _CKA, CKAD,_ e _CKS._
 - _Tenho certificação AWS:_ no momento sou um CCP, e estudando para mais
   exames.
 - Tenho contribuições aceitas em staging para o subsistema IIO do Linux.
