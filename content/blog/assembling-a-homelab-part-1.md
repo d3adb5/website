@@ -2,7 +2,7 @@
 draft: false
 date: 2024-09-25
 
-title: "Assembling a homelab using Talos Linux: Part I"
+title: "Talos Linux Homelab Pt. 1: An introduction"
 subtitle: Yes, another on-premises cluster, what's new?
 
 tags: [ DevOps, Homelab, Kubernetes, Talos, Technology ]
