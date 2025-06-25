@@ -36,7 +36,6 @@ me at all, grill me about updating this list if you can.
 
 ## Life
 
-- ~~Get married.~~ _I love you, H._
 - ~~Move to another country.~~ _A mari usque ad mare 🇨🇦_
 - Own a house or condo.
 - Have a child or two.
