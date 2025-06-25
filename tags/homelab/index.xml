@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homelab on d3adb5's personal website</title><link>https://d3adb5.net/tags/homelab/</link><description>Recent content in Homelab on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 25 Sep 2024 20:15:43 -0700</lastBuildDate><atom:link href="https://d3adb5.net/tags/homelab/index.xml" rel="self" type="application/rss+xml"/><item><title>Assembling a homelab using Talos Linux: Part I</title><link>https://d3adb5.net/blog/assembling-a-homelab-part-1/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/assembling-a-homelab-part-1/</guid><description>&lt;p>There comes a time in a technology enthusiast&amp;rsquo;s life when they decide to build
+a homelab. Chances are if you&amp;rsquo;re reading this, you&amp;rsquo;ve either googled the term
+and know what I&amp;rsquo;m talking about &amp;mdash; so I promise not to take long in this
+introduction &amp;mdash; or you&amp;rsquo;re following me (stalking much?) and don&amp;rsquo;t necessarily
+care.&lt;/p>
+&lt;p>In any case, I&amp;rsquo;ve long had &lt;em>VPSes&lt;/em> to host my personal projects and services
+like Plex for myself and close friends. It&amp;rsquo;s always seemed much cheaper than
+purchasing the equipment and hosting on-premises. Recently I&amp;rsquo;ve even set up a
+Kubernetes cluster using &lt;a href="https://k0sproject.io/">k0s, a Kubernetes distribution&lt;/a> made to be
+simple and lightweight. Latency, bandwidth limits and weak hardware have
+compelled me to build one instead.&lt;/p></description></item></channel></rss>
