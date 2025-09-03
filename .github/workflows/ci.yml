@@ -3,12 +3,30 @@ name: GitHub Pages CI
 on: pull_request
 
 jobs:
+  changes:
+    name: Changes Filter
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      pages: ${{ steps.filter.outputs.pages }}
+
+    steps:
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            pages:
+              - 'content/**'
+              - 'layouts/**'
+              - 'themes/**'
+
   build:
     name: Hugo Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout files in the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           lfs: true
@@ -16,7 +34,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
@@ -41,18 +59,19 @@ jobs:
   lhci:
     name: Lighthouse
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, changes]
+    if: ${{ needs.changes.outputs.pages == 'true' }}
     steps:
       - name: Checkout files in the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Download rendered files
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: rendered-static-pages
           path: public
