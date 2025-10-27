@@ -9,6 +9,9 @@ navigation:
   index: 2
   right: false
   title: Glob
+
+extensions:
+  - mathjax
 ---
 
 From the Library Functions Manual:
@@ -26,6 +29,25 @@ To those used to the technical writing found elsewhere on this website, this
 may present a stark contrast.
 
 ---
+
+{{< microblog date="2025-10-27 - 11:11" >}}
+
+I made it so I can enable MathJax on a per-page basis on this website. It's
+really cool to be able to write mathematical notation. I used to use Pandoc to
+convert Markdown with inlined LaTeX to PDF for notes and assignments back in
+university, so this is a nice throwback to those days.
+
+Look at it:
+
+$$
+\mathbbm{E}(X) = \sum_{x \in \mathcal{X}} x \cdot \mathbbm{P}(x)
+\longrightarrow
+\mathbbm{E}(f(X)) = \sum_{y \in f(\mathcal{X})} y \cdot \mathbbm{P}(y)
+$$
+
+Not that it'll get much meaningful use, but it's nice to have the option.
+
+{{< /microblog >}}
 
 {{< microblog date="2025-10-27 - 01:30" >}}
 
