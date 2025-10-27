@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on d3adb5's personal website</title><link>https://d3adb5.net/tags/linux/</link><description>Recent content in Linux on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 02 Jul 2024 01:20:38 -0700</lastBuildDate><atom:link href="https://d3adb5.net/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>Breaking and unbreaking my Arch installation</title><link>https://d3adb5.net/blog/breaking-my-system/</link><pubDate>Sat, 04 May 2024 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/breaking-my-system/</guid><description>&lt;p&gt;A couple of weeks ago, I somehow managed to break my Arch Linux installation
+through a simple &lt;code&gt;pacman -Syu&lt;/code&gt;. I&amp;rsquo;m still not sure what caused it, but after a
+quite normal package update, I rebooted the system and was met with a message
+stating something along these lines, before I could even input my LUKS
+passphrase:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Failed to execute /bin/init (No such file or directory)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Failed to execute /sbin/init (No such file or directory)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Failed to execute /init (No such file or directory)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Considering the kernel image was loaded and was trying to load an init system,
+this was likely a problem with the &lt;em&gt;initramfs.&lt;/em&gt; For the unitiated, the &lt;em&gt;initial
+RAM filesystem,&lt;/em&gt; also known as &lt;em&gt;initrd,&lt;/em&gt; for &amp;ldquo;initial ramdisk,&amp;rdquo; is a temporary
+file system that is loaded into memory during the boot process, to prepare the
+system before the init system is loaded.&lt;/p&gt;</description></item><item><title>How a keyboard layout ruined my daily life</title><link>https://d3adb5.net/blog/unusual-keyboard-shenanigans/</link><pubDate>Sun, 25 Jun 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/unusual-keyboard-shenanigans/</guid><description>&lt;p&gt;I&amp;rsquo;ve been using computers for quite some time. Though BBSes, Usenet, IRC, and
+many forums came way before I was even born &amp;mdash; I&amp;rsquo;m relatively young, come on
+&amp;mdash; I was a netizen before the shift towards video conferencing and voice
+calls. Consequently I grew up primarily using the keyboard to communicate with
+people online. &lt;em&gt;Growing up in Brazil,&lt;/em&gt; I was raised using the &lt;em&gt;modern ABNT2
+keyboard layout&lt;/em&gt; to type Portuguese, and that has sadly stuck with me.&lt;/p&gt;</description></item></channel></rss>
