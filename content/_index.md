@@ -63,6 +63,11 @@ way to practice them and as a way to reach more people through them. If it all
 goes according to plan, other people will be helping me out by reviewing the
 different versions of the content in other languages.
 
+There are also some [extra pages][extra] that don't fit anywhere else on the
+site.
+
+[extra]: {{< relref "extra/_index.md" >}}
+
 ## Send me mail, encrypted or not
 
 If you wish to communicate with me, send a message to `me` at this domain. In

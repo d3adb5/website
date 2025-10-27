@@ -6,7 +6,7 @@ title: Personal projects, pet projects, side projects, etc.
 subtitle: Basically things I've had a hand in, one way or another!
 
 navigation:
-  index: 2
+  index: 3
   right: false
   title: Projects
 
