@@ -51,7 +51,7 @@ jobs:
           HUGO_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: rendered-static-pages
           path: public
@@ -71,7 +71,7 @@ jobs:
           node-version: 22
 
       - name: Download rendered files
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: rendered-static-pages
           path: public
