@@ -1,10 +1,11 @@
 {{-
   $csp := slice
-    "default-src 'self'"
+    "default-src 'self' cdn.jsdelivr.net"
     "style-src 'self' 'unsafe-inline'"
     "img-src *"
     "object-src 'none'"
-    "script-src 'self'"
+    "script-src 'self' 'unsafe-inline' cdn.jsdelivr.net"
+    "worker-src 'self' blob:"
     "base-uri 'self'"
 -}}
 

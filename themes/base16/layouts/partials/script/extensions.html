@@ -1,3 +1,21 @@
 {{- if in .Params.extensions "flickity" -}}
 <script src="/scripts/flickity.min.js"></script>
 {{- end -}}
+
+{{- if in .Params.extensions "mathjax" -}}
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js">
+</script>
+
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  // block
+      inlineMath: [['\\(', '\\)']],                 // inline
+      packages: {'[+]': ['bbm']}
+    },
+    loader:{
+      load: ['ui/safe', '[tex]/bbm']
+    },
+  };
+</script>
+{{- end -}}
