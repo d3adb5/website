@@ -1,0 +1,7 @@
+<section class="microblog">
+  <p class="timestamp">{{ .Get "date" }}</p>
+
+  <section class="microblog-content">
+  {{ .Inner | markdownify }}
+  </section>
+</section>

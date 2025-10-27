@@ -311,6 +311,11 @@ article
     overflow-x: auto
     line-height: initial
 
+  & > hr
+    color: $fg-border
+    opacity: 0.5
+    margin: 2em 0
+
   p code, li code
     background: $bg-codeblock
     padding: 0 0.3em
@@ -375,12 +380,26 @@ article
       em
         font-style: italic
 
+  section.microblog
+
+    p.timestamp
+      color: $fg-header-sub
+      font-weight: bold
+      font-size: 90%
+      margin: 1em 0
+
+    section.microblog-content
+      margin-left: 1em
+
 @media screen and (min-width: $body-max-width)
   article table#blog-index td.tag
     display: table-cell
 
   article section.dialog
     margin: 1em 0 0 0
+
+  article section.microblog
+    margin-left: 1em
 
 section.github-card
   display: inline-block

@@ -5,11 +5,6 @@ date: 2023-05-06
 title: Extra pages, failed experiments, etc.
 subtitle: Pages that don't fit anywhere else, or are undeserving of the spotlight
 
-navigation:
-  index: 3
-  right: false
-  title: Extra
-
 extensions: []
 ---
 
