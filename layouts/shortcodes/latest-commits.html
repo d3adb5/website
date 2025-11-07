@@ -1,0 +1,17 @@
+{{- $upperBound := .Get "limit" | default (len .Site.Data.commits) | int }}
+<table id="latest-commits" cellspacing="0">
+  <tbody id="commits-body">
+    {{- range collections.First $upperBound .Site.Data.commits }}
+    {{- $commitUrl := printf "%s/commit/%s" $.Site.Params.repoUrl .hash -}}
+    <tr>
+      <td class="date">{{ .date }}</td>
+      <td class="message">
+        <a href="{{ $commitUrl }}">{{ .subject }}</a>
+      </td>
+      <td class="hash">
+        <a href="{{ $commitUrl }}">{{ .shortHash }}</a>
+      </td>
+    </tr>
+    {{- end }}
+  </tbody>
+</table>

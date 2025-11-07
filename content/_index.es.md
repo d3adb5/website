@@ -2,8 +2,8 @@
 draft: false
 date: 2024-08-23
 
-title: Nada que ver aquí, para ser sincero
-subtitle: ¡Pero me gustaría que lo leyeras!
+title: Mi pequeño rincón en Internet
+subtitle: ¿Cómo llegaste hasta aquí?
 
 navigation:
   index: 0
@@ -15,58 +15,40 @@ extensions: []
 
 {{% dialog type="warning" %}}
 Mi español no es muy bueno, pero estoy tratando de mejorar. Si ves algún error
---- y sin duda hay errores  --- por favor envíame una mensaje y dime cómo puedo
-corregirlo, o mejor aún, envíame una pull request con la corrección.
-{{% /dialog %}}
+--- y sin duda hay errores  --- por favor envíame un mensaje y dime cómo puedo
+corregirlo, o mejor aún, envíame una pull request con la corrección. {{%
+/dialog %}}
 
-No hay mucho que ver aquí, pero siéntete libre para navegar. Espero que haya
-algo de utilidad para ti en mi sitio. Escribiré sobre lo que se me ocurra _a
-manera_ que se me ocurra, así que si mis palabras parecen pensamientos
-dispersos, probablemente lo sean.
+¿Alguna vez sentiste la necesidad de compartir algo y buscaste la compañía de
+otros, solo para darte cuenta de que no tenías nada que decir cuando finalmente
+los encontraste? Pensamientos fugaces que imploran ser manifestados en
+palabras, pero que carecen de una audiencia dispuesta a recibirlos y
+desaparecen tan rápido como surgieron. *Creo que es un malestar común:* un
+síntoma de alguien que anhela una conexión más profunda con los demás, pero
+está restringido por barreras a menudo autoimpuestas.
 
-_Este sitio es un trabajo en progreso constante._ No soy un desarrollador de
-front-end y nunca lo seré. Cuando JavaScript estuviere presente, su propósito
-será mejorar la experiencia del usuario y no ser requerido para ver el
-contenido. Eso significa que **no usaré React.js, Vue, u otros frameworks para
-montar paginas con contenido en texto.** No hay nada malo con esos frameworks,
-simplemente no creo que sean necesarios para un sitio como este.
+Ayuda tener no solo una válvula de escape, sino un registro curado de lo que
+quieres decir. Un lugar al que volver, tanto para reconectarte contigo mismo a
+lo largo del tiempo, como para que otros puedan conectarse contigo también. No
+un diario público, sino un lugar que construyes de manera tan personal que
+otros dicen "eso es muy tú." **Para mí, este es ese lugar.**
 
-## Código fuente, generación, alojamiento, etc.
+## Siempre en progreso
 
-Este sitio está hospedado en [GitHub Pages][ghpages], y las páginas son
-generadas por [Hugo][hugo]. Puedes encontrar el código fuente completo,
-incluyendo el flujo de trabajo de GitHub Actions que lo publica en la rama
-`gh-pages` en [este repositorio][ghrepo] en GitHub. Puedes encontrar
-repositorios de otros proyectos míos en [mi perfil de GitHub][ghprofile].
+Como yo, este sitio está en constante --- y lenta --- evolución. Puedes
+navegarlo por los enlaces en la parte superior de la página, pero también hay
+[algunas páginas extra][extra] que no encajan en ninguna otra sección del
+sitio. Las últimas actualizaciones aparecerán listadas abajo como commits de
+Git, y habrá un enlace al commit relevante más reciente en el footer de cada
+página.
 
-A veces hago contribuciones a algunos de los proyectos que uso personalmente.
-Uno de esos es [xmonad/xmonad-contrib][ghxmcontrib], el repositorio que
-contiene módulos enviados por usuarios para usar con [XMonad][ghxmonad], el
-gestor de ventanas puramente funcional para X11 escrito en Haskell. Me gusta
-pensar que código que he escrito, incluso módulos enteros, están siendo
-utilizados por otros usuarios de XMonad.
+[extra]: {{< relref path="extra/_index.md" lang="en" >}}
 
-[ghxmonad]: https://github.com/xmonad/xmonad
-[ghxmcontrib]: https://github.com/xmonad/xmonad-contrib
-[ghprofile]: https://github.com/d3adb5
-[ghpages]: https://pages.github.com
-[ghrepo]: https://github.com/d3adb5/website
-[hugo]: https://gohugo.io
+## Cambios recientes
 
-## ¿Qué puedo esperar ver en este sitio?
+{{< latest-commits limit=10 >}}
 
-Tutoriales, divagaciones y casos reales que espero tengan alguna relevancia y
-puedan ser fuente de inspiración para otras personas con ideas afines. Por
-ejemplo, no es un misterio que me gusta Git. Este sitio es versionado con Git,
-y _siempre habrá un link en el footer a la última commit_ que cambió la página
-que estás viendo. Si te gusta Git, ¡quizás lo encuentres bastante genial!
-
-Haré mi mejor esfuerzo para hacer estas páginas disponibles en otros idiomas,
-tanto como una forma de practicarlos como una forma de hacer llegar el
-contenido a más personas. Si todo va según lo planeado, otras personas me
-ayudarán revisando las diferentes versiones del contenido en otros idiomas.
-
-## Envíame un correo, encriptado o no
+## Contacto
 
 Si tienes algo que decirme, envíame un correo a `me` en este dominio. Si
 quieres encriptar tu mensaje:

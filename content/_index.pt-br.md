@@ -2,8 +2,8 @@
 draft: false
 date: 2022-04-09
 
-title: Sendo bem honesto, não tem muita coisa aqui
-subtitle: Mas vem dar uma lida de qualquer jeito!
+title: Meu pequeno canto na Internet
+subtitle: Como você veio parar aqui?
 
 navigation:
   index: 0
@@ -13,49 +13,35 @@ navigation:
 extensions: []
 ---
 
-Não tem muita coisa para ver nesse site, mas sinta-se livre para bisbilhotar.
-Com alguma sorte, você encontrará algo de útil por aqui. Pretendo escrever
-sobre o que der na telha _sem muitos filtros,_ então se minhas palavras
-parecerem delírios, divagações ou linhas de raciocínio desconexas, é porque
-provavelmente o são.
+Você já sentiu tamanha vontade de compatilhar algo que buscou a companhia de
+outras pessoas, apenas para perceber que não tinha nada a dizer quando
+finalmente as encontrou? Pensamentos repentinos que imploram ser manifestados
+em palavras, mas que carecem de uma audiência disposta a recebê-los e
+desaparecem tão rapidamente quanto surgiram. *Eu acredito ser este um mal
+comum:* um sintoma de alguém que anseia por uma conexão mais profunda com
+outrem, mas é restringido por barreiras muitas vezes autoimpostas.
 
-_Este site está sempre em construção._ Eu não sou nem nunca serei um
-desenvolvedor front-end. Quando JavaScript se fizer presente em uma página, seu
-propósito é melhorar a experiência do usuário, jamais sendo necessário. Com
-isso quero dizer que **nenhum conteúdo será montado usando React.js, Vue, ou
-similares.** Não há nada de errado com esses frameworks, eu simplesmente não
-vejo necessidade de usá-los em um site como este.
+É útil ter não apenas uma válvula de escape, mas um registro curado do que se
+deseja dizer. Um lugar ao qual retornar, tanto para se reconectar consigo mesmo
+ao longo do tempo, quanto para que outros possam se conectar com você também.
+Não um diário público, mas um lugar que você constrói de forma tão pessoal que
+outros alegam "isso é muito você." **Para mim, este é tal lugar.**
 
-## Código-fonte, build, hospedagem, etc.
+## Para sempre em construção
 
-Este site está hospedado no [GitHub Pages][gh-pages], e as páginas são geradas
-com o [Hugo][gohugo]. O código-fonte e os workflows do [GitHub
-Actions][gh-actions] que o publicam para o branch `gh-pages` podem ser
-encontrados [neste repositório][gh-repo] no GitHub.
+Assim como eu, este website está em constante --- e lenta --- evolução. Você
+pode navegá-lo através dos links ao topo, mas também há [algumas páginas
+extras][extra] que não se encaixam em nenhuma outra seção do site. As últimas
+atualizações serão listadas abaixo como commits do Git, e haverá um link para o
+commit relevante mais recente no rodapé de cada página.
 
-Você pode encontrar repositórios de outros projetos meus no [meu perfil do
-GitHub][gh-profile], sejam besteiras que contra meu bom senso decidi colocar na
-Internet, ou trabalho "de verdade" que pus online para que outras pessoas usem.
+[extra]: {{< relref path="extra/_index.md" lang="en" >}}
 
-Vez por outra eu faço contribuições a alguns dos projetos que uso pessoalmente.
-Um destes é o [xmonad/xmonad-contrib][gh-xmonad-contrib], repositório que
-contém módulos submetidos pela comunidade de usuários do [XMonad][gh-xmonad],
-um gerenciador de janelas puramente funcional para o X11 escrito em Haskell. É
-bacana pensar que código que eu escrevi, até mesmo módulos inteiros, está sendo
-usado por outros usuários do XMonad.
+## Últimas mudanças
 
-## O que se espera ver neste site?
+{{< latest-commits limit=10 >}}
 
-Possivelmente alguns tutoriais, vaganeios, e casos reais que eu acredito ter
-alguma relevância e que podem ser fonte de inspiração para pessoas em situações
-similares às minhas.
-
-Darei meu melhor para disponibilizar estas páginas em múltiplos idiomas, tanto
-como forma de praticá-los quanto para permitir que o conteúdo atinja um público
-maior. Se tudo for de acordo com o planejado, outras pessoas me ajudarão com
-revisões das versões em idiomas diferentes.
-
-## Mande uma mensagem, criptografada ou não
+## Contato
 
 Se você quiser entrar em contato comigo, mande um email para `me` @ este
 domínio. Para mandar mensagens criptografadas:
@@ -64,11 +50,3 @@ domínio. Para mandar mensagens criptografadas:
 ECC: 1D6680F97A6617F4D9B2A0F9D989443FD3ADB5C7 (preferível)
 RSA: C3295D9E3A719FFE2EFD2EBB697797CED3ADB5C9
 ```
-
-[gh-xmonad-contrib]: https://github.com/xmonad/xmonad-contrib
-[gh-xmonad]: https://github.com/xmonad/xmonad
-[gh-profile]: https://github.com/d3adb5
-[gh-actions]: https://github.com/actions
-[gh-pages]: https://pages.github.com
-[gh-repo]: https://github.com/d3adb5/website
-[gohugo]: https://gohugo.io
