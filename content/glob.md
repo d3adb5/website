@@ -30,6 +30,22 @@ may present a stark contrast.
 
 ---
 
+{{< microblog date="2025-11-07 - 10:01" >}}
+
+While looking for the lyrics to 優しい嘘 (Yasashii Uso) by 上原れな (Uehara
+Rena), I ended up finding a [Smule][smule] page for it. On it, there were a few
+[recordings of people singing the song][recordings] submitted years ago. These
+are very sweet amateur renditions of the song, and I found myself smiling like
+a parent listening to their children's school recital.
+
+[This one might be my favorite.][wa2-rec]
+
+[smule]: https://www.smule.com/
+[recordings]: https://www.smule.com/song/uehara-rena-white-album-2-yasashii-uso-karaoke-lyrics/5985650_5985650/arrangement
+[wa2-rec]: https://www.smule.com/recording/uehara-rena-white-album-2-yasashii-uso/1332711387_3874460253
+
+{{< /microblog >}}
+
 {{< microblog date="2025-10-27 - 11:11" >}}
 
 I made it so I can enable MathJax on a per-page basis on this website. It's
