@@ -24,6 +24,35 @@ may present a stark contrast.
 
 ---
 
+{{< microblog date="2025-11-07 - 18:09" >}}
+
+From _A Man for All Seasons,_ by Robert Bolt:
+
+> Oh? And when the last law was down, and the Devil turned 'round on you, where
+> would you hide, Roper, the laws all being flat? This country is planted thick
+> with laws, from coast to coast, Man's laws, not God's! And if you cut them
+> down --- and you're just the man to do it --- do you really think you could
+> stand upright in the winds that would blow then? Yes, I'd give the Devil
+> benefit of law, for my own safety's sake!
+>
+> --- Sir Thomas More
+
+Believe it or not, I found this gem while watching [meeting #131][oggo-131] of
+the (2nd session) 44th Canadian Parliament's Standing Committee on Government
+Operations and Estimated (OGGO). You can read the [minutes of
+proceedings][oggo-131-mins] if you prefer text. It led me to [this really nice
+article][sutherland-rol] about the rule of law by the Sutherland Institute,
+too, that I think is worth a read.
+
+[The powerful scene this is from is on YouTube.][amas-devil]
+
+[oggo-131]: https://parlvu.parl.gc.ca/Harmony/en/PowerBrowser/PowerBrowserV2?fk=12818324
+[oggo-131-mins]: https://www.ourcommons.ca/documentviewer/en/44-1/OGGO/meeting-131/evidence
+[sutherland-rol]: https://sutherlandinstitute.org/why-we-need-to-give-the-devil-the-benefit-of-law/
+[amas-devil]: https://www.youtube.com/watch?v=WMqReTJkjjg
+
+{{< /microblog >}}
+
 {{< microblog date="2025-11-07 - 10:01" >}}
 
 While looking for the lyrics to 優しい嘘 (Yasashii Uso) by 上原れな (Uehara
