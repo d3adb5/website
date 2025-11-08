@@ -14,16 +14,10 @@ extensions:
   - mathjax
 ---
 
-From the Library Functions Manual:
-
-> The `glob()` function searches for all the pathnames matching pattern
-> according to the rules used by the shell (see `glob(7)`). No tilde expansion
-> or parameter substitution is done; if you want these, use `word‐exp(3)`.
-
 Here you will find ponderances, ideas, cool things I found, plans I'll likely
-never execute, and other assorted bits and pieces that don't quite fit
-elsewhere on the website nor are lengthy enough to warrant a full article.
-Consider it the *more personal, human, and admittedly ugly* side of my writing.
+never execute, and other things that don't quite fit elsewhere on the website
+nor warrant a full article. Consider it the *more personal, human, and
+admittedly ugly* side of this website.
 
 To those used to the technical writing found elsewhere on this website, this
 may present a stark contrast.
