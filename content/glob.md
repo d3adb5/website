@@ -39,7 +39,7 @@ From _A Man for All Seasons,_ by Robert Bolt:
 
 Believe it or not, I found this gem while watching [meeting #131][oggo-131] of
 the (2nd session) 44th Canadian Parliament's Standing Committee on Government
-Operations and Estimated (OGGO). You can read the [minutes of
+Operations and Estimates (OGGO). You can read the [minutes of
 proceedings][oggo-131-mins] if you prefer text. It led me to [this really nice
 article][sutherland-rol] about the rule of law by the Sutherland Institute,
 too, that I think is worth a read.
