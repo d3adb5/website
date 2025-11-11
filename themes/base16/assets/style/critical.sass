@@ -2,12 +2,6 @@
 @import '_colorscheme'
 @import '_abstract'
 
-@media screen and (min-width: $body-max-width)
-  article
-    border-radius: $body-border-radius
-  body
-    margin: 2em auto !important
-
 html
   background: $bg-site
 
@@ -21,6 +15,9 @@ body
   font-size: $body-font-size
 
   color: $fg-normal
+
+  @media screen and (min-width: $body-max-width)
+    margin: 2em auto !important
 
 h1, h2, h3, h4, h5, h6
   margin: 1.1em 0 .83em
@@ -113,14 +110,7 @@ nav#TableOfContents
       padding-left: 1em
       margin-top: 1em
 
-@media screen and (min-width: $body-max-width)
-  label#toc-toggle
-    display: none
-
-  input#toc-toggle-box ~ nav#TableOfContents
-    display: initial
-
-  nav#TableOfContents
+  @media screen and (min-width: $body-max-width)
     float: right
     margin: 1em 0 1em 1em
     max-width: 40%
@@ -131,6 +121,14 @@ nav#TableOfContents
         margin-top: initial
       ul
         margin-top: initial
+
+label#toc-toggle
+  @media screen and (min-width: $body-max-width)
+    display: none
+
+input#toc-toggle-box ~ nav#TableOfContents
+  @media screen and (min-width: $body-max-width)
+    display: initial
 
 footer#page-footer
   @extend %basic-page-extremity
@@ -152,6 +150,9 @@ footer#page-footer
 article
   background: $bg-normal
   padding: 0.1em 1.5em 0.8em 1.5em
+
+  @media screen and (min-width: $body-max-width)
+    border-radius: $body-border-radius
 
   header
     font-weight: bold
@@ -213,9 +214,8 @@ article
   blockquote
     color: $fg-blockquote
     padding-left: 1em
-    border-width: 0 0 0 0.5em
-    border-style: solid
-    border-color: $fg-border
+    border: 0 solid $fg-border
+    border-left-width: 0.5em
 
   table
     width: 100%
@@ -243,10 +243,12 @@ article
     box-sizing: border-box
     outline: none
 
-  table#blog-index
+  table#blog-index,
+  table#latest-commits
     tr:hover
       background: $term-00
 
+  table#blog-index
     td.title a
       display: flex
       width: 100%
@@ -263,9 +265,6 @@ article
         color: $term-11
 
   table#latest-commits
-    tr:hover
-      background: $term-00
-
     td a
       display: flex
       width: 100%
@@ -365,13 +364,8 @@ article
     padding: 1em
     align-content: center
     border-radius: $toc-border-radius
-
-    border-width: 0.2em
-    border-style: solid
-    border-color: $fg-border
-
+    border: 0.2em solid $fg-border
     margin: 0.5em 0 0 0
-
     box-sizing: border-box
     max-width: 100%
 
@@ -399,7 +393,6 @@ article
         font-style: italic
 
   section.microblog
-
     p a
       text-decoration: underline
 
@@ -412,18 +405,18 @@ article
     section.microblog-content
       margin-left: 1em
 
-@media screen and (min-width: $body-max-width)
-  article table#blog-index td.tag
-    display: table-cell
+    @media screen and (min-width: $body-max-width)
+      margin-left: 1em
 
-  article table#latest-commits td.hash
-    display: table-cell
+  @media screen and (min-width: $body-max-width)
+    table#blog-index td.tag
+      display: table-cell
 
-  article section.dialog
-    margin: 1em 0 0 0
+    table#latest-commits td.hash
+      display: table-cell
 
-  article section.microblog
-    margin-left: 1em
+    section.dialog
+      margin: 1em 0 0 0
 
 section.github-card
   display: inline-block
@@ -440,10 +433,6 @@ section.github-card
   hr
     opacity: 0.5
     color: $fg-border
-
-  section#description,
-  section#more
-    line-height: 1em
 
   section#header
     display: flex
@@ -473,6 +462,10 @@ section.github-card
         display: inline-block
         font-size: 90%
         padding-left: 0.3em
+
+  section#description,
+  section#more
+    line-height: 1em
 
   section#description
     height: 3em
