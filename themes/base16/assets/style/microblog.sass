@@ -1,0 +1,19 @@
+@import '_settings'
+@import '_colorscheme'
+
+article
+  section.microblog
+    p a
+      text-decoration: underline
+
+    p.timestamp
+      color: $fg-header-sub
+      font-weight: bold
+      font-size: 90%
+      margin: 1em 0
+
+    section.microblog-content
+      margin-left: 1em
+
+    @media screen and (min-width: $body-max-width)
+      margin-left: 1em

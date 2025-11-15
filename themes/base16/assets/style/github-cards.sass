@@ -1,0 +1,72 @@
+@import '_settings'
+@import '_colorscheme'
+
+section.github-card
+  display: inline-block
+  max-width: 20em
+  min-width: 15em
+
+  border-radius: 0.3em
+  border: 0.1em solid $fg-border
+  padding: 0.5em
+
+  p, a
+    margin: 0
+
+  hr
+    opacity: 0.5
+    color: $fg-border
+
+  section#header
+    display: flex
+    justify-content: space-between
+    height: 3em
+
+    img
+      display: inline-block
+      height: 3em
+      border-radius: 0.3em
+
+    section#title
+      flex-grow: 1
+      padding: 0.2em 0.5em
+
+    section#stats
+      display: flex
+      align-items: center
+      justify-content: flex-end
+      min-width: 2em
+      height: 1.5em
+
+      svg
+        fill: $fg-normal
+        height: 1em
+      p.github-star
+        display: inline-block
+        font-size: 90%
+        padding-left: 0.3em
+
+  section#description,
+  section#more
+    line-height: 1em
+
+  section#description
+    height: 3em
+    text-overflow: ellipsis
+    overflow: hidden
+    padding: 0.5em 0 0
+
+    p
+      font-size: 90%
+
+  section#more
+    min-height: 1em
+
+    p.language
+      display: inline-block
+      margin: 0 0.2em
+      border-radius: 1em
+      padding: 0 0.35em
+      background: $fg-normal
+      color: $bg-normal
+      font-size: 90%

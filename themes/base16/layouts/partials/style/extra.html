@@ -1,0 +1,9 @@
+{{ $options := (dict "outputStyle" "compressed") }}
+
+{{ range .Params.stylesheets }}
+{{ $file := printf "style/%s.sass" . }}
+<style type="text/css">
+{{ $css := resources.Get $file | toCSS $options }}
+{{ $css.Content | safeCSS }}
+</style>
+{{- end }}

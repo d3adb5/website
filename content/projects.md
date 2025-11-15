@@ -12,6 +12,9 @@ navigation:
 
 extensions:
   - flickity
+
+stylesheets:
+  - github-cards
 ---
 
 Presented to you in no particular order, here are some of the things I've

@@ -1,3 +1,4 @@
+@import '_fonts'
 @import '_settings'
 @import '_colorscheme'
 @import '_abstract'
@@ -27,18 +28,12 @@ h1, h2, h3
 h4, h5, h6
   color: $fg-header-alt
 
-h1
-  font-size: 1.5em
-h2
-  font-size: 1.26em
-h3
-  font-size: 1.10em
-h4
-  font-size: 1.03em
-h5
-  font-size: .67em
-h6
-  font-size: .51em
+h1 { font-size: $heading-size-1 }
+h2 { font-size: $heading-size-2 }
+h3 { font-size: $heading-size-3 }
+h4 { font-size: $heading-size-4 }
+h5 { font-size: $heading-size-5 }
+h6 { font-size: $heading-size-6 }
 
 a
   text-decoration: initial
@@ -50,6 +45,7 @@ a:hover
 em
   color: $term-11
   font-style: normal
+
 strong
   color: $term-09
 
@@ -230,55 +226,6 @@ article
       white-space: nowrap
       padding: 0 0.5em 0 0
 
-  input#search-box
-    background: $bg-search
-    color: $fg-search
-    font-family: $common-font
-    font-size: initial
-    border: none
-    border-radius: $body-border-radius
-    text-align: center
-    width: 100%
-    padding: 0.35em 1em
-    box-sizing: border-box
-    outline: none
-
-  table#blog-index,
-  table#latest-commits
-    tr:hover
-      background: $term-00
-
-  table#blog-index
-    td.title a
-      display: flex
-      width: 100%
-      height: 100%
-      align-items: center
-      min-height: 2em
-
-    td.tag
-      display: none
-      width: 1em
-      text-align: right
-
-      a
-        color: $term-11
-
-  table#latest-commits
-    td a
-      display: flex
-      width: 100%
-      height: 100%
-      align-items: center
-
-    td.hash
-      display: none
-      width: 1em
-      text-align: right
-
-      a
-        color: $term-11
-
   table.compare-table
     border-collapse: collapse
 
@@ -341,21 +288,6 @@ article
   & > p a, & > ul li a, & > ol li a
     text-decoration: underline
 
-  ul#notebooks
-    list-style-type: square
-    padding-left: 1em
-
-    ul.notes
-      list-style-type: disc
-      padding-left: 1.5em
-
-  ul.terms-by-count
-    display: grid
-    grid-template-columns: repeat(auto-fit, minmax(11em, 1fr))
-    list-style-type: none
-    padding-left: 0
-    text-align: center
-
   &.extra-pages h2 ~ p
     margin-left: 2em
 
@@ -392,98 +324,5 @@ article
       em
         font-style: italic
 
-  section.microblog
-    p a
-      text-decoration: underline
-
-    p.timestamp
-      color: $fg-header-sub
-      font-weight: bold
-      font-size: 90%
-      margin: 1em 0
-
-    section.microblog-content
-      margin-left: 1em
-
     @media screen and (min-width: $body-max-width)
-      margin-left: 1em
-
-  @media screen and (min-width: $body-max-width)
-    table#blog-index td.tag
-      display: table-cell
-
-    table#latest-commits td.hash
-      display: table-cell
-
-    section.dialog
       margin: 1em 0 0 0
-
-section.github-card
-  display: inline-block
-  max-width: 20em
-  min-width: 15em
-
-  border-radius: 0.3em
-  border: 0.1em solid $fg-border
-  padding: 0.5em
-
-  p, a
-    margin: 0
-
-  hr
-    opacity: 0.5
-    color: $fg-border
-
-  section#header
-    display: flex
-    justify-content: space-between
-    height: 3em
-
-    img
-      display: inline-block
-      height: 3em
-      border-radius: 0.3em
-
-    section#title
-      flex-grow: 1
-      padding: 0.2em 0.5em
-
-    section#stats
-      display: flex
-      align-items: center
-      justify-content: flex-end
-      min-width: 2em
-      height: 1.5em
-
-      svg
-        fill: $fg-normal
-        height: 1em
-      p.github-star
-        display: inline-block
-        font-size: 90%
-        padding-left: 0.3em
-
-  section#description,
-  section#more
-    line-height: 1em
-
-  section#description
-    height: 3em
-    text-overflow: ellipsis
-    overflow: hidden
-    padding: 0.5em 0 0
-
-    p
-      font-size: 90%
-
-  section#more
-    min-height: 1em
-
-  section#more p.language
-      display: inline-block
-      margin: 0 0.2em
-      border-radius: 1em
-      padding: 0 0.35em
-      background: $fg-normal
-      color: $bg-normal
-      font-size: 90%

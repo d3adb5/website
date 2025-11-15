@@ -12,6 +12,9 @@ navigation:
 
 extensions:
   - mathjax
+
+stylesheets:
+  - microblog
 ---
 
 Here you will find ponderances, ideas, cool things I found, plans I'll likely

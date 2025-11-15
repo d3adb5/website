@@ -1,3 +1,12 @@
+{{ define "extra-head" }}
+{{ $options := (dict "outputStyle" "compressed") }}
+{{ $file := "style/terms.sass" }}
+<style type="text/css">
+{{ $css := resources.Get $file | toCSS $options }}
+{{ $css.Content | safeCSS }}
+</style>
+{{ end }}
+
 {{ define "content" }}
 <main role="main">
   <article id="content">

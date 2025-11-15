@@ -1,0 +1,25 @@
+@import '_settings'
+@import '_colorscheme'
+
+article
+  table#latest-commits
+    tr:hover
+      background: $term-00
+
+    td a
+      display: flex
+      width: 100%
+      height: 100%
+      align-items: center
+
+    td.hash
+      display: none
+      width: 1em
+      text-align: right
+
+      a
+        color: $term-11
+
+  @media screen and (min-width: $body-max-width)
+    table#latest-commits td.hash
+      display: table-cell

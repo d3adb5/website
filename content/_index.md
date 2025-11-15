@@ -11,6 +11,9 @@ navigation:
   title: Home
 
 extensions: []
+
+stylesheets:
+  - index
 ---
 
 Do you ever feel so inclined to share something that you seek out the company

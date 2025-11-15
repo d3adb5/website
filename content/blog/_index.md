@@ -11,6 +11,9 @@ navigation:
   title: Blog
 
 extensions: []
+
+stylesheets:
+  - blog-index
 ---
 
 Should I want to share anything on my mind with the world, or type something up

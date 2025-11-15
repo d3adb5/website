@@ -1,0 +1,39 @@
+@import '_settings'
+@import '_colorscheme'
+
+article
+  table#blog-index
+    tr:hover
+      background: $term-00
+
+    td.title a
+      display: flex
+      width: 100%
+      height: 100%
+      align-items: center
+      min-height: 2em
+
+    td.tag
+      display: none
+      width: 1em
+      text-align: right
+
+      a
+        color: $term-11
+
+    @media screen and (min-width: $body-max-width)
+      td.tag
+        display: table-cell
+
+  input#search-box
+    background: $bg-search
+    color: $fg-search
+    font-family: $common-font
+    font-size: initial
+    border: none
+    border-radius: $body-border-radius
+    text-align: center
+    width: 100%
+    padding: 0.35em 1em
+    box-sizing: border-box
+    outline: none

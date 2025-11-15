@@ -6,6 +6,8 @@
     {{ partial "metadata/preload-fonts.html" . }}
     {{ partial "metadata/extensions.html" . }}
     {{ partial "style/critical.html" . }}
+    {{ partial "style/extra.html" . }}
+    {{ block "extra-head" . }}{{ end }}
   </head>
   <body>
     {{ block "navigation" . }}

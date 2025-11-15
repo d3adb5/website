@@ -13,6 +13,9 @@ navigation:
   title: Notes
 
 extensions: []
+
+stylesheets:
+  - notes
 ---
 
 People often say that the best way to commit something to memory is by writing
