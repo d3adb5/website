@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Homelab on d3adb5's personal website</title><link>https://d3adb5.net/tags/homelab/</link><description>Recent content in Homelab on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 26 Oct 2025 23:26:15 -0700</lastBuildDate><atom:link href="https://d3adb5.net/tags/homelab/index.xml" rel="self" type="application/rss+xml"/><item><title>Talos Linux Homelab Pt. 3: Storage Solutions</title><link>https://d3adb5.net/blog/talos-homelab-pt-3-truenas-storage/</link><pubDate>Sun, 26 Oct 2025 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/talos-homelab-pt-3-truenas-storage/</guid><description>&lt;p&gt;The last thing I&amp;rsquo;ll cover in this series &lt;em&gt;for the time being&lt;/em&gt; is storage. This
+is perhaps the most crucial part of a complete homelab setup, as without
+storage you are very limited in what you can do that is useful. Essentially I
+wanted expandable, reliable, and moderately fast storage that could be accessed
+by all the nodes in my Talos cluster. Turns out I had to give up a bit of high
+availability to get there, but that&amp;rsquo;s okay.&lt;/p&gt;</description></item><item><title>Talos Linux Homelab Pt. 2: Cluster and Argo CD Bootstrapping</title><link>https://d3adb5.net/blog/talos-homelab-pt-2-cluster-bootstrapping/</link><pubDate>Sun, 31 Aug 2025 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/talos-homelab-pt-2-cluster-bootstrapping/</guid><description>&lt;section class="dialog dialog-warning"&gt;
+ &lt;section class="dialog-icon"&gt;⚠️&lt;/section&gt;
+ &lt;section class="dialog-content"&gt;
+&lt;p&gt;I began writing this article about a year ago. Some of the content may be
+outdated and I&amp;rsquo;m now hazy on the details. An attempt was made to keep it
+accurate, but note that this was never meant to be a tutorial or a step-by-step
+guide.&lt;/p&gt;
+ &lt;/section&gt;
+&lt;/section&gt;
+&lt;p&gt;This article is &lt;strong&gt;not&lt;/strong&gt; meant as a replacement for the Talos documentation page
+on &lt;a href="https://www.talos.dev/v1.9/introduction/getting-started/"&gt;getting started with a cluster&lt;/a&gt;. Instead, I&amp;rsquo;ll just mention what
+I&amp;rsquo;ve done and how easy it is to set it up, as well as the steps that I took to
+set up Argo CD and an App of Apps repository. For reference, the repository I
+ended up with is available on GitHub under &lt;a href="https://github.com/d3adb5/homelab"&gt;d3adb5/homelab&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>Talos Linux Homelab Pt. 1: An introduction</title><link>https://d3adb5.net/blog/assembling-a-homelab-part-1/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/assembling-a-homelab-part-1/</guid><description>&lt;p&gt;There comes a time in a technology enthusiast&amp;rsquo;s life when they decide to build
+a homelab. Chances are if you&amp;rsquo;re reading this, you&amp;rsquo;ve either googled the term
+and know what I&amp;rsquo;m talking about &amp;mdash; so I promise not to take long in this
+introduction &amp;mdash; or you&amp;rsquo;re following me (stalking much?) and don&amp;rsquo;t necessarily
+care.&lt;/p&gt;
+&lt;p&gt;In any case, I&amp;rsquo;ve long had &lt;em&gt;VPSes&lt;/em&gt; to host my personal projects and services
+like Plex for myself and close friends. It&amp;rsquo;s always seemed much cheaper than
+purchasing the equipment and hosting on-premises. Recently I&amp;rsquo;ve even set up a
+Kubernetes cluster using &lt;a href="https://k0sproject.io/"&gt;k0s, a Kubernetes distribution&lt;/a&gt; made to be
+simple and lightweight. Latency, bandwidth limits and weak hardware have
+compelled me to build one instead.&lt;/p&gt;</description></item></channel></rss>

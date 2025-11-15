@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on d3adb5's personal website</title><link>https://d3adb5.net/tags/git/</link><description>Recent content in Git on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 14 May 2023 17:51:22 -0700</lastBuildDate><atom:link href="https://d3adb5.net/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Updated Git opinions and lessons learned</title><link>https://d3adb5.net/blog/more-git-opinions/</link><pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/more-git-opinions/</guid><description>&lt;p&gt;This is yet another foray into Git matters. I must say that, albeit not by
+much, my opinions have changed since &lt;a href="https://d3adb5.net/blog/git-rebase-vs-merge/"&gt;the last time I wrote down my thoughts on
+Git.&lt;/a&gt; While I&amp;rsquo;m still an advocate for linear history &amp;mdash;
+provided it doesn&amp;rsquo;t come at considerable expense &amp;mdash; I&amp;rsquo;ve come to revel in my
+laziness, appreciate the power of a Git merge, and hold in contempt the
+inability of suites like GitLab, GitHub, and BitBucket to handle conflict
+resolution in merge commits.&lt;/p&gt;</description></item><item><title>Using Git outside of programming</title><link>https://d3adb5.net/blog/git-outside-programming/</link><pubDate>Sat, 18 Jun 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/git-outside-programming/</guid><description>&lt;p&gt;It is public knowledge that versioning is important when writing documents, be
+it source code for a project written in a programming language, drafts of a
+book, or meeting minutes. GitHub, for instance, uses Git for their &lt;em&gt;site
+policy, documentation,&lt;/em&gt; and &lt;em&gt;roadmap,&lt;/em&gt; none of which involve or focus on
+programming. But what if we don&amp;rsquo;t care too much about versioning itself?&lt;/p&gt;
+&lt;p&gt;Keeping a history of versions of a piece of work doesn&amp;rsquo;t come to mind so
+naturally, especially for those of us who don&amp;rsquo;t want to show whatever we&amp;rsquo;re
+working on to anybody until we&amp;rsquo;re perfectly happy with it. We forget that the
+history being preserved serves us far more than it does anybody else: did you
+come up with a good idea for working around X limitation? &lt;em&gt;Write it down!&lt;/em&gt;&lt;/p&gt;</description></item><item><title>On linear history with Git: rebase, merge, squash</title><link>https://d3adb5.net/blog/git-rebase-vs-merge/</link><pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/git-rebase-vs-merge/</guid><description>&lt;p&gt;&lt;strong&gt;DISCLAIMER:&lt;/strong&gt; I do not claim to be an expert on Git, nor do I claim to have a
+lot of experience in source code management tools. This article is being
+written as I decide what I want for my own projects, and how I position myself
+on the application of each &amp;ldquo;philosophy&amp;rdquo;, so to speak. This topic is
+controversial in ways I hadn&amp;rsquo;t even imagined before.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; Decent knowledge of Git and its terminology is assumed here. Some
+commands might be shown, but explanations about what a &lt;code&gt;commit&lt;/code&gt;, a &lt;code&gt;branch&lt;/code&gt;,
+etc. are will not be present. Links to documentation will be added on occasion.&lt;/p&gt;</description></item></channel></rss>
