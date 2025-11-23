@@ -1,6 +1,6 @@
 ---
 draft: false
-date: 2023-02-20
+date: 2025-11-23
 
 title: About me and this website
 subtitle: Some information about myself and the site
