@@ -3,7 +3,7 @@ draft: false
 date: 2023-02-20
 
 title: About me and this website
-subtitle: Who I am, what I do, what's the point of the website, etc.
+subtitle: Some information about myself and the site
 
 navigation:
   index: 0
@@ -13,52 +13,55 @@ navigation:
 extensions: []
 ---
 
-In this page I will try to put my best foot forward and highlight my qualities,
-accomplishments, aspirations and goals to you, the reader. This is not out of
-some narcissistic need to impress you, but rather to give you a better idea of
-what I'm about.
+Bear with me as I struggle to write something meaningful here. I believe no
+amount of prose, poetry or illustrations can truly capture the essence of a
+person, and invite you to contact me if you wish to connect on a deeper level.
+_In fact, I'd be elated if you did,_ as I find it unbearably difficult to
+bridge the gap between myself and others.
 
-Hello, I'm a _DevOps Engineer_ working with various technologies but with a
-keen interest in _Kubernetes._ I'm also a bit of a _GNU/Linux enthusiast,_
-having been using the operating system for over a decade now. My formal
-education is comprised of unfinished bachelors degrees in both _Computer
-Science_ and _Abstract Mathematics_ at prestigious universities in my home
-country.
+Here is a bullet list of quick facts for you to skim through if you don't feel
+like reading everything:
 
-Here are a few things about me:
+- The way I type resembles the pages on this website. It's not everyone's cup
+  of tea, but it's authentic to who I am.
+- Social interactions are often draining for me. Consequently, I cling to
+  meaningful relationships and avoid superficial ones.
+- Since childhood, I've held a curiosity not limited to an understanding of the
+  natural world, but also of people and their motivations.
+- I love it when simplicity meets elegance: a story told eloquently in a few
+  words, a minimal yet functional workspace, a fun game with simple mechanics
+  and no overwhelming interface.
 
-- _I'm Kubernetes certified:_ I hold all 3 Linux Foundation certifications for
-  Kubernetes: _CKA, CKAD,_ and _CKS._
-- _I'm AWS certified:_ currently a certified cloud practitioner (CCP), working
-  slowly towards more certifications.
-- I've had contributions accepted into staging branches of the Linux kernel's
-  IIO subsystem.
-- I've been using GNU/Linux for over a decade now, working on the command line
-  for the most part.
-- I speak _English, Portuguese,_ some _Spanish_ and a bit of _Japanese._
-  Self-taught for the most part.
-- In my current team, I'm the go-to person when people need help with
-  Kubernetes, Git, Linux, and more.
-- I enjoy karaoke, reading, and playing video games. I'm really good at
-  _Tetris,_ and love _The Legend of Zelda._
+This website is a successor to an older one I had, which was much more personal
+than this one has been up until the time of writing this. Looking back, I see a
+lot of myself in those pages, and I now wish to recreate that feeling here.
+Despite the more professional early tone of this site, I want it to still feel
+like _me._
 
-Additionally, I'm a pretty fast learner. To illustrate: _in under a year_ I
-came to hold three certifications, became a mentor in my team, was entrusted
-with presenting to important foreign clients, and put in charge of a major
-project that brought in over 12 new contracts from the same client. I was
-promoted in quick succession, and am perceived as a good mentor and programming
-pair by my peers.
+## Interests
 
-## What about this website?
+Here's a non-exhaustive list, in no particular order:
 
-This website was never meant to be a portfolio, but if you read the more
-technical pages and articles here, it could work as one! To make it easier for
-potential employers to use it as such, I'll be making some changes to the
-overall layout and design of the website. For privacy reasons, personal
-information will be left out. Send me a PGP encrypted email if you want to
-confirm this page really is mine.
+- Excercising dialectics, pushing others to question their own beliefs and
+  assumptions, playing devil's advocate.
+- Declarative approaches to programming, system administration, and
+  infrastructure.
+- Languages and linguistics, particularly phonetics and etymology.
+- GNU/Linux and free software, and the philosophy behind the latter.
+- Consuming media (e.g. movies, series, books) with others and discussing them
+  afterwards.
 
-Talk is cheap. Want to see the code? Head over to my [GitHub
-profile][ghprofile].
+The last one is particularly important to me. I find that sharing experiences
+is the best way to bond with others, and that analyzing and discussing the
+things we encounter helps us appreciate them more deeply. In the process, we'll
+come to understand one another and the world around us better, little by
+little. *I would love it if you came to love the things I love,* and vice
+versa.
 
-[ghprofile]: https://github.com/d3adb5
+## Contact
+
+- Telegram: [@d3adb5](https://t.me/d3adb5)
+- Signal: `d3adb5.27`
+- Email: `me` at `d3adb5.net` ([D3ADB5C7][pgp])
+
+[pgp]: https://keyserver.ubuntu.com/pks/lookup?search=0xd3adb5c7&fingerprint=on&op=index
