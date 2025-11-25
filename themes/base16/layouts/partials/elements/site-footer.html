@@ -1,8 +1,13 @@
 <footer id="page-footer">
   {{ with .GitInfo }}
-  <p id="commit"><a
-     href="{{ $.Site.Params.repoUrl }}/commit/{{ .Hash }}"
-  >{{ .AbbreviatedHash }}</a></p>
+  <p id="commit">
+    <a href="{{ $.Site.Params.repoUrl }}/commit/{{ .Hash }}">
+      {{ .AbbreviatedHash }}
+      <span class="commit-subject">
+        {{ .Subject }}
+      </span>
+    </a>
+  </p>
   {{ end }}
   <p id="timestamp">
     {{ if eq .Lastmod .PublishDate }}
