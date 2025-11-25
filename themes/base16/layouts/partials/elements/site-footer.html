@@ -4,5 +4,11 @@
      href="{{ $.Site.Params.repoUrl }}/commit/{{ .Hash }}"
   >{{ .AbbreviatedHash }}</a></p>
   {{ end }}
-  <p id="timestamp">Published in {{ .PublishDate.Format "January 2, 2006" }}</p>
+  <p id="timestamp">
+    {{ if eq .Lastmod .PublishDate }}
+      Published {{ .PublishDate.Format "January 2, 2006" }}
+    {{ else }}
+      Updated {{ .Lastmod.Format "January 2, 2006" }}
+    {{ end }}
+  </p>
 </footer>
