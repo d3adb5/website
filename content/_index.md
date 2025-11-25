@@ -16,19 +16,18 @@ stylesheets:
   - index
 ---
 
-Do you ever feel so inclined to share something that you seek out the company
-of others, only to realize you have nothing to say to them once you've found
-them? Little thoughts that flit through your mind and beg to be manifested into
-words, yet lack a willing audience to receive them and sadly dissipate as
-quickly as they came. *I feel that is a common affliction:* a symptom of a self
-that yearns to connect with others on a deeper level, but is constrained by
-often self-imposed barriers.
+Do you ever feel a strange sadness when trying to share something with others?
+A longing for connection accompanied by an inability to express oneself fully.
+Perhaps you work up the courage to open a chat window with a friend, but get
+stuck composing and rewriting a message, unable to submit a single word, for
+fear they won't care or understand. You want to record your thoughts, but a
+journal feels too private, and social media too public.
 
-It helps to have not just an outlet, but a curated record of what one wants to
-say. A place to return to, to connect with oneself over time, and for others to
-connect with you as well. Not a public journal or diary, but a place you build
-yourself so personally that others are wont to say it "screams you." **To me,
-this is that place.**
+You crave a space that is yours alone, where you aren't a drop in an ocean of
+shapeless voices competing for deciseconds of attention. Not an outlet, per se,
+but a curated record of what you once wanted to say. A place you can return to,
+to connect with yourself over time, and where others can connect with you as
+well. **To me, this is that place.**
 
 ## Forever a work in progress
 
@@ -53,3 +52,7 @@ you use PGP, here are my keys:
 ECC: 1D6680F97A6617F4D9B2A0F9D989443FD3ADB5C7 (preferred)
 RSA: C3295D9E3A719FFE2EFD2EBB697797CED3ADB5C9
 ```
+
+More contact information can be found on the [about page][about].
+
+[about]: {{< relref "about.md" >}}
