@@ -17,44 +17,43 @@ stylesheets:
   - github-cards
 ---
 
-Presented to you in no particular order, here are some of the things I've
-worked on, in one way or another, that I think are worthy of some note. I'll
-add descriptions for each project, or for my involvement in it if it's not
-originally mine.
+_Presented to you in no particular order,_ here are some of the things I've
+worked on that I believe are worthy of some note. Most of it is hosted on
+GitHub, so I use the GitHub API to fetch data about them --- user avatar,
+stars, languages used in the repository --- and present them neatly in cards on
+a carousel.
 
-Let's start with _personal_ projects on _GitHub!_ This will make up most of the
-projects listed here, as most free and open source projects are hosted on
-GitHub --- for better or for worse --- and that's where I host mine as well.
-For each repository, the languages used are listed below the project
-description in order of most used to least used. These appear as detected by
-GitHub and may not be accurate.
+For projects not originally mine, I'll explain my involvement or impact on them
+in place of a project description. Since I'm trying to keep it concise, that
+may be limited to two or three sentences, which is sometimes hardly fair.
 
-**DISCLAIMER:** There's a little bit of JavaScript in this page as a result of
-trying to make a nice looking GitHub project carousel, but the page should work
-just fine without it as well. _Feel free to scroll through (dragging works
-too):_
+## Personal projects
+
+Code that against my better judgment I decided to publish for the world to see.
+If you want to see more, check out my [GitHub profile][gh-profile].
 
 {{< flickity >}}
-  {{< github path="d3adb5/smarky" >}}
+  {{< github path="d3adb5/homelab" >}}
   {{< github path="d3adb5/helm-unittest-action" >}}
+  {{< github path="d3adb5/app-of-apps" >}}
   {{< github path="d3adb5/website" >}}
   {{< github path="d3adb5/dotfiles" >}}
-  {{< github path="d3adb5/devops-playground" >}}
+  {{< github path="d3adb5/smarky" >}}
   {{< github path="d3adb5/st" >}}
   {{< github path="d3adb5/scripts" >}}
   {{< github path="d3adb5/brainfuck" >}}
+  {{< github path="d3adb5/devops-playground" >}}
 {{< / flickity >}}
 
-The number of stars in the repositories above is pretty low, eh? If you think
-any of these are useful or cool, _please consider starring them on GitHub!_ It
-boosts my ego and shows me people are at least a little bit interested in what
-I'm working on.
+This section is limited to public repositories. Private repositories will be
+covered later on.
 
-I have other repositories that aren't listed here, be it because they're
-private or because I didn't think they were worth highlighting on this page.
-I'll speak about the private repositories further down, but first, _here are
-some projects I've contributed to on GitHub,_ along with my involvement in each
-and every one of them:
+[gh-profile]: https://github.com/d3adb5
+
+## Contributions to other projects
+
+Here are some projects I've contributed to on GitHub, along with my involvement
+in each and every one of them:
 
 {{< flickity >}}
   {{< github
@@ -78,8 +77,8 @@ and every one of them:
     description="Introduced chart unit tests, refactored chart, and reviewed some PRs. Was made a repository maintainer by Stakater."
   >}}
   {{< github
-    path="kolbusa/stalonetray"
-    description="Added a feature to ignore tray icons based on their window class, completely refactored the settings module."
+    path="d3adb5/stalonetray"
+    description="After adding features and refactoring the settings module, I became the project's official maintainer. I'm sorry in advance."
   >}}
   {{< github
     path="mumble-voip/mumble-docker"
@@ -123,15 +122,21 @@ I'm leaving out some old repositories and repositories that have since been dele
 
 ## Private repositories
 
-One could say most of my activity on GitHub is private. That's not because of
-work, since the company I work for doesn't use GitHub, but more so because I
-find there's information I'd rather keep private stored in them. Examples of
-such pieces of information are IP addresses and domain names of virtual
-machines I have running that are exposed to the Internet.
+Most of my activity on GitHub is private. Not because of work --- the company I
+work for doesn't use GitHub --- but because I find there's information I'd
+rather keep private stored in them. Examples of such pieces of information are
+IP addresses and domain names of virtual machines I have running that are
+exposed to the Internet.
 
-Anyway, here's a list:
+Since they are private, the following cards were made manually:
 
 {{< flickity >}}
+  {{< project-card
+    github="d3adb5"
+    project="d3adb5/secretlab"
+    description="Private side of the homelab project, containing information I'd rather not publicize, purely for privacy reasons."
+    languages="HCL, Terraform"
+  >}}
   {{< project-card
     github="d3adb5"
     project="d3adb5/services"
@@ -175,18 +180,23 @@ Some of these are no longer maintained, but are recorded here for posterity.
 ## Other projects
 
 I'm also listed as a co-author of a couple of commits accepted into staging in
-the _Linux kernel IIO subsystem!_ The specifics: the commits add arrays
+the _Linux kernel IIO subsystem._ The specifics: the commits add arrays
 containing Open Firmware device IDs that a couple of drivers for Analog devices
 should support, as well as a macro to simplify the capacitance channel
-specification. I have fellow members of my student group to thank for that, as
-I'd previously not even considered contributing to the Linux kernel.
+specification. I have fellow members of my student group in university to thank
+for that, as I'd previously not even considered contributing to the Linux
+kernel.
 
-A hobby of mine since roughly 2016 is repurposing my family's old laptops as
-_home servers_ to run useful services like Pihole, Syncthing, Transmission,
-Plex, Kodi, among others. It breathes life into old computers and is a fun side
-project.
+A hobby of mine since roughly 2016 had been repurposing my family's old laptops
+as _home servers_ to run services like Pihole, Syncthing, Transmission, Plex,
+Kodi, among others. It breathes life into old computers and is a fun side
+project. These days, I run a [Talos-backed homelab][talos-pt-1] using
+refurbished micro-desktop PCs.
 
-Anyway, these are all I can talk about --- I'm obviously excluding the projects
-the companies I've worked for have ownership of, since _I don't want to break
-any NDAs._ For the most part, I'm working with Kubernetes, Jenkins, Terraform,
-AWS, and so on. _Contact me_ if you wish to learn more!
+These are most of the projects I can talk about --- I'm obviously excluding the
+projects the companies I've worked for have ownership of, since _I do not want
+to break any NDAs._ For the most part, I'm working with Kubernetes, Jenkins,
+Terraform, GitLab CI, GCP, AWS, and so on. Contact me if you wish to learn
+more!
+
+[talos-pt-1]: {{< relref "blog/assembling-a-homelab-part-1.md" >}}

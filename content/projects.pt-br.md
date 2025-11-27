@@ -1,5 +1,5 @@
 ---
-draft: false
+draft: true
 date: 2023-03-06
 
 title: Projetos pessoais, pet projects, projetos paralelos, etc.
