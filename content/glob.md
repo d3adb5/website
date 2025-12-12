@@ -27,6 +27,16 @@ may present a stark contrast.
 
 ---
 
+{{< microblog date="2025-12-11 - 16:09" >}}
+
+イツエの「海へ還る」より：
+
+> おかえり、おかえり \
+> こんなにも自由に君は泳げる\
+> そんな事知らなかったでしょう
+
+{{< /microblog >}}
+
 {{< microblog date="2025-11-07 - 18:09" >}}
 
 From _A Man for All Seasons,_ by Robert Bolt:
