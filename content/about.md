@@ -55,8 +55,8 @@ The last one is particularly important to me. I find that sharing experiences
 is the best way to bond with others, and that analyzing and discussing the
 things we encounter helps us appreciate them more deeply. In the process, we'll
 come to understand one another and the world around us better, little by
-little. *I would love it if you came to love the things I love,* and vice
-versa.
+little. *It would make me happy if you came to cherish the things I love,* and
+vice versa.
 
 ## Contact
 
