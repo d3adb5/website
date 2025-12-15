@@ -27,6 +27,28 @@ may present a stark contrast.
 
 ---
 
+{{< microblog date="2025-12-15 - 00:05" >}}
+
+After a year or two of a hate-hate relationship with Spotify --- which I'd
+switched to to afford someone more convenience --- I have finally gone back to
+self-hosting my own music library with [Navidrome][navidrome]. I tried using
+[Lidarr][lidarr] for a little while, but its search feature has been broken
+since a MusicBrainz API change a few months ago. To manage my music library and
+properly tag files, I've gone back to using [Beets][beets], which I had used
+years ago.
+
+Upon discovering [Symfonium][symfonium] and [Supersonic][supersonic], I am now
+pretty happy with my setup. I can continue rebuilding my old music library,
+hosting it myself, and listening to music through my Sonos speakers.
+
+[navidrome]: https://www.navidrome.org/
+[lidarr]: https://lidarr.audio/
+[beets]: https://beets.io/
+[symfonium]: https://symfonium.app/
+[supersonic]: https://github.com/dweymouth/supersonic
+
+{{< /microblog >}}
+
 {{< microblog date="2025-12-11 - 16:09" >}}
 
 イツエの「海へ還る」より：
