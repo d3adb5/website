@@ -2,10 +2,8 @@
   {{ with .GitInfo }}
   <p id="commit">
     <a href="{{ $.Site.Params.repoUrl }}/commit/{{ .Hash }}">
-      {{ .AbbreviatedHash }}
-      <span class="commit-subject">
-        {{ .Subject }}
-      </span>
+      <span class="commit-hash">{{ .AbbreviatedHash }}</span>
+      <span class="commit-subject">{{ .Subject }}</span>
     </a>
   </p>
   {{ end }}
