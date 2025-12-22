@@ -1,0 +1,92 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Not too long ago, I started looking into building myself a reasonable desktop
+so I could finally graduate from my ThinkPad X220. Don&rsquo;t get me wrong, the X220
+is pretty neat and will still work for a long time, but sometimes its fan would
+go turbo mode while running relatively simple programs like Telegram Desktop
+and Discord. You could chalk that up to the applications not being well
+optimized &mdash; and that is specially true for the latter example &mdash; but at
+some point you give in and start looking to replace the hardware that was
+already meant for just office work when it came out back in 2011."><meta http-equiv=Content-Security-Policy content="default-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src *; object-src 'none'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; worker-src 'self' blob:; base-uri 'self'"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>How does a micro form factor PC perform?</title><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-600.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-600.woff2 crossorigin><style type=text/css>@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:400;src:url(/fonts/source-sans-pro-regular.woff2)format("woff2"),url(/fonts/source-sans-pro-regular.woff)format("woff")}@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:600;src:url(/fonts/source-sans-pro-600.woff2)format("woff2"),url(/fonts/source-sans-pro-600.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:400;src:url(/fonts/inconsolata-regular.woff2)format("woff2"),url(/fonts/inconsolata-regular.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:600;src:url(/fonts/inconsolata-600.woff2)format("woff2"),url(/fonts/inconsolata-600.woff)format("woff")}footer#page-footer,nav#site-nav{background:0 0;padding:1em}footer#page-footer,nav#site-nav{background:#282a2e;color:#c5c8c6;line-height:3em}nav#site-nav{display:flex;overflow:auto;scrollbar-width:none}nav#site-nav::-webkit-scrollbar{display:none}nav#site-nav a{display:inline-block;width:6em;font-weight:700;text-align:center;color:inherit;flex-shrink:0}@media screen and (min-width:60em){footer#page-footer,nav#site-nav{line-height:inherit}}html{background:#252628}body{width:100%;max-width:60em;margin:0 auto;line-height:1.5em;font-family:source sans pro,helvetica,liberation sans,open sans,sans-serif;font-size:100%;color:#c5c8c6}@media screen and (min-width:60em){body{margin:2em auto!important}}h1,h2,h3,h4,h5,h6{margin:1.1em 0 .83em}h1,h2,h3{color:#8c9440}h4,h5,h6{color:#b5bd68}h1{font-size:1.5em}h2{font-size:1.26em}h3{font-size:1.1em}h4{font-size:1.03em}h5{font-size:.67em}h6{font-size:.51em}a{text-decoration:initial;color:#de935f}a:hover{text-decoration:underline}em{color:#f0c674;font-style:normal}strong{color:#c66}nav#site-nav{border-radius:1em 1em 0 0;background:0 0;color:#c5c8c6}nav#site-nav a.push-right{margin-left:auto}nav#site-nav a.current{color:#81a2be}label#toc-toggle{display:flex;width:100%;margin-top:1em;height:3em;align-items:center;justify-content:center}input#toc-toggle-box{display:none}input#toc-toggle-box~nav#TableOfContents{display:none}input#toc-toggle-box:checked~nav#TableOfContents{display:block}nav#TableOfContents{margin:.5em 0 0;box-sizing:border-box;background:#282a2e;padding:1em;border-radius:.5em;overflow:hidden;font-weight:700;color:#de935f}nav#TableOfContents ul{margin:0;padding:0;list-style-type:none}nav#TableOfContents ul li{overflow:hidden;white-space:nowrap;text-overflow:' ...'}nav#TableOfContents ul li+li{margin-top:1em}nav#TableOfContents ul ul{padding-left:1em;margin-top:1em}@media screen and (min-width:60em){nav#TableOfContents{float:right;margin:1em 0 1em 1em;max-width:40%;font-size:85%}nav#TableOfContents ul li+li{margin-top:initial}nav#TableOfContents ul ul{margin-top:initial}}@media screen and (min-width:60em){label#toc-toggle{display:none}}@media screen and (min-width:60em){input#toc-toggle-box~nav#TableOfContents{display:initial}}footer#page-footer{background:0 0;color:#707880;display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr)}footer#page-footer a{color:#f0c674}footer#page-footer span.commit-subject{color:#de935f;margin-left:.5em}footer#page-footer p#commit{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}footer#page-footer p#commit span.commit-hash{font-family:inconsolata,dejavu sans mono,liberation mono,monospace}footer#page-footer p#timestamp,footer#page-footer p#commit{margin:0}footer#page-footer p#timestamp{text-align:right}article{background:#1d1f21;padding:.1em 1.5em .8em}@media screen and (min-width:60em){article{border-radius:.5em}}article header{font-weight:700}article header section.header-line{display:flex;justify-content:space-between;align-items:center}article header section.header-line h1{color:#8c9440;margin-bottom:.25em}article header section.header-line aside#translations{margin:1.1em 0 .25em}article header section.header-line aside#translations ul#translations{list-style:none;padding:0;margin:0;display:flex;justify-content:space-around;font-size:115%}article header section.header-line aside#translations ul#translations li:not(:first-child){margin-left:1em}article header section.subheader-line{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}article header section.subheader-line p.subtitle{color:#5e8d87;margin:0}article header section.subheader-line p.subtitle em{color:inherit;font-style:italic}article header section.subheader-line ul#article-tags{list-style-type:none;padding-left:0;margin:0;font-size:85%}article header section.subheader-line ul#article-tags li{display:inline-block}article header section.subheader-line ul#article-tags li:nth-child(n+2){margin-left:1em}article header section.subheader-line ul#article-tags li a{color:#f0c674}article blockquote{color:#979a98;padding-left:1em;border:0 solid #707880;border-left-width:.5em}article table{width:100%}article table th{color:#81a2be}article table td{color:#c5c8c6}article table td.date{width:1%;white-space:nowrap;padding:0 .5em 0 0}article table.compare-table{border-collapse:collapse}article table.compare-table th,article table.compare-table td{padding:.5em 1em;box-sizing:border-box}article table.compare-table th:first-child,article table.compare-table td:first-child{padding-left:0}article table.compare-table th:last-child,article table.compare-table td:last-child{padding-right:0}article table.compare-table th,article table.compare-table td:nth-child(n+2){text-align:center}article table.compare-table td{border-top:.1em solid #707880}article table.compare-table th:nth-child(n+2){min-width:4em}article li::marker{color:#f0c674}article figure{margin:1.25em 0;text-align:center}article figure img{min-height:5em;max-height:15em;width:100%;object-fit:cover;border-radius:1em}article figure figcaption p{margin-top:0}article code{font-family:inconsolata,dejavu sans mono,liberation mono,monospace;font-size:100%}article pre{background:#282a2e;border-radius:.5em;padding:.5em 1em;overflow-x:auto;line-height:initial}article>hr{color:#707880;opacity:.5;margin:2em 0}article p code,article li code{background:#282a2e;padding:0 .3em;border-radius:.25em}article>p a,article>ul li a,article>ol li a{text-decoration:underline}article.extra-pages h2~p{margin-left:2em}article section.dialog{display:flex;padding:1em;align-content:center;border-radius:.5em;border:.2em solid #707880;margin:.5em 0 0;box-sizing:border-box;max-width:100%}article section.dialog p:first-child{margin-top:0}article section.dialog p:last-child{margin-bottom:0}article section.dialog .dialog-icon{margin-right:1em}article section.dialog.dialog-info{border-color:#5f819d}article section.dialog.dialog-warning{border-color:#de935f}article section.dialog.dialog-error{border-color:#a54242}article section.dialog.dialog-success{border-color:#8c9440}@media screen and (min-width:60em){article section.dialog{margin:1em 0 0}}</style></head><body><nav id=site-nav><a href=/ class=[]>Home
+</a><a href=/blog/ class=[]>Blog
+</a><a href=/glob/ class=[]>Glob
+</a><a href=/projects/ class=[]>Projects
+</a><a href=/about/ class=push-right>About</a></nav><main role=main><article id=content><header><section class=header-line><h1>How does a micro form factor PC perform?</h1></section><section class=subheader-line><p class=subtitle>A desktop the size of a lunch box with surprising performance!</p><ul id=article-tags><li><a href=/tags/hardware>Hardware</a></li><li><a href=/tags/opinions>Opinions</a></li><li><a href=/tags/technology>Technology</a></li><li><a href=/tags/equipment>Equipment</a></li></ul></section></header><p>Not too long ago, I started looking into building myself a reasonable desktop
+so I could finally graduate from my ThinkPad X220. Don&rsquo;t get me wrong, the X220
+is pretty neat and will still work for a long time, but sometimes its fan would
+go turbo mode while running relatively simple programs like Telegram Desktop
+and Discord. You could chalk that up to the applications not being well
+optimized <em>&mdash; and that is specially true for the latter example &mdash;</em> but at
+some point you give in and start looking to replace the hardware that was
+already meant for just office work <strong>when it came out back in 2011.</strong></p><figure><a href=/media/thinkpad-x220.webp><img src=/media/thinkpad-x220.webp alt="The X220 is a 12.5in laptop with a nice keyboard. Pretty portable!"></a><figcaption><p>The X220 is a 12.5in laptop with a nice keyboard. Pretty portable!</p></figcaption></figure><p>My main concern with getting a desktop was the fact I don&rsquo;t have a lot of space
+where I currently live. There&rsquo;s barely enough space on my desk for a mini-ITX
+case, and those already become complicated builds when you want to maintain
+extensibility. <em>Why was I looking for extensibility, however?</em> I kind of wanted
+the ability to, in the distant future, get myself a nice GPU so I could play
+enhanced versions of console games through emulation. I barely have time to
+play on my Switch, so why go the extra mile here, right?</p><p>The idea of getting a GPU in the future became clearly unimportant, and all I
+wanted in a desktop now was for it to be as compact as possible while staying
+serviceable. If the CPU went bust, I wanted to be able to replace it, perhaps
+even upgrade it. So too with the RAM, with the storage, with the WiFi card. I
+thought there was nowhere to go but a mini-ITX case, except&mldr;</p><figure><a href=/media/optiplex-3080.webp><img src=/media/optiplex-3080.webp alt="The Dell Optiplex 3080 Micro has a volume of just over 1 liter."></a><figcaption><p>The Dell Optiplex 3080 Micro has a volume of just over 1 liter.</p></figcaption></figure><p>I was lucky enough to come across the existence of work oriented small desktops
+made by Lenovo, HP and Dell. Their lines of small form factors are referred to
+by YouTube channel ServeTheHome as <em>TinyMiniMicro,</em> for they are ThinkCenter
+Tiny, EliteDesk Mini, and Optiplex Micro. They&rsquo;re fully working desktops that
+take up just over a liter of space, and are marketed to businesses as
+workstation PCs.</p><p>For these machines, extensibility was sacrificed for the sake of saving space:</p><ul><li>You can&rsquo;t pick your own motherboard, though you might be able to find
+compatible boards in the same line of products.</li><li>The only PCIe slots available are mini PCIe, and will likely be used just for
+an NVMe SSD and a WiFi card. No GPUs here.</li><li>You&rsquo;d be hard pressed to find alternative cooling solutions to the OEM&rsquo;s in
+the market, which leads us to&mldr;</li><li>Your PSU is a laptop charger, so you&rsquo;re pretty much restricted to low-power
+CPUs.</li></ul><p>In other words, a lot of the cons of a laptop are there, but think &ldquo;work
+laptop&rdquo; and not some Alienware type thing. HP does offer models of their
+EliteDesk PCs with a laptop version of the GTX 1660 Ti, but on a machine this
+small I imagine the multiple fans would go turbo mode. At that point, with how
+much you&rsquo;ll be spending, it&rsquo;s probably best to go with a console or build a
+custom desktop.</p><p>Despite the cons of a laptop, there are some pros of a desktop: the CPU and the
+RAM sticks are socketed, so you can replace or upgrade them at any point.
+Nothing&rsquo;s soldered in place. You can easily replace / upgrade the thermal paste
+that comes applied from the factory, and clean the fan when it starts getting
+dusty and noisy. The benefits sort of end there, though.</p><p>So I went and got myself a <em>Dell Optiplex 3080 Micro</em> with 16 GB of RAM, an
+Intel AX200 WiFi card, a 250 GB NVMe SSD, and an i5-10500T. Would&rsquo;ve gone for
+an i7 machine, but it wasn&rsquo;t available at the time and I ended up being
+perfectly happy with the performance I get out of this i5. Maybe I&rsquo;m biased,
+after all I jumped 8 generations from i5-2540M to an i5-10500T, from 2 cores /
+4 threads to <em>6 cores / 12 threads,</em> from 8 GB on DDR3 to <em>16 GB on DDR4.</em> This
+is also the first time I&rsquo;m using an NVMe drive, even though it&rsquo;s a low end one.</p><p>PC users who play video games will find no use for this sort of machine. Those
+who are using it for CPU-heavy applications might scoff at the puny i5, but I&rsquo;m
+a programmer and other than running unit tests and the applications I work
+with, all I do is play Tetris, run text editors, language servers, and listen
+to music. Does it work well? <em>It works amazingly well for me!</em> Maybe you can
+compile more quickly than I do, but does your desktop take up less space than a
+2 liter bottle of soda? Didn&rsquo;t think so.</p><h2 id=minecraft>Minecraft</h2><p>While it&rsquo;s not something I play often or at all, it&rsquo;s good to know that if at
+any point I feel like playing it, I can: with vanilla Minecraft and OptiFine
+alike, the average FPS I get with modest settings is 75. It dips below that
+somewhat frequently, however. Setting my monitor&rsquo;s refresh rate down from 75 to
+60 Hz, I&rsquo;m able to maintain a steady 60 FPS with the same configuration.</p><p><em>Note:</em> I&rsquo;m using a monitor with a resolution of 2560x1080. Running Minecraft
+at a lower resolution, be it windowed or having set a lower resolution for the
+monitor through XRandR, will naturally get you better results.</p><h2 id=citra>Citra</h2><p>Nothing to really brag about, but I can also run games with Citra at 4x native
+resolution and a good framerate. Since I have a 3DS, I don&rsquo;t <em>need</em> to emulate
+the games through Citra, but I was able to keep 100% performance on <em>The Legend
+of Zelda: Ocarina of Time 3D</em> at 4x native res while streaming the emulator&rsquo;s
+window to Twitch through OBS. <strong>No, I&rsquo;m not a Twitch streamer,</strong> I just wanted
+to show someone the game, and I don&rsquo;t have a capture card.</p><h2 id=pcsx2>PCSX2</h2><p>Back when my PS2 had been sold, didn&rsquo;t work, or was just stored away in a way
+that made it a hassle to fetch it and set it up, I tried emulating <em>Kingdom
+Hearts</em> and <em>Kingdom Hearts 2</em> on my Core 2 Duo PC. I didn&rsquo;t have a graphics
+card, not that it would&rsquo;ve mattered much, and the games ran&mldr; at maybe 12 FPS?
+It just didn&rsquo;t work out, even after I got a desktop with a Core i3.</p><p>Well, <em>both games work alright on this wee PC!</em> <del>Haven&rsquo;t fiddled with them all
+that much because for some reason my controller&rsquo;s analog stick is behaving more
+like a D-pad in-game, but at some point I&rsquo;ll figure that out and go back to
+it.</del> I&rsquo;m building PCSX2 from source using the <code>pcsx2-git</code> package, and the
+issue I was observing is no more (at least on <code>v1.7.0.dev.r4138.g8b2966e29-1</code>),
+so hooray!</p><p>Using a 60fps patch for the game &mdash; which does lead to some tolerable glitches
+&mdash; I&rsquo;m able to run it at a constant 60fps at 1x native resolution with 4x
+anisotropic filtering, full PS2 mipmapping, Vsync, etc. It&rsquo;s no heavy toll on
+the wee computer, as I&rsquo;m <em>also able to capture and stream the game with OBS</em> at
+960x540@60Hz.</p><h2 id=conclusions>Conclusions</h2><p>For someone who spends most of their time on the terminal &mdash; be it writing
+scripts, obsessively updating packages, or doing important work with cloud
+infrastructure &mdash; a powerful machine isn&rsquo;t really necessary until you start
+testing programs locally. Even for those who use GUIs, work related programs
+will have no trouble running like butter on the i5-10500T or similar
+processors. The cherry on top is that you&rsquo;re also capable of playing some less
+demanding games and emulating PS2, 3DS, GameCube, etc.</p><p>The one thing that would make it ideal would be for it to have an internal UPS,
+or for the AC adapter to have that capability out of the box. Not very
+feasible, but I&rsquo;ll just get a UPS whenever I can. It&rsquo;s been a while since I had
+to fear losing any work because of a power outage.</p><p>I like my wee PC. It&rsquo;s nice. <em>There are many like it, but this one is mine.</em></p></article></main><footer id=page-footer><p id=commit><a href=https://github.com/d3adb5/website/commit/538f1828a225229364fac663e3a9549e8db8e1d9><span class=commit-hash>538f182</span><span class=commit-subject>feat: add tags to existing blog posts</span></a></p><p id=timestamp>Updated May 14, 2023</p></footer></body></html>

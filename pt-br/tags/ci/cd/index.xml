@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CI/CD on website pessoal de d3adb5</title><link>https://d3adb5.net/pt-br/tags/ci/cd/</link><description>Recent content in CI/CD on website pessoal de d3adb5</description><generator>Hugo</generator><language>pt-br</language><lastBuildDate>Mon, 22 May 2023 23:49:48 -0700</lastBuildDate><atom:link href="https://d3adb5.net/pt-br/tags/ci/cd/index.xml" rel="self" type="application/rss+xml"/><item><title>Descobri que desgosto da stack de CI/CD da AWS</title><link>https://d3adb5.net/pt-br/blog/disliking-aws-ci-cd/</link><pubDate>Tue, 16 May 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/pt-br/blog/disliking-aws-ci-cd/</guid><description>&lt;p&gt;O objetivo original deste artigo era documentar as minhas aventuras usando a
+suíte de serviços de CI/CD oferecidas pela AWS. No entanto, conforme eu
+encontrava empecilhos durante a implementação, ele foi se transformando em uma
+espécie de desabafo sobre o quão imaturos eles são. Muito do que havia sido
+escrito até eu decidir &lt;em&gt;desistir da prova de conceito&lt;/em&gt; foi mantido como estava.
+O restante foi adaptado para o que você está prestes a ler.&lt;/p&gt;</description></item><item><title>Experiências com CI/CD e DevOps</title><link>https://d3adb5.net/pt-br/blog/experiences-with-ci-cd/</link><pubDate>Sun, 10 Apr 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/pt-br/blog/experiences-with-ci-cd/</guid><description>&lt;p&gt;&lt;strong&gt;AVISO:&lt;/strong&gt; Apesar da falta relativa de detalhes, esse artigo acabou tão extenso
+que fui obrigado a incluir uma tabela de conteúdo. Espero que não seja uma
+leitura cansativa, e que quem estiver lendo consiga pular para um tópico de seu
+interesse.&lt;/p&gt;
+&lt;p&gt;O propósito desta postagem é dar ao leitor um resumo de como foi, para mim, se
+acostumar com e implementar soluções de &lt;em&gt;integração contínua (CI)&lt;/em&gt; e &lt;em&gt;deployment
+contínuo (CD)&lt;/em&gt; em meus projetos pessoais. Foi e ainda está sendo como uma
+rodovia esburacada, mas é mais gratificante do que achei que seria quando
+comecei.&lt;/p&gt;</description></item></channel></rss>

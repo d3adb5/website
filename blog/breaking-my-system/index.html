@@ -1,0 +1,163 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="A couple of weeks ago, I somehow managed to break my Arch Linux installation
+through a simple pacman -Syu. I&rsquo;m still not sure what caused it, but after a
+quite normal package update, I rebooted the system and was met with a message
+stating something along these lines, before I could even input my LUKS
+passphrase:
+Failed to execute /bin/init (No such file or directory)
+Failed to execute /sbin/init (No such file or directory)
+Failed to execute /init (No such file or directory)
+Considering the kernel image was loaded and was trying to load an init system,
+this was likely a problem with the initramfs. For the unitiated, the initial
+RAM filesystem, also known as initrd, for &ldquo;initial ramdisk,&rdquo; is a temporary
+file system that is loaded into memory during the boot process, to prepare the
+system before the init system is loaded."><meta http-equiv=Content-Security-Policy content="default-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src *; object-src 'none'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; worker-src 'self' blob:; base-uri 'self'"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Breaking and unbreaking my Arch installation</title><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-600.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-600.woff2 crossorigin><style type=text/css>@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:400;src:url(/fonts/source-sans-pro-regular.woff2)format("woff2"),url(/fonts/source-sans-pro-regular.woff)format("woff")}@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:600;src:url(/fonts/source-sans-pro-600.woff2)format("woff2"),url(/fonts/source-sans-pro-600.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:400;src:url(/fonts/inconsolata-regular.woff2)format("woff2"),url(/fonts/inconsolata-regular.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:600;src:url(/fonts/inconsolata-600.woff2)format("woff2"),url(/fonts/inconsolata-600.woff)format("woff")}footer#page-footer,nav#site-nav{background:0 0;padding:1em}footer#page-footer,nav#site-nav{background:#282a2e;color:#c5c8c6;line-height:3em}nav#site-nav{display:flex;overflow:auto;scrollbar-width:none}nav#site-nav::-webkit-scrollbar{display:none}nav#site-nav a{display:inline-block;width:6em;font-weight:700;text-align:center;color:inherit;flex-shrink:0}@media screen and (min-width:60em){footer#page-footer,nav#site-nav{line-height:inherit}}html{background:#252628}body{width:100%;max-width:60em;margin:0 auto;line-height:1.5em;font-family:source sans pro,helvetica,liberation sans,open sans,sans-serif;font-size:100%;color:#c5c8c6}@media screen and (min-width:60em){body{margin:2em auto!important}}h1,h2,h3,h4,h5,h6{margin:1.1em 0 .83em}h1,h2,h3{color:#8c9440}h4,h5,h6{color:#b5bd68}h1{font-size:1.5em}h2{font-size:1.26em}h3{font-size:1.1em}h4{font-size:1.03em}h5{font-size:.67em}h6{font-size:.51em}a{text-decoration:initial;color:#de935f}a:hover{text-decoration:underline}em{color:#f0c674;font-style:normal}strong{color:#c66}nav#site-nav{border-radius:1em 1em 0 0;background:0 0;color:#c5c8c6}nav#site-nav a.push-right{margin-left:auto}nav#site-nav a.current{color:#81a2be}label#toc-toggle{display:flex;width:100%;margin-top:1em;height:3em;align-items:center;justify-content:center}input#toc-toggle-box{display:none}input#toc-toggle-box~nav#TableOfContents{display:none}input#toc-toggle-box:checked~nav#TableOfContents{display:block}nav#TableOfContents{margin:.5em 0 0;box-sizing:border-box;background:#282a2e;padding:1em;border-radius:.5em;overflow:hidden;font-weight:700;color:#de935f}nav#TableOfContents ul{margin:0;padding:0;list-style-type:none}nav#TableOfContents ul li{overflow:hidden;white-space:nowrap;text-overflow:' ...'}nav#TableOfContents ul li+li{margin-top:1em}nav#TableOfContents ul ul{padding-left:1em;margin-top:1em}@media screen and (min-width:60em){nav#TableOfContents{float:right;margin:1em 0 1em 1em;max-width:40%;font-size:85%}nav#TableOfContents ul li+li{margin-top:initial}nav#TableOfContents ul ul{margin-top:initial}}@media screen and (min-width:60em){label#toc-toggle{display:none}}@media screen and (min-width:60em){input#toc-toggle-box~nav#TableOfContents{display:initial}}footer#page-footer{background:0 0;color:#707880;display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr)}footer#page-footer a{color:#f0c674}footer#page-footer span.commit-subject{color:#de935f;margin-left:.5em}footer#page-footer p#commit{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}footer#page-footer p#commit span.commit-hash{font-family:inconsolata,dejavu sans mono,liberation mono,monospace}footer#page-footer p#timestamp,footer#page-footer p#commit{margin:0}footer#page-footer p#timestamp{text-align:right}article{background:#1d1f21;padding:.1em 1.5em .8em}@media screen and (min-width:60em){article{border-radius:.5em}}article header{font-weight:700}article header section.header-line{display:flex;justify-content:space-between;align-items:center}article header section.header-line h1{color:#8c9440;margin-bottom:.25em}article header section.header-line aside#translations{margin:1.1em 0 .25em}article header section.header-line aside#translations ul#translations{list-style:none;padding:0;margin:0;display:flex;justify-content:space-around;font-size:115%}article header section.header-line aside#translations ul#translations li:not(:first-child){margin-left:1em}article header section.subheader-line{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}article header section.subheader-line p.subtitle{color:#5e8d87;margin:0}article header section.subheader-line p.subtitle em{color:inherit;font-style:italic}article header section.subheader-line ul#article-tags{list-style-type:none;padding-left:0;margin:0;font-size:85%}article header section.subheader-line ul#article-tags li{display:inline-block}article header section.subheader-line ul#article-tags li:nth-child(n+2){margin-left:1em}article header section.subheader-line ul#article-tags li a{color:#f0c674}article blockquote{color:#979a98;padding-left:1em;border:0 solid #707880;border-left-width:.5em}article table{width:100%}article table th{color:#81a2be}article table td{color:#c5c8c6}article table td.date{width:1%;white-space:nowrap;padding:0 .5em 0 0}article table.compare-table{border-collapse:collapse}article table.compare-table th,article table.compare-table td{padding:.5em 1em;box-sizing:border-box}article table.compare-table th:first-child,article table.compare-table td:first-child{padding-left:0}article table.compare-table th:last-child,article table.compare-table td:last-child{padding-right:0}article table.compare-table th,article table.compare-table td:nth-child(n+2){text-align:center}article table.compare-table td{border-top:.1em solid #707880}article table.compare-table th:nth-child(n+2){min-width:4em}article li::marker{color:#f0c674}article figure{margin:1.25em 0;text-align:center}article figure img{min-height:5em;max-height:15em;width:100%;object-fit:cover;border-radius:1em}article figure figcaption p{margin-top:0}article code{font-family:inconsolata,dejavu sans mono,liberation mono,monospace;font-size:100%}article pre{background:#282a2e;border-radius:.5em;padding:.5em 1em;overflow-x:auto;line-height:initial}article>hr{color:#707880;opacity:.5;margin:2em 0}article p code,article li code{background:#282a2e;padding:0 .3em;border-radius:.25em}article>p a,article>ul li a,article>ol li a{text-decoration:underline}article.extra-pages h2~p{margin-left:2em}article section.dialog{display:flex;padding:1em;align-content:center;border-radius:.5em;border:.2em solid #707880;margin:.5em 0 0;box-sizing:border-box;max-width:100%}article section.dialog p:first-child{margin-top:0}article section.dialog p:last-child{margin-bottom:0}article section.dialog .dialog-icon{margin-right:1em}article section.dialog.dialog-info{border-color:#5f819d}article section.dialog.dialog-warning{border-color:#de935f}article section.dialog.dialog-error{border-color:#a54242}article section.dialog.dialog-success{border-color:#8c9440}@media screen and (min-width:60em){article section.dialog{margin:1em 0 0}}</style></head><body><nav id=site-nav><a href=/ class=[]>Home
+</a><a href=/blog/ class=[]>Blog
+</a><a href=/glob/ class=[]>Glob
+</a><a href=/projects/ class=[]>Projects
+</a><a href=/about/ class=push-right>About</a></nav><main role=main><article id=content><header><section class=header-line><h1>Breaking and unbreaking my Arch installation</h1></section><section class=subheader-line><p class=subtitle>An unsolved mystery and a solution?</p><ul id=article-tags><li><a href=/tags/linux>Linux</a></li><li><a href=/tags/technology>Technology</a></li></ul></section></header><input type=checkbox id=toc-toggle-box>
+<label for=toc-toggle-box id=toc-toggle><em>• Table of Contents •</em></label><nav id=TableOfContents><ul><li><a href=#the-saga-of-the-live-usb>The saga of the live USB</a><ul><li><a href=#macos-absolutely-sucks>macOS absolutely sucks</a></li><li><a href=#the-sudden-death-of-a-usb-stick>The sudden death of a USB stick</a></li></ul></li><li><a href=#gparted-and-luks>GParted and LUKS</a></li><li><a href=#the-fix>The &ldquo;fix&rdquo;?</a></li></ul></nav><p>A couple of weeks ago, I somehow managed to break my Arch Linux installation
+through a simple <code>pacman -Syu</code>. I&rsquo;m still not sure what caused it, but after a
+quite normal package update, I rebooted the system and was met with a message
+stating something along these lines, before I could even input my LUKS
+passphrase:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>Failed to execute /bin/init (No such file or directory)
+</span></span><span style=display:flex><span>Failed to execute /sbin/init (No such file or directory)
+</span></span><span style=display:flex><span>Failed to execute /init (No such file or directory)
+</span></span></code></pre></div><p>Considering the kernel image was loaded and was trying to load an init system,
+this was likely a problem with the <em>initramfs.</em> For the unitiated, the <em>initial
+RAM filesystem,</em> also known as <em>initrd,</em> for &ldquo;initial ramdisk,&rdquo; is a temporary
+file system that is loaded into memory during the boot process, to prepare the
+system before the init system is loaded.</p><p>On a system like mine, with an encrypted root filesystem, the initramfs is
+responsible for unlocking the encrypted LUKS volume so the Linux kernel image
+can then mount the root filesystem. This should all happen before the system
+root is mounted and <code>/bin/init</code> is executed. The init system could be one of
+many, but on a default Arch Linux installation like mine, it is systemd:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>$ file /bin/init
+</span></span><span style=display:flex><span>/bin/init: symbolic link to ../lib/systemd/systemd
+</span></span></code></pre></div><p>So something seemed wrong with the initramfs, and thus my first instinct was to
+<code>chroot</code> from another system and rebuild all the images with <code>mkinitcpio -P</code>. I
+wouldn&rsquo;t need a live USB for this, as I had a dual-boot setup with NixOS, to
+which I was in the admittedly slow process of migrating. Lucky me, I thought.</p><p>Visualizing the state of my system, I had:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>NAME          SIZE
+</span></span><span style=display:flex><span>nvme0n1     931.5G
+</span></span><span style=display:flex><span>├─nvme0n1p1     2G &lt;--- /boot (EFI, broken initramfs?)
+</span></span><span style=display:flex><span>├─nvme0n1p2    16G &lt;--- swap
+</span></span><span style=display:flex><span>├─nvme0n1p3   100G &lt;--- LUKS
+</span></span><span style=display:flex><span>│ └─arch      100G   &lt;- Arch Linux root (good?)
+</span></span><span style=display:flex><span>└─nvme0n1p4   150G &lt;--- LUKS
+</span></span><span style=display:flex><span>  └─nixos     150G   &lt;- NixOS root (good)
+</span></span></code></pre></div><p>Booting up NixOS was working fine, so I mounted the Arch root and the boot
+partition under <code>/mnt</code>, then tried to chroot into it, but instead of being
+thrown into a shell within the Arch root, <em>I was met with a strange error that
+disturbed my calm:</em></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span># mount /dev/mapper/arch /mnt
+</span></span><span style=display:flex><span># mount /dev/nvme0n1p1 /mnt/boot
+</span></span><span style=display:flex><span># mount -o bind /dev /mnt/dev
+</span></span><span style=display:flex><span># mount -o bind /proc /mnt/proc
+</span></span><span style=display:flex><span># mount -o bind /sys /mnt/sys
+</span></span><span style=display:flex><span># chroot /mnt /bin/bash
+</span></span><span style=display:flex><span>chroot: failed to run command &#39;/bin/bash&#39;: Input/output error
+</span></span></code></pre></div><p>This was strange. I could mount the root filesystem, but not chroot into it.
+<strong>Have I run out of write cycles in the SSD?!</strong> No, this NVMe SSD is almost
+brand new, and I did manage to write to and read from it just fine, so that
+cannot be it. I was also able to execute the binary file from NixOS just fine
+by running <code>/mnt/bin/bash</code>, so it wasn&rsquo;t a problem with the binary itself.
+Running <code>strace -f chroot /mnt /bin/bash</code> didn&rsquo;t give me any more information,
+but it did show a ton of errors regarding accessing locale files in the
+<code>/nix/store</code> directory, which was odd to me.</p><p><em>Thinking perhaps this is a problem with NixOS itself,</em> I looked up <code>chroot</code> on
+the NixOS wiki, finding my way to <a href=https://nixos.wiki/wiki/Change_root>this article,</a> which
+recommends the following commands to change root to <strong>another NixOS
+installation:</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>mount -o bind /dev /mnt/dev
+</span></span><span style=display:flex><span>mount -o bind /proc /mnt/proc
+</span></span><span style=display:flex><span>mount -o bind /sys /mnt/sys
+</span></span><span style=display:flex><span>chroot /mnt /nix/var/nix/profiles/system/activate
+</span></span><span style=display:flex><span>chroot /mnt /run/current-system/sw/bin/bash
+</span></span></code></pre></div><p>This latter part is very important. I knew it made no sense to run that
+&ldquo;activate&rdquo; script on something that is not NixOS, but I thought perhaps this
+was the way chrooting from NixOS was meant to be done. So <strong>without backing
+anything up,</strong> I bind-mounted <code>/nix</code> from the outer NixOS installation at
+<code>/mnt/nix</code> and ran it.</p><p><strong>DO NOT DO WHAT I DID,</strong> because this was a huge mistake. Not only did I still
+get the same error, I also managed to further break the Arch Linux installation
+as the NixOS <code>activate</code> script overwrote files under <code>/etc</code>, <code>/var</code>, <code>/bin</code>,
+<code>/lib</code>, and many other places with symlinks to the Nix store, which I needn&rsquo;t
+note does not exist in the Arch root unless you&rsquo;re using Nix on Arch &mdash; which
+I am not.</p><p>Alright, so I had a broken system and I just poked additional holes into it. If
+NixOS wasn&rsquo;t going to help me, perhaps an installation media for Arch Linux
+would. <em>Let&rsquo;s create one and try to chroot from it.</em></p><h2 id=the-saga-of-the-live-usb>The saga of the live USB</h2><p>I looked for a spare USB stick and found <em>one with a capacity of 16 GB.</em> Trust
+me, this detail will be relevant later. As per usual, I downloaded the latest
+Arch Linux ISO from <a href=https://archlinux.org/download/>the official website</a> and flashed it
+to the USB stick using <code>dd</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span># dd if=archlinux-2024.04.01-x86_64.iso of=/dev/sdb status=progress
+</span></span><span style=display:flex><span># sync
+</span></span></code></pre></div><p>Pretty standard procedure, right? Well, I booted off this USB stick and after
+the loud and disturbing beep that plays upon successfully booting up the
+installation media, I picked the first option on GRUB and&mldr;</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>error: invalid magic number
+</span></span><span style=display:flex><span>error: you need to load the kernel first
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>Press any key to continue...
+</span></span></code></pre></div><p>Sadly there was <a href="https://www.youtube.com/watch?v=J8lRKCw2_Pk">no prompt for me to input 3.</a> Pressing any key
+to continue would just go down the boot menu. I tried the other options to load
+the installation media, but they were all afflicted by this same error. Looking
+it up online only brought me to forums where replies amounted to &ldquo;your live USB
+is broken, make a new one.&rdquo; Quite insightful.</p><p>Maybe I did screw something up when flashing this guy, I thought, so I decided
+to flash another ISO to the USB stick: the GParted live ISO. My partitions were
+in need of a resize anyway, I might as well try and see if the problem
+<em>magically</em> goes away. <strong>It didn&rsquo;t:</strong> the same error was there, and I couldn&rsquo;t
+get past the bootloader.</p><p><em>A-ha! NixOS must be the problem!</em> It is an immutable system, if there is such
+a thing as a magic number generated randomly, it is likely to be the same for
+every NixOS installation&mldr;? I don&rsquo;t know, this is a simple hypothesis and I
+was desperate. My work machine is a Macbook, so let&rsquo;s just flash the Arch Linux
+ISO from there!</p><h3 id=macos-absolutely-sucks>macOS absolutely sucks</h3><p>For whatever reason I believed <code>dd</code> not to be available on macOS &mdash; this is
+incorrect, it is available and I should&rsquo;ve tried using it, so take this section
+with a grain of salt &mdash; so I decided to use <a href=https://etcher.balena.io/>balenaEtcher</a>, which my
+wife had used before to create a bootable USB stick for Ubuntu. Everything
+looked promising, I granted the stupid permissions it asked for, and it failed
+to flash by saying <code>/dev/disk2</code> was not writable. <strong>Even running the program
+with <code>sudo</code> had the same result.</strong></p><p>Okay, perhaps UNetbootin would work. I downloaded the macOS version, ran it,
+and it failed to detect the USB stick no matter which USB port I plugged it
+into. I checked permissions for the inodes, ran everything I could as root, but
+it&rsquo;s like the system was working against me. After struggling with this for a
+few hours, I gave up and called my wife to ask if I could use her Windows
+machine to flash the USB stick.</p><h3 id=the-sudden-death-of-a-usb-stick>The sudden death of a USB stick</h3><p>After being granted permission, I downloaded the Arch Linux ISO and flashed it
+using <a href=https://rufus.ie/>Rufus</a>. The process was quick and painless, and I was able to
+boot off the USB stick without any issues. My first order of business now that
+I could boot off the installation media was to create BtrFS snapshots to backup
+my data. The one thing I wanted to separate from those snapshots was the
+<code>/home</code> directory, so I needed to make it into a separate subvolume.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span># cryptsetup open /dev/nvme0n1p3 archlinux
+</span></span><span style=display:flex><span># mount /dev/mapper/archlinux /mnt
+</span></span><span style=display:flex><span># mv /mnt/home /mnt/old-home
+</span></span><span style=display:flex><span># btrfs subvolume create /mnt/home
+</span></span><span style=display:flex><span># cp -rp --reflink=always /mnt/old-home/* /mnt/home
+</span></span><span style=display:flex><span>!!! No space left on device !!!
+</span></span></code></pre></div><p>Strange, this <code>cp</code> command was supposed to create a copy-on-write clone of the
+directory, meaning no new space would be consumed to begin with. Perhaps
+metadata needed to be created anyway, and I was running out of space in the 100
+GB root partition. So I decided <em>it was time to resize these partitions</em> and
+maybe get rid of NixOS for good; <strong>time to flash the GParted live ISO.</strong></p><p>I move back to the Windows machine, plug in the USB stick, and&mldr; <em>its name and
+filenames look like Minecraft incantations.</em> Against my better judgment, I
+flashed the GParted live ISO to the USB stick using Rufus, and afterwards its
+<strong>reported capacity went mysteriously from 16 GB to 32 GB.</strong></p><p>I plugged it into my computer expecting the worst, but I was able to boot off
+of it without any issues.</p><h2 id=gparted-and-luks>GParted and LUKS</h2><p>GParted is perfectly capable of unlocking LUKS volumes and mounting the
+partitions that it finds within. I unlocked the Arch Linux root partition and
+clicked around to schedule its resize. All it needed to do was:</p><ol><li>Increase the size of the containing partition in the partition table;</li><li>Unlock the LUKS volume to reveal the partition within;</li><li>Extend the LUKS volume&rsquo;s awareness of the containing partition;</li><li>Resize the filesystem within the contained partition.</li></ol><p>Except GParted refused to resize LUKS volumes for whatever reason. The error I
+got was said to have been fixed a few years ago, and I was on the latest
+version of GParted already. I thought perhaps if I went back to an Arch Linux
+live installation media, I could install GParted and resize the partitions from
+there. <strong>Except now the USB stick no longer worked,</strong> so I needed to find yet
+another USB stick from which to boot. This took longer than I would&rsquo;ve liked,
+and <em>in the end I got the same error anyway.</em></p><h2 id=the-fix>The &ldquo;fix&rdquo;?</h2><p>In the end I used the new installation media (on a new USB stick) to resize the
+partition manually:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span># fdisk /dev/nvme0n1   # Delete and recreate the partition!
+</span></span><span style=display:flex><span># cryptsetup open /dev/nvme0n1p3 archlinux
+</span></span><span style=display:flex><span># cryptsetup resize archlinux
+</span></span><span style=display:flex><span># mount /dev/mapper/archlinux /mnt
+</span></span><span style=display:flex><span># btrfs filesystem resize max /mnt
+</span></span></code></pre></div><p>This was enough for me to be able to create the subvolume I wanted to and the
+copy-on-write clone of the <code>/home</code> directory. I then proceeded to create more
+subvolumes for the root filesystem and take snapshots of what I had before.</p><p>None of what I tried doing to fix the existing system worked, but how could it
+when I wiped a lot of it when activating a NixOS profile? I still don&rsquo;t know
+why I tried that, but I did, and I paid the price. I&rsquo;m still not sure what went
+wrong, but all I could do in the end was create a completely fresh installation
+of Arch Linux and restore my data from the snapshots I took.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span># cryptsetup open /dev/nvme0n1p3 archlinux
+</span></span><span style=display:flex><span># mount /dev/mapper/archlinux /mnt
+</span></span><span style=display:flex><span># mkdir /mnt/snap
+</span></span><span style=display:flex><span># btrfs subvolume snapshot /mnt /mnt/snap/archlinux-broken-root
+</span></span></code></pre></div><p>A copy of the Pacman database was also taken, so I could then reinstall all the
+packages I had before. While this resulted in mostly the same setup as before,
+I am now using the <code>sd-encrypt</code> hook for <code>mkinitcpio</code> instead of the <code>encrypt</code>
+one, since the latter wasn&rsquo;t working for me anymore, and some mysterious
+problems came up with Plex Media Player where I am unable to play any media.</p></article></main><footer id=page-footer><p id=commit><a href=https://github.com/d3adb5/website/commit/827c7245c0dee41dfab6b0c6923c9f6d3b20d506><span class=commit-hash>827c724</span><span class=commit-subject>content(blog): add article about breaking my system</span></a></p><p id=timestamp>Updated July 2, 2024</p></footer></body></html>

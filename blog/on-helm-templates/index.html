@@ -1,0 +1,172 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="I&rsquo;ve mentioned in other blogposts that I&rsquo;ve been involved in a project making
+extensive use of Helm. It is known by some as the Kubernetes package manager,
+so you&rsquo;ll naturally use it as you deploy applications to your cluster. Other
+than release management, its main advantage is generating resources based on
+user configurable values. Conditionals are a direct evolution of that, and
+loops come into play as need be. But it doesn&rsquo;t stop there."><meta http-equiv=Content-Security-Policy content="default-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src *; object-src 'none'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; worker-src 'self' blob:; base-uri 'self'"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>On excessive templating with Helm</title><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-600.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-600.woff2 crossorigin><style type=text/css>@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:400;src:url(/fonts/source-sans-pro-regular.woff2)format("woff2"),url(/fonts/source-sans-pro-regular.woff)format("woff")}@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:600;src:url(/fonts/source-sans-pro-600.woff2)format("woff2"),url(/fonts/source-sans-pro-600.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:400;src:url(/fonts/inconsolata-regular.woff2)format("woff2"),url(/fonts/inconsolata-regular.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:600;src:url(/fonts/inconsolata-600.woff2)format("woff2"),url(/fonts/inconsolata-600.woff)format("woff")}footer#page-footer,nav#site-nav{background:0 0;padding:1em}footer#page-footer,nav#site-nav{background:#282a2e;color:#c5c8c6;line-height:3em}nav#site-nav{display:flex;overflow:auto;scrollbar-width:none}nav#site-nav::-webkit-scrollbar{display:none}nav#site-nav a{display:inline-block;width:6em;font-weight:700;text-align:center;color:inherit;flex-shrink:0}@media screen and (min-width:60em){footer#page-footer,nav#site-nav{line-height:inherit}}html{background:#252628}body{width:100%;max-width:60em;margin:0 auto;line-height:1.5em;font-family:source sans pro,helvetica,liberation sans,open sans,sans-serif;font-size:100%;color:#c5c8c6}@media screen and (min-width:60em){body{margin:2em auto!important}}h1,h2,h3,h4,h5,h6{margin:1.1em 0 .83em}h1,h2,h3{color:#8c9440}h4,h5,h6{color:#b5bd68}h1{font-size:1.5em}h2{font-size:1.26em}h3{font-size:1.1em}h4{font-size:1.03em}h5{font-size:.67em}h6{font-size:.51em}a{text-decoration:initial;color:#de935f}a:hover{text-decoration:underline}em{color:#f0c674;font-style:normal}strong{color:#c66}nav#site-nav{border-radius:1em 1em 0 0;background:0 0;color:#c5c8c6}nav#site-nav a.push-right{margin-left:auto}nav#site-nav a.current{color:#81a2be}label#toc-toggle{display:flex;width:100%;margin-top:1em;height:3em;align-items:center;justify-content:center}input#toc-toggle-box{display:none}input#toc-toggle-box~nav#TableOfContents{display:none}input#toc-toggle-box:checked~nav#TableOfContents{display:block}nav#TableOfContents{margin:.5em 0 0;box-sizing:border-box;background:#282a2e;padding:1em;border-radius:.5em;overflow:hidden;font-weight:700;color:#de935f}nav#TableOfContents ul{margin:0;padding:0;list-style-type:none}nav#TableOfContents ul li{overflow:hidden;white-space:nowrap;text-overflow:' ...'}nav#TableOfContents ul li+li{margin-top:1em}nav#TableOfContents ul ul{padding-left:1em;margin-top:1em}@media screen and (min-width:60em){nav#TableOfContents{float:right;margin:1em 0 1em 1em;max-width:40%;font-size:85%}nav#TableOfContents ul li+li{margin-top:initial}nav#TableOfContents ul ul{margin-top:initial}}@media screen and (min-width:60em){label#toc-toggle{display:none}}@media screen and (min-width:60em){input#toc-toggle-box~nav#TableOfContents{display:initial}}footer#page-footer{background:0 0;color:#707880;display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr)}footer#page-footer a{color:#f0c674}footer#page-footer span.commit-subject{color:#de935f;margin-left:.5em}footer#page-footer p#commit{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}footer#page-footer p#commit span.commit-hash{font-family:inconsolata,dejavu sans mono,liberation mono,monospace}footer#page-footer p#timestamp,footer#page-footer p#commit{margin:0}footer#page-footer p#timestamp{text-align:right}article{background:#1d1f21;padding:.1em 1.5em .8em}@media screen and (min-width:60em){article{border-radius:.5em}}article header{font-weight:700}article header section.header-line{display:flex;justify-content:space-between;align-items:center}article header section.header-line h1{color:#8c9440;margin-bottom:.25em}article header section.header-line aside#translations{margin:1.1em 0 .25em}article header section.header-line aside#translations ul#translations{list-style:none;padding:0;margin:0;display:flex;justify-content:space-around;font-size:115%}article header section.header-line aside#translations ul#translations li:not(:first-child){margin-left:1em}article header section.subheader-line{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}article header section.subheader-line p.subtitle{color:#5e8d87;margin:0}article header section.subheader-line p.subtitle em{color:inherit;font-style:italic}article header section.subheader-line ul#article-tags{list-style-type:none;padding-left:0;margin:0;font-size:85%}article header section.subheader-line ul#article-tags li{display:inline-block}article header section.subheader-line ul#article-tags li:nth-child(n+2){margin-left:1em}article header section.subheader-line ul#article-tags li a{color:#f0c674}article blockquote{color:#979a98;padding-left:1em;border:0 solid #707880;border-left-width:.5em}article table{width:100%}article table th{color:#81a2be}article table td{color:#c5c8c6}article table td.date{width:1%;white-space:nowrap;padding:0 .5em 0 0}article table.compare-table{border-collapse:collapse}article table.compare-table th,article table.compare-table td{padding:.5em 1em;box-sizing:border-box}article table.compare-table th:first-child,article table.compare-table td:first-child{padding-left:0}article table.compare-table th:last-child,article table.compare-table td:last-child{padding-right:0}article table.compare-table th,article table.compare-table td:nth-child(n+2){text-align:center}article table.compare-table td{border-top:.1em solid #707880}article table.compare-table th:nth-child(n+2){min-width:4em}article li::marker{color:#f0c674}article figure{margin:1.25em 0;text-align:center}article figure img{min-height:5em;max-height:15em;width:100%;object-fit:cover;border-radius:1em}article figure figcaption p{margin-top:0}article code{font-family:inconsolata,dejavu sans mono,liberation mono,monospace;font-size:100%}article pre{background:#282a2e;border-radius:.5em;padding:.5em 1em;overflow-x:auto;line-height:initial}article>hr{color:#707880;opacity:.5;margin:2em 0}article p code,article li code{background:#282a2e;padding:0 .3em;border-radius:.25em}article>p a,article>ul li a,article>ol li a{text-decoration:underline}article.extra-pages h2~p{margin-left:2em}article section.dialog{display:flex;padding:1em;align-content:center;border-radius:.5em;border:.2em solid #707880;margin:.5em 0 0;box-sizing:border-box;max-width:100%}article section.dialog p:first-child{margin-top:0}article section.dialog p:last-child{margin-bottom:0}article section.dialog .dialog-icon{margin-right:1em}article section.dialog.dialog-info{border-color:#5f819d}article section.dialog.dialog-warning{border-color:#de935f}article section.dialog.dialog-error{border-color:#a54242}article section.dialog.dialog-success{border-color:#8c9440}@media screen and (min-width:60em){article section.dialog{margin:1em 0 0}}</style></head><body><nav id=site-nav><a href=/ class=[]>Home
+</a><a href=/blog/ class=[]>Blog
+</a><a href=/glob/ class=[]>Glob
+</a><a href=/projects/ class=[]>Projects
+</a><a href=/about/ class=push-right>About</a></nav><main role=main><article id=content><header><section class=header-line><h1>On excessive templating with Helm</h1></section><section class=subheader-line><p class=subtitle>{{ merge .isThis.perhaps (dict &ldquo;a&rdquo; $bit) | include &ldquo;too much?&rdquo; }}</p><ul id=article-tags><li><a href=/tags/devops>DevOps</a></li><li><a href=/tags/helm>Helm</a></li><li><a href=/tags/kubernetes>Kubernetes</a></li><li><a href=/tags/technology>Technology</a></li><li><a href=/tags/opinions>Opinions</a></li></ul></section></header><p>I&rsquo;ve mentioned in other blogposts that I&rsquo;ve been involved in a project making
+extensive use of Helm. It is known by some as the Kubernetes package manager,
+so you&rsquo;ll naturally use it as you deploy applications to your cluster. Other
+than release management, its main advantage is generating resources based on
+user configurable <em>values.</em> Conditionals are a direct evolution of that, and
+loops come into play as need be. But it doesn&rsquo;t stop there.</p><p>It would be a little boring if it did, especially since there&rsquo;s repetition that
+can be easily eliminated through the use of partial templates. <em>However, this
+is a bit of a slippery slope.</em> Developers, mainly, are tempted to use partials
+to emulate functions. I myself call them pseudo-functions, and have been
+implementing algorithms with them.</p><p>In this blogpost, I hope to convince you templating can quickly become
+excessive, and that you&rsquo;ll have an easier time if you keep it simple, adapting
+your charts as the situation calls for it. How? I&rsquo;ll just show you.</p><h2 id=no-templating-at-all>No templating at all</h2><p>We&rsquo;re writing a chart for an application. A good place to start is to visualize
+a deployment of it, with all the resources we need. Let&rsquo;s write the manifest
+for a Service, since we need to expose ports on the application we&rsquo;re
+deploying.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>my-beautiful-service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>type</span>: <span style=color:#ae81ff>ClusterIP</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>app</span>: <span style=color:#ae81ff>my-beautiful-app</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>http</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>port</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>targetPort</span>: <span style=color:#ae81ff>8080</span>
+</span></span></code></pre></div><p>Okay, looks alright. We&rsquo;ll have to be careful when installing this, since the
+namespace will depend on the namespace for the context we&rsquo;re currently in, or
+whatever we use as the argument for the <code>--namespace</code> / <code>-n</code> flag. Okay, pros
+and cons?</p><p><em>Pros:</em></p><ul><li>Very easy to read as a Kubernetes manifest.</li><li>No templating here, no need to understand Go templates.</li><li>You know what to expect from the output: exactly what you&rsquo;re reading.</li></ul><p>One can argue those are all the same thing, huh? Time to list some cons.</p><p><em>Cons:</em></p><ul><li>The name of the resource doesn&rsquo;t change. We cannot deploy this application
+twice in the same namespace since there would be resource conflicts between
+the two releases &mdash; we&rsquo;d have to change the Service name for the second
+release.</li><li>Every value here (e.g. ports, port numbers, type) is hardcoded. We cannot
+change them without editing the manifest, so every release would have the
+same exact characteristics.</li><li>We cannot use this manifest as a base for other resources, and charts
+depending on ours wouldn&rsquo;t be able to customize it at all.</li><li>The selector labels will have to be repeated across resources, to ensure
+we&rsquo;ll match the right pods.</li></ul><p>In other words, this is not a manifest you would or should find in any Helm
+chart. It&rsquo;s just a manifest, which you can use with <code>kubectl</code> commands like
+<code>apply</code>, <code>create</code> and <code>delete</code>. Let&rsquo;s start parameterizing some of its values.</p><h2 id=values-thrown-into-the-mix>Values thrown into the mix</h2><p>The first change we&rsquo;ll make here is add some values, and prefix the name of our
+resource with the name of the Helm release.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>.Release.Name }}-my-beautiful-service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>type</span>: {{ <span style=color:#ae81ff>.Values.service.type }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>app</span>: {{ <span style=color:#ae81ff>.Release.Name }}-my-beautiful-app</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>http</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>port</span>: {{ <span style=color:#ae81ff>.Values.service.port }}</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>targetPort</span>: {{ <span style=color:#ae81ff>.Values.service.targetPort }}</span>
+</span></span></code></pre></div><p>It starts to become interesting here! We can now deploy multiple releases of
+our chart in a single namespace, since they&rsquo;re bound to have different release
+names, and thus different Service resources. We can also customize our values
+all around! <em>Assume the previously hardcoded values are now in the
+<code>values.yaml</code> file of our chart.</em></p><p><em>Pros:</em></p><ul><li>Still easy to look at as a Kubernetes manifest, with just a bit of templating
+on top.</li><li>The use of <code>.Release.Name</code> means we can deploy multiple releases to a single
+namespace.</li><li>We can customize the values of our Service through value overrides. Our
+releases can now differ significantly.</li></ul><p><em>Cons:</em></p><ul><li>We&rsquo;re not ensuring the Service name is valid. It must be a valid DNS label.</li><li>Selector labels are still repeated across resources, even if parameterized.</li><li>This might be unnecessary, but we cannot expose more ports if we wanted to.</li></ul><p>There&rsquo;s an easy way to address these cons: partial templates. Let&rsquo;s move the
+selector labels to a partial template in a <code>_helpers.tpl</code> file and also create
+a partial template for a naming prefix. We&rsquo;ll give up on exposing multiple
+ports for the time being.</p><h2 id=partial-templates-come-around>Partial templates come around</h2><p>Let the following be our <code>_helpers.tpl</code> file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;app.fullname&#34; -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>if contains .Chart.Name .Release.Name }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>trunc 63 .Release.Name | trimSuffix &#34;-&#34; }}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>else }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>printf &#34;%s-%s&#34; .Release.Name .Chart.Name | trunc 63 | trimSuffix &#34;-&#34; }}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;app.selectorLabels&#34; -}}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>app</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>We have a partial template that creates a full name for our release, appending
+the chart name to it if need be. We also have a partial template for the
+selector labels that will be used throughout the chart, which we can <code>{{ include }}</code> where necessary, and then edit the template instead of editing each
+resource template.</p><p>Our new resource manifest template:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}-service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>type</span>: {{ <span style=color:#ae81ff>.Values.service.type }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>include &#34;app.selectorLabels&#34; . | nindent 4 }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>http</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>port</span>: {{ <span style=color:#ae81ff>.Values.service.port }}</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>targetPort</span>: {{ <span style=color:#ae81ff>.Values.service.targetPort }}</span>
+</span></span></code></pre></div><p><em>Pros:</em></p><ul><li>The name of our Service is now almost always valid, given its prefix is
+truncated to 63 characters. That is the limit for a DNS label according to
+RFC 1123. To ensure it&rsquo;ll always be valid, we should truncate it once more.</li><li>Selector labels are now defined in a single place, where we can edit them and
+have those changes apply to all resources referencing them. This adds
+guarantees that they&rsquo;ll be the same across resources.</li><li>All the other pros from the previous section still apply.</li></ul><p><em>Cons:</em></p><ul><li>We have added indirection, and forced the reader to take a minute to
+comprehend the template language.</li><li>Partial templates we depend on are defined in another file, where it&rsquo;s harder
+to understand scope.</li><li>We still can&rsquo;t expose multiple ports.</li></ul><p>No way around those first two, they&rsquo;re a tradeoff we have to make. The last
+one, however&mldr;</p><h2 id=our-service-gains-templating-powers>Our Service gains templating powers</h2><p>The reader is already familiarizing themselves with the partial templates,
+right? Might as well throw some more templating in, to achieve the flexibility
+we want. Or so one would think. <em>What about you? Do you think this is already
+excessive?</em></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}-service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>type</span>: {{ <span style=color:#ae81ff>.Values.service.type }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>include &#34;app.selectorLabels&#34; . | nindent 4 }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>range .Values.service.ports }}</span>
+</span></span><span style=display:flex><span>    - {{- <span style=color:#ae81ff>toYaml . | nindent 6 }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>end }}</span>
+</span></span></code></pre></div><p>Now we just add the ports as a list of objects in our values or value overrides
+and the manifest will be rendered with them. Magical, right? We are giving up
+the ability to template within them, but that&rsquo;s not really necessary for
+Service ports, I would say.</p><p><em>Pros:</em></p><ul><li>We can now expose multiple ports, and customize them all around.</li><li>All the other pros from the previous sections still apply. Or do they?</li></ul><p><em>Cons:</em></p><ul><li>The previous cons are still here, save for being able to expose multiple
+ports.</li><li>It&rsquo;s now more difficult to look at this and visualize the YAML that will be
+generated.</li></ul><h2 id=partial-templates-at-the-start-of-everything>Partial templates at the start of everything</h2><p>This is such a simple and common pattern to reproduce, so why not just make it
+a partial template and use it?</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;app.service&#34; -}}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}-service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>type</span>: {{ <span style=color:#ae81ff>.Values.service.type }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>include &#34;app.selectorLabels&#34; . | nindent 4 }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>range .Values.service.ports }}</span>
+</span></span><span style=display:flex><span>    - {{- <span style=color:#ae81ff>toYaml . | nindent 6 }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>There&rsquo;s obviously more to a Service&rsquo;s spec and metadata than we are using.
+Let&rsquo;s add some more flare to it, for the sake of example.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;app.service&#34; -}}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>annotations</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>toYaml .Values.service.annotations | nindent 4 }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>include &#34;app.labels&#34; . | nindent 4 }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>with .Values.service.labels }}</span>
+</span></span><span style=display:flex><span>      {{- <span style=color:#ae81ff>toYaml . | nindent 4 }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}-service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>with .Values.service.externalTrafficPolicy }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>externalTrafficPolicy</span>: {{ <span style=color:#ae81ff>. }}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>with .Values.service.internalTrafficPolicy }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>internalTrafficPolicy</span>: {{ <span style=color:#ae81ff>. }}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>type</span>: {{ <span style=color:#ae81ff>.Values.service.type }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>include &#34;app.selectorLabels&#34; . | nindent 4 }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>range .Values.service.ports }}</span>
+</span></span><span style=display:flex><span>    - {{- <span style=color:#ae81ff>toYaml . | nindent 6 }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>This is just a start. But hey, this is how easy it is to define our Service
+now, and it applies to every chart using our base template:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{ <span style=color:#ae81ff>include &#34;app.service&#34; . }}</span>
+</span></span></code></pre></div><p>In my opinion, this is where madness has been reached. I won&rsquo;t bother writing
+lists of pros and cons for this one.</p></article></main><footer id=page-footer><p id=commit><a href=https://github.com/d3adb5/website/commit/538f1828a225229364fac663e3a9549e8db8e1d9><span class=commit-hash>538f182</span><span class=commit-subject>feat: add tags to existing blog posts</span></a></p><p id=timestamp>Updated May 14, 2023</p></footer></body></html>

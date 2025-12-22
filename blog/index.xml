@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Thoughts, tutorials, whatever I feel like writing on d3adb5's personal website</title><link>https://d3adb5.net/blog/</link><description>Recent content in Thoughts, tutorials, whatever I feel like writing on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 26 Oct 2025 23:26:15 -0700</lastBuildDate><atom:link href="https://d3adb5.net/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>Talos Linux Homelab Pt. 3: Storage Solutions</title><link>https://d3adb5.net/blog/talos-homelab-pt-3-truenas-storage/</link><pubDate>Sun, 26 Oct 2025 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/talos-homelab-pt-3-truenas-storage/</guid><description>&lt;p&gt;The last thing I&amp;rsquo;ll cover in this series &lt;em&gt;for the time being&lt;/em&gt; is storage. This
+is perhaps the most crucial part of a complete homelab setup, as without
+storage you are very limited in what you can do that is useful. Essentially I
+wanted expandable, reliable, and moderately fast storage that could be accessed
+by all the nodes in my Talos cluster. Turns out I had to give up a bit of high
+availability to get there, but that&amp;rsquo;s okay.&lt;/p&gt;</description></item><item><title>Talos Linux Homelab Pt. 2: Cluster and Argo CD Bootstrapping</title><link>https://d3adb5.net/blog/talos-homelab-pt-2-cluster-bootstrapping/</link><pubDate>Sun, 31 Aug 2025 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/talos-homelab-pt-2-cluster-bootstrapping/</guid><description>&lt;section class="dialog dialog-warning"&gt;
+ &lt;section class="dialog-icon"&gt;⚠️&lt;/section&gt;
+ &lt;section class="dialog-content"&gt;
+&lt;p&gt;I began writing this article about a year ago. Some of the content may be
+outdated and I&amp;rsquo;m now hazy on the details. An attempt was made to keep it
+accurate, but note that this was never meant to be a tutorial or a step-by-step
+guide.&lt;/p&gt;
+ &lt;/section&gt;
+&lt;/section&gt;
+&lt;p&gt;This article is &lt;strong&gt;not&lt;/strong&gt; meant as a replacement for the Talos documentation page
+on &lt;a href="https://www.talos.dev/v1.9/introduction/getting-started/"&gt;getting started with a cluster&lt;/a&gt;. Instead, I&amp;rsquo;ll just mention what
+I&amp;rsquo;ve done and how easy it is to set it up, as well as the steps that I took to
+set up Argo CD and an App of Apps repository. For reference, the repository I
+ended up with is available on GitHub under &lt;a href="https://github.com/d3adb5/homelab"&gt;d3adb5/homelab&lt;/a&gt;.&lt;/p&gt;</description></item><item><title>Talos Linux Homelab Pt. 1: An introduction</title><link>https://d3adb5.net/blog/assembling-a-homelab-part-1/</link><pubDate>Wed, 25 Sep 2024 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/assembling-a-homelab-part-1/</guid><description>&lt;p&gt;There comes a time in a technology enthusiast&amp;rsquo;s life when they decide to build
+a homelab. Chances are if you&amp;rsquo;re reading this, you&amp;rsquo;ve either googled the term
+and know what I&amp;rsquo;m talking about &amp;mdash; so I promise not to take long in this
+introduction &amp;mdash; or you&amp;rsquo;re following me (stalking much?) and don&amp;rsquo;t necessarily
+care.&lt;/p&gt;
+&lt;p&gt;In any case, I&amp;rsquo;ve long had &lt;em&gt;VPSes&lt;/em&gt; to host my personal projects and services
+like Plex for myself and close friends. It&amp;rsquo;s always seemed much cheaper than
+purchasing the equipment and hosting on-premises. Recently I&amp;rsquo;ve even set up a
+Kubernetes cluster using &lt;a href="https://k0sproject.io/"&gt;k0s, a Kubernetes distribution&lt;/a&gt; made to be
+simple and lightweight. Latency, bandwidth limits and weak hardware have
+compelled me to build one instead.&lt;/p&gt;</description></item><item><title>Building myself a desktop PC</title><link>https://d3adb5.net/blog/building-a-computer/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/building-a-computer/</guid><description>&lt;p&gt;This year I decided to build myself a computer, and use it to start playing
+some graphically demanding PC games. The plan had existed for a while, but was
+accelerated after I broke my Arch Linux installation on my Dell Optiplex 3080
+Micro &amp;mdash; I blogged about it previously &amp;mdash; and decided I needed to ensure I
+had backup installations and SSDs to fall back onto in times of need. In this
+article I&amp;rsquo;ll talk about what happened.&lt;/p&gt;</description></item><item><title>Breaking and unbreaking my Arch installation</title><link>https://d3adb5.net/blog/breaking-my-system/</link><pubDate>Sat, 04 May 2024 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/breaking-my-system/</guid><description>&lt;p&gt;A couple of weeks ago, I somehow managed to break my Arch Linux installation
+through a simple &lt;code&gt;pacman -Syu&lt;/code&gt;. I&amp;rsquo;m still not sure what caused it, but after a
+quite normal package update, I rebooted the system and was met with a message
+stating something along these lines, before I could even input my LUKS
+passphrase:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-text" data-lang="text"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Failed to execute /bin/init (No such file or directory)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Failed to execute /sbin/init (No such file or directory)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;Failed to execute /init (No such file or directory)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Considering the kernel image was loaded and was trying to load an init system,
+this was likely a problem with the &lt;em&gt;initramfs.&lt;/em&gt; For the unitiated, the &lt;em&gt;initial
+RAM filesystem,&lt;/em&gt; also known as &lt;em&gt;initrd,&lt;/em&gt; for &amp;ldquo;initial ramdisk,&amp;rdquo; is a temporary
+file system that is loaded into memory during the boot process, to prepare the
+system before the init system is loaded.&lt;/p&gt;</description></item><item><title>Thoughts on GitLab CI</title><link>https://d3adb5.net/blog/gitlab-cicd-opinions/</link><pubDate>Fri, 16 Feb 2024 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/gitlab-cicd-opinions/</guid><description>&lt;p&gt;In 2013, the landing page for GitLab.com described GitLab as &lt;a href="http://web.archive.org/web/20130403093627/http://www.gitlab.com/"&gt;&lt;em&gt;Open Source Git
+Management Software&lt;/em&gt;&lt;/a&gt;. GitLab CI already existed &amp;mdash; it was first
+created in 2012 &amp;mdash; but it was only years later that GitLab started to market
+itself as a &amp;ldquo;DevOps platform&amp;rdquo;, pushing products that span the entirety of the
+software development lifecycle, from planning to deployment. So how good is
+their pipeline offering?&lt;/p&gt;
+&lt;p&gt;GitLab CI is GitLab&amp;rsquo;s built-in pipeline system. It&amp;rsquo;s a CI/CD tool that allows
+you to define workflows for building, testing, and deploying software from
+GitLab by adding a &lt;code&gt;.gitlab-ci.yml&lt;/code&gt; file to the root of the repository and
+ensuring there is an available runner to pick the job up. These could be hosted
+by GitLab or by the user, and they come in a variety of flavors.&lt;/p&gt;</description></item><item><title>Why are Ruby blocks constructed like this?</title><link>https://d3adb5.net/blog/somebody-please-explain-vagrant-ruby/</link><pubDate>Wed, 01 Nov 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/somebody-please-explain-vagrant-ruby/</guid><description>&lt;p&gt;I took up a position with a new company that involves the use of SaltStack.
+Since I&amp;rsquo;d never used it before, I decided to try my hand at setting up a proof
+of concept, and for that I wanted to use multiple machines. So I decided to use
+Vagrant, another tool I&amp;rsquo;m not familiar with, to declaratively spin up a few
+VMs.&lt;/p&gt;
+&lt;p&gt;This is what I first tried:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-ruby" data-lang="ruby"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;machines &lt;span style="color:#f92672"&gt;=&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;master&lt;/span&gt;: { &lt;span style="color:#e6db74"&gt;box&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;bento/ubuntu-22.04&amp;#34;&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;master&lt;/span&gt;: &lt;span style="color:#66d9ef"&gt;true&lt;/span&gt; },
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;superior&lt;/span&gt;: { &lt;span style="color:#e6db74"&gt;box&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;bento/ubuntu-22.04&amp;#34;&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;master&lt;/span&gt;: &lt;span style="color:#66d9ef"&gt;false&lt;/span&gt; },
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;michigan&lt;/span&gt;: { &lt;span style="color:#e6db74"&gt;box&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;bento/ubuntu-22.04&amp;#34;&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;master&lt;/span&gt;: &lt;span style="color:#66d9ef"&gt;false&lt;/span&gt; },
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;ontario&lt;/span&gt;: { &lt;span style="color:#e6db74"&gt;box&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;bento/ubuntu-22.04&amp;#34;&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;master&lt;/span&gt;: &lt;span style="color:#66d9ef"&gt;false&lt;/span&gt; },
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;erie&lt;/span&gt;: { &lt;span style="color:#e6db74"&gt;box&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;bento/ubuntu-22.04&amp;#34;&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;master&lt;/span&gt;: &lt;span style="color:#66d9ef"&gt;false&lt;/span&gt; },
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;huron&lt;/span&gt;: { &lt;span style="color:#e6db74"&gt;box&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;bento/ubuntu-22.04&amp;#34;&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;master&lt;/span&gt;: &lt;span style="color:#66d9ef"&gt;false&lt;/span&gt; }
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;Vagrant&lt;/span&gt;&lt;span style="color:#f92672"&gt;.&lt;/span&gt;configure(&lt;span style="color:#e6db74"&gt;&amp;#34;2&amp;#34;&lt;/span&gt;) &lt;span style="color:#66d9ef"&gt;do&lt;/span&gt; &lt;span style="color:#f92672"&gt;|&lt;/span&gt;config&lt;span style="color:#f92672"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; hostname, options &lt;span style="color:#66d9ef"&gt;in&lt;/span&gt; machines
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; config&lt;span style="color:#f92672"&gt;.&lt;/span&gt;vm&lt;span style="color:#f92672"&gt;.&lt;/span&gt;define hostname &lt;span style="color:#66d9ef"&gt;do&lt;/span&gt; &lt;span style="color:#f92672"&gt;|&lt;/span&gt;machine&lt;span style="color:#f92672"&gt;|&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; machine&lt;span style="color:#f92672"&gt;.&lt;/span&gt;vm&lt;span style="color:#f92672"&gt;.&lt;/span&gt;box &lt;span style="color:#f92672"&gt;=&lt;/span&gt; options&lt;span style="color:#f92672"&gt;[&lt;/span&gt;&lt;span style="color:#e6db74"&gt;:box&lt;/span&gt;&lt;span style="color:#f92672"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; machine&lt;span style="color:#f92672"&gt;.&lt;/span&gt;vm&lt;span style="color:#f92672"&gt;.&lt;/span&gt;hostname &lt;span style="color:#f92672"&gt;=&lt;/span&gt; hostname
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; machine&lt;span style="color:#f92672"&gt;.&lt;/span&gt;vm&lt;span style="color:#f92672"&gt;.&lt;/span&gt;network &lt;span style="color:#e6db74"&gt;&amp;#34;private_network&amp;#34;&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;type&lt;/span&gt;: &lt;span style="color:#e6db74"&gt;&amp;#34;dhcp&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; machine&lt;span style="color:#f92672"&gt;.&lt;/span&gt;vm&lt;span style="color:#f92672"&gt;.&lt;/span&gt;provision &lt;span style="color:#e6db74"&gt;:salt&lt;/span&gt;, &lt;span style="color:#e6db74"&gt;install_master&lt;/span&gt;: options&lt;span style="color:#f92672"&gt;[&lt;/span&gt;&lt;span style="color:#e6db74"&gt;:master&lt;/span&gt;&lt;span style="color:#f92672"&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;end&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This magically worked, or so I thought, until many failed attempts at
+automatically settings up DNS resolution for the machine&amp;rsquo;s friendly names. I
+noticed that the hostnames of my machines were sometimes all &lt;code&gt;huron&lt;/code&gt; or all
+&lt;code&gt;michigan&lt;/code&gt; or something other than &lt;code&gt;master&lt;/code&gt;, even though the name of the
+machine on the Vagrant side was correct. Then it dawned on me: &lt;em&gt;it&amp;rsquo;s using
+whatever the last value of &lt;code&gt;options&lt;/code&gt; in the loop was!&lt;/em&gt;&lt;/p&gt;</description></item><item><title>Was I wrong about JavaScript?</title><link>https://d3adb5.net/blog/javascript-isnt-so-bad/</link><pubDate>Mon, 03 Jul 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/javascript-isnt-so-bad/</guid><description>&lt;p&gt;JavaScript was first introduced 27 years ago, initially as &lt;em&gt;LiveScript,&lt;/em&gt; in a
+beta version of Netscape, and later as &lt;em&gt;JavaScript,&lt;/em&gt; presumably as a marketing
+ploy to capitalize on the rising popularity of &lt;em&gt;Java.&lt;/em&gt; Its goal was to make it
+so webpages wouldn&amp;rsquo;t be static paintings users scrolled through, but rather
+interactive experiences that could react to user input.&lt;/p&gt;
+&lt;p&gt;This was a noble pursuit in many ways. &lt;strong&gt;We&amp;rsquo;re talking about 1995&lt;/strong&gt; here, when
+the Web was so young CSS hadn&amp;rsquo;t even been implemented yet &amp;mdash; the first version
+of CSS was implemented in 1996! In fact, if like me you were thinking &amp;ldquo;there
+was already user interactivity in HTML through Web forms&amp;rdquo;, you&amp;rsquo;d be wrong:
+official support for the &lt;code&gt;&amp;lt;form&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;input&amp;gt;&lt;/code&gt; tags was only added to HTML in
+November 1995 &amp;mdash; in version 2.0 of the HTML standard &amp;mdash; &lt;em&gt;two months after
+LiveScript,&lt;/em&gt; and just a month before its rename and official stable release.&lt;/p&gt;</description></item><item><title>How a keyboard layout ruined my daily life</title><link>https://d3adb5.net/blog/unusual-keyboard-shenanigans/</link><pubDate>Sun, 25 Jun 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/unusual-keyboard-shenanigans/</guid><description>&lt;p&gt;I&amp;rsquo;ve been using computers for quite some time. Though BBSes, Usenet, IRC, and
+many forums came way before I was even born &amp;mdash; I&amp;rsquo;m relatively young, come on
+&amp;mdash; I was a netizen before the shift towards video conferencing and voice
+calls. Consequently I grew up primarily using the keyboard to communicate with
+people online. &lt;em&gt;Growing up in Brazil,&lt;/em&gt; I was raised using the &lt;em&gt;modern ABNT2
+keyboard layout&lt;/em&gt; to type Portuguese, and that has sadly stuck with me.&lt;/p&gt;</description></item><item><title>Writing your program in C can make it slower</title><link>https://d3adb5.net/blog/c-isnt-string-friendly/</link><pubDate>Thu, 11 May 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/c-isnt-string-friendly/</guid><description>&lt;p&gt;If you asked me what I thought of programming about a decade ago, my &lt;em&gt;young,
+inexperienced, zealot self&lt;/em&gt; would have likely told you everybody should be
+programming in C, so that all programs could be really fast, and that
+programmers who complained about the language were just too lazy to deal with
+memory allocation and pointers. &lt;strong&gt;How mistaken I was!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m pretty sure I attributed every bit of slow software or transition to &lt;em&gt;lazy
+Java programmers:&lt;/em&gt;&lt;/p&gt;</description></item><item><title>Finding out I dislike the AWS CI/CD stack of tools</title><link>https://d3adb5.net/blog/disliking-aws-ci-cd/</link><pubDate>Sat, 29 Apr 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/disliking-aws-ci-cd/</guid><description>&lt;p&gt;This article was originally written as a walkthrough of my adventures using the
+suite of CI/CD services offered by AWS. However, as I hit obstacles during
+implementation, it slowly turned into a rant about how immature they are. A lot
+of what was written up until I decided to give up on the proof of concept was
+kept as-is. The rest has been adapted into what you are about to read.&lt;/p&gt;</description></item><item><title>Chronicles of XMonad and xmobar</title><link>https://d3adb5.net/blog/xmobar-and-xmonad-being-painful/</link><pubDate>Sun, 26 Feb 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/xmobar-and-xmonad-being-painful/</guid><description>&lt;p&gt;This is a story about how the Haskell toolset, Arch Linux package maintainers,
+and font rendering engines made me lose a few hours of my life. Of course, I
+consider myself equally guilty, for my choices and stubbornness inevitably led
+to the happenings I am about to relay onto you.&lt;/p&gt;
+&lt;h2 id="chapter-1-first-mistakes"&gt;Chapter 1: First Mistakes&lt;/h2&gt;
+&lt;p&gt;It was a dark and stormy night somewhere in the world. I was sitting in front
+of my laptop, speaking to a couple of friends over Mumble, when I accidentally
+&lt;em&gt;knocked over the glass of soda&lt;/em&gt; I&amp;rsquo;d just fetched from the kitchen. It would
+have been a minor inconvenience, had I not &lt;em&gt;spilled it directly onto my
+laptop.&lt;/em&gt; In a panic, I told my friends I&amp;rsquo;d be back later and immediately shut
+the system down to avoid any short circuits.&lt;/p&gt;</description></item><item><title>Experiencing 64 GB of RAM + 80 GB of swap</title><link>https://d3adb5.net/blog/lots-of-ram/</link><pubDate>Fri, 17 Feb 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/lots-of-ram/</guid><description>&lt;p&gt;For the past couple of days I have been using a machine with &lt;em&gt;64 GB of RAM,&lt;/em&gt;
+and &lt;em&gt;80 GB of swap space.&lt;/em&gt; This amount of computer memory is more than I have
+ever conceived using. No, &lt;strong&gt;I&amp;rsquo;m not gaming on it,&lt;/strong&gt; and I&amp;rsquo;m not a Java
+developer running IntelliJ IDEA with 20+ projects open at the same time.
+However, language servers and other applications I use on a daily basis have
+made me rethink how much memory I really need.&lt;/p&gt;</description></item><item><title>Trying out Vale as a prose linter</title><link>https://d3adb5.net/blog/vale-linter/</link><pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/vale-linter/</guid><description>&lt;p&gt;I have recently discovered a linting tool for prose called &lt;a href="https://vale.sh"&gt;Vale&lt;/a&gt;. The
+way I discovered it was by going through &lt;a href="https://stakater.com"&gt;Stakater&lt;/a&gt;&amp;rsquo;s public
+repositories on GitHub. More specifically the &lt;a href="https://github.com/stakater/vocabulary"&gt;stakater/vocabulary&lt;/a&gt;
+repository, which contains a &lt;a href="https://vale.sh/docs/topics/vocab/"&gt;Vale vocabulary&lt;/a&gt; for Vale&amp;rsquo;s spell
+checker not to yell at them for using Kubernetes resource names in prose.&lt;/p&gt;
+&lt;p&gt;While I&amp;rsquo;m not a huge fan of tools that judge my writing, I do feel there are
+some recurrent typos I could eliminate without need for a code review prior to
+merging a new article to this website. And so I have decided to try out Vale
+when I&amp;rsquo;m writing new pages and blog posts like this one. As a bonus that comes
+with my Vale configuration, I get information on text readability, among other
+things.&lt;/p&gt;</description></item><item><title>Sonos speakers are actually pretty good</title><link>https://d3adb5.net/blog/sonos-speakers/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/sonos-speakers/</guid><description>&lt;p&gt;Last Christmas I got my wife a couple of Sonos One speakers so she wouldn&amp;rsquo;t
+have to listen to music through her phone&amp;rsquo;s tiny speaker. She does have a good
+pair of headphones, and the audio quality of AirPods is decent enough I&amp;rsquo;m in no
+hurry to replace any of those. However, when we listen to music together over a
+game of &lt;em&gt;Scrabble&lt;/em&gt; or &lt;em&gt;Bananagrams,&lt;/em&gt; iPhone or iPad speakers simply won&amp;rsquo;t cut
+it.&lt;/p&gt;</description></item><item><title>Back to playing games because of Breath of the Wild</title><link>https://d3adb5.net/blog/back-to-playing-botw/</link><pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/back-to-playing-botw/</guid><description>&lt;p&gt;My wife has recently started playing &lt;em&gt;The Legend of Zelda: Breath of the Wild&lt;/em&gt;
+on her Nintendo Switch OLED. I&amp;rsquo;ve been watching her play, and it rekindled my
+interest in the game in a way that I didn&amp;rsquo;t expect. I&amp;rsquo;ve been playing video
+games on and off since I was a kid, but honestly believed that I was done with
+them. However, watching her play the game and seeing how much she enjoys it, I
+couldn&amp;rsquo;t help grabbing my Switch and continuing from where I left off.&lt;/p&gt;</description></item><item><title>Updated Git opinions and lessons learned</title><link>https://d3adb5.net/blog/more-git-opinions/</link><pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/more-git-opinions/</guid><description>&lt;p&gt;This is yet another foray into Git matters. I must say that, albeit not by
+much, my opinions have changed since &lt;a href="https://d3adb5.net/blog/git-rebase-vs-merge/"&gt;the last time I wrote down my thoughts on
+Git.&lt;/a&gt; While I&amp;rsquo;m still an advocate for linear history &amp;mdash;
+provided it doesn&amp;rsquo;t come at considerable expense &amp;mdash; I&amp;rsquo;ve come to revel in my
+laziness, appreciate the power of a Git merge, and hold in contempt the
+inability of suites like GitLab, GitHub, and BitBucket to handle conflict
+resolution in merge commits.&lt;/p&gt;</description></item><item><title>On excessive templating with Helm</title><link>https://d3adb5.net/blog/on-helm-templates/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/on-helm-templates/</guid><description>&lt;p&gt;I&amp;rsquo;ve mentioned in other blogposts that I&amp;rsquo;ve been involved in a project making
+extensive use of Helm. It is known by some as the Kubernetes package manager,
+so you&amp;rsquo;ll naturally use it as you deploy applications to your cluster. Other
+than release management, its main advantage is generating resources based on
+user configurable &lt;em&gt;values.&lt;/em&gt; Conditionals are a direct evolution of that, and
+loops come into play as need be. But it doesn&amp;rsquo;t stop there.&lt;/p&gt;</description></item><item><title>Implementing the Blue/Green deployment strategy with Helm</title><link>https://d3adb5.net/blog/blue-green-with-helm/</link><pubDate>Thu, 06 Oct 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/blue-green-with-helm/</guid><description>&lt;section class="dialog dialog-info"&gt;
+ &lt;section class="dialog-icon"&gt;ℹ️&lt;/section&gt;
+ &lt;section class="dialog-content"&gt;
+&lt;p&gt;&lt;strong&gt;DISCLAIMER:&lt;/strong&gt; Heed the warning in this article&amp;rsquo;s subtitle. Use the &lt;a href="https://argoproj.github.io/argo-rollouts/"&gt;right
+tool for the job,&lt;/a&gt; this is just for fun. Well, it wasn&amp;rsquo;t just
+for fun in the beginning, but now that I did it and found a better alternative
+that fits my use case, it became just for fun.&lt;/p&gt;
+ &lt;/section&gt;
+&lt;/section&gt;
+&lt;p&gt;For better or for worse, one of the principal tools for any developer or
+operator using Kubernetes is &lt;a href="https://helm.sh/"&gt;Helm.&lt;/a&gt; It&amp;rsquo;s a powerful tool for sure, but
+it uses Go templates, which doesn&amp;rsquo;t have the most intuitive syntax. On top of
+that, there are some weird decisions made by the developers of the tool &amp;mdash;
+semantic versioning is a requirement for chart versions, for instance.&lt;/p&gt;</description></item><item><title>How does a micro form factor PC perform?</title><link>https://d3adb5.net/blog/using-a-micro-pc/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/using-a-micro-pc/</guid><description>&lt;p&gt;Not too long ago, I started looking into building myself a reasonable desktop
+so I could finally graduate from my ThinkPad X220. Don&amp;rsquo;t get me wrong, the X220
+is pretty neat and will still work for a long time, but sometimes its fan would
+go turbo mode while running relatively simple programs like Telegram Desktop
+and Discord. You could chalk that up to the applications not being well
+optimized &lt;em&gt;&amp;mdash; and that is specially true for the latter example &amp;mdash;&lt;/em&gt; but at
+some point you give in and start looking to replace the hardware that was
+already meant for just office work &lt;strong&gt;when it came out back in 2011.&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Some of my thoughts on The Legend of Zelda</title><link>https://d3adb5.net/blog/thoughts-on-zelda-games/</link><pubDate>Fri, 01 Jul 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/thoughts-on-zelda-games/</guid><description>&lt;p&gt;While I don&amp;rsquo;t spend a lot of my time playing video games, there are a few
+franchises that will compell me to spend some of my spare hours in front of a
+screen (or two). For the most part they are Nintendo franchises, but they also
+feature &lt;em&gt;Kingdom Hearts&lt;/em&gt; and &lt;em&gt;Puyo Puyo Tetris.&lt;/em&gt; The series that never fails to
+draw me in, however, is &lt;em&gt;The Legend of Zelda,&lt;/em&gt; which I&amp;rsquo;d like to talk about
+briefly in this article.&lt;/p&gt;</description></item><item><title>Using Git outside of programming</title><link>https://d3adb5.net/blog/git-outside-programming/</link><pubDate>Sat, 18 Jun 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/git-outside-programming/</guid><description>&lt;p&gt;It is public knowledge that versioning is important when writing documents, be
+it source code for a project written in a programming language, drafts of a
+book, or meeting minutes. GitHub, for instance, uses Git for their &lt;em&gt;site
+policy, documentation,&lt;/em&gt; and &lt;em&gt;roadmap,&lt;/em&gt; none of which involve or focus on
+programming. But what if we don&amp;rsquo;t care too much about versioning itself?&lt;/p&gt;
+&lt;p&gt;Keeping a history of versions of a piece of work doesn&amp;rsquo;t come to mind so
+naturally, especially for those of us who don&amp;rsquo;t want to show whatever we&amp;rsquo;re
+working on to anybody until we&amp;rsquo;re perfectly happy with it. We forget that the
+history being preserved serves us far more than it does anybody else: did you
+come up with a good idea for working around X limitation? &lt;em&gt;Write it down!&lt;/em&gt;&lt;/p&gt;</description></item><item><title>On linear history with Git: rebase, merge, squash</title><link>https://d3adb5.net/blog/git-rebase-vs-merge/</link><pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/git-rebase-vs-merge/</guid><description>&lt;p&gt;&lt;strong&gt;DISCLAIMER:&lt;/strong&gt; I do not claim to be an expert on Git, nor do I claim to have a
+lot of experience in source code management tools. This article is being
+written as I decide what I want for my own projects, and how I position myself
+on the application of each &amp;ldquo;philosophy&amp;rdquo;, so to speak. This topic is
+controversial in ways I hadn&amp;rsquo;t even imagined before.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; Decent knowledge of Git and its terminology is assumed here. Some
+commands might be shown, but explanations about what a &lt;code&gt;commit&lt;/code&gt;, a &lt;code&gt;branch&lt;/code&gt;,
+etc. are will not be present. Links to documentation will be added on occasion.&lt;/p&gt;</description></item><item><title>Experiences with CI/CD and DevOps</title><link>https://d3adb5.net/blog/experiences-with-ci-cd/</link><pubDate>Wed, 16 Mar 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/experiences-with-ci-cd/</guid><description>&lt;p&gt;&lt;strong&gt;WARNING:&lt;/strong&gt; This became such a lengthy article despite the relative lack of
+detail that it forced me to include a table of contents. Hopefully it isn&amp;rsquo;t too
+tiresome to read through, and whoever reads it can jump to whatever topic might
+interest them.&lt;/p&gt;
+&lt;p&gt;The goal of this blogpost is to give the reader an overview of what it was like
+for me to get accustomed to and implement some &lt;em&gt;continuous integration (CI)&lt;/em&gt; and
+&lt;em&gt;continuous deployment (CD)&lt;/em&gt; solutions to my own personal projects. It was and
+is still being a bumpy ride, but it&amp;rsquo;s more gratifying than I thought it would be
+when I first started.&lt;/p&gt;</description></item></channel></rss>

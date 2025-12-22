@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Opiniões on website pessoal de d3adb5</title><link>https://d3adb5.net/pt-br/tags/opini%C3%B5es/</link><description>Recent content in Opiniões on website pessoal de d3adb5</description><generator>Hugo</generator><language>pt-br</language><lastBuildDate>Fri, 09 Jun 2023 14:59:16 -0700</lastBuildDate><atom:link href="https://d3adb5.net/pt-br/tags/opini%C3%B5es/index.xml" rel="self" type="application/rss+xml"/><item><title>Programas escritos em C podem ser mais lentos</title><link>https://d3adb5.net/pt-br/blog/c-isnt-string-friendly/</link><pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/pt-br/blog/c-isnt-string-friendly/</guid><description>&lt;p&gt;Há uma década, se vocẽ me pedisse para falar sobre programação, eu, &lt;em&gt;jovem e
+inexperiente,&lt;/em&gt; provavelmente diria que todo mundo deveria programar em C, para
+que todos os programas pudessem ter alta performance e que programadores que
+reclamavam da linguagem eram preguiçosos demais para lidar com alocação de
+memória e ponteiros. &lt;strong&gt;Que vergonha!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Tenho certeza que eu atribuía qualquer lentidão ou delay a &lt;em&gt;desenvolvedores
+Java preguiçosos:&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Vou apertar o botão direito do controle e vamos esperar a animação terminar.
+Viu só quanto tempo demorou? Isso tudo é culpa do Java e de programadores
+preguiçosos. Se tivesse sido escrito em C&amp;hellip;&lt;/p&gt;</description></item><item><title>Usando Git para além de programação</title><link>https://d3adb5.net/pt-br/blog/git-outside-programming/</link><pubDate>Sat, 18 Jun 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/pt-br/blog/git-outside-programming/</guid><description>&lt;p&gt;É de conhecimento público que versionamento é importante quando escrevemos
+qualquer tipo de documento, seja código-fonte escrito em uma linguagem de
+programação, rascunhos de um livro, ou atas de reunião. O GitHub, por exemplo,
+usa Git para &lt;em&gt;a política do site, documentação,&lt;/em&gt; e seu &lt;em&gt;roadmap,&lt;/em&gt; nenhum dos
+quais envolve ou foca em programação. Mas e se a gente não liga muito para o
+versionamento em si?&lt;/p&gt;
+&lt;p&gt;Manter um histórico de versões de uma obra não é algo que nos vem naturalmente,
+especialmente se você é do tipo que não quer mostrar no que está trabalhando
+para ninguém até o momento em que está perfeitamente contente com o resultado.
+Nós esquecemos do simples fato de que o histórico nos serve muito mais do que
+qualquer outra coisa: você teve uma ideia para lidar com uma limitação X?
+&lt;em&gt;Anota em algum lugar!&lt;/em&gt;&lt;/p&gt;</description></item><item><title>Histórico linear com Git: rebase, merge, squash</title><link>https://d3adb5.net/pt-br/blog/git-rebase-vs-merge/</link><pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/pt-br/blog/git-rebase-vs-merge/</guid><description>&lt;p&gt;&lt;strong&gt;DISCLAIMER:&lt;/strong&gt; Não me declaro exímio conhecedor de Git, muito menos alguém
+extremamente experiente com ferramentas de controle de versão. Este artigo está
+sendo escrito enquanto decido o que quero para os meus próprios projetos, e
+como enxergo a aplicação de cada &amp;ldquo;filosofia&amp;rdquo;, por assim dizer. O tema é
+controverso de maneiras que até me fugiam da cabeça.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Observação:&lt;/em&gt; Assume-se aqui um conhecimento decente de Git e de sua
+terminologia. Alguns comandos serão exibidos, mas explicações sobre o que é
+&lt;code&gt;commit&lt;/code&gt;, &lt;code&gt;branch&lt;/code&gt;, etc. não estarão presentes. Links para documentação serão
+inseridos de forma branda.&lt;/p&gt;</description></item></channel></rss>

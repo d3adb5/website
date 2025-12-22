@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Prometheus on d3adb5's personal website</title><link>https://d3adb5.net/extra/notes/prometheus/</link><description>Recent content in Prometheus on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 06 May 2023 18:19:11 -0700</lastBuildDate><atom:link href="https://d3adb5.net/extra/notes/prometheus/index.xml" rel="self" type="application/rss+xml"/><item><title>Prometheus and metrics-based monitoring</title><link>https://d3adb5.net/extra/notes/prometheus/summary/</link><pubDate>Sat, 15 Oct 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/extra/notes/prometheus/summary/</guid><description>&lt;p&gt;Prometheus is an incredibly (the most?) popular tool for monitoring and
+alerting, especially in the cloud-native world. It aids in fetching, storing,
+and querying metrics from a variety of sources, and can be used to trigger
+alerts when certain conditions are met.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Fancy words, what is it, really?&lt;/em&gt; You can imagine Prometheus as the annoying
+little brother or cousing who periodically hits you with the same question, in
+anticipation for when you&amp;rsquo;re going out, playing video games, or preparing food.
+In this case, this annoying rugrat is asking &amp;ldquo;how much memory are you using?&amp;rdquo;,
+&amp;ldquo;how many requests are you getting?&amp;rdquo;, &amp;ldquo;how many threads are you running?&amp;rdquo;, and
+so on.&lt;/p&gt;</description></item></channel></rss>

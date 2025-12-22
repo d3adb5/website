@@ -1,0 +1,133 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="DISCLAIMER: I do not claim to be an expert on Git, nor do I claim to have a
+lot of experience in source code management tools. This article is being
+written as I decide what I want for my own projects, and how I position myself
+on the application of each &ldquo;philosophy&rdquo;, so to speak. This topic is
+controversial in ways I hadn&rsquo;t even imagined before.
+Note: Decent knowledge of Git and its terminology is assumed here. Some
+commands might be shown, but explanations about what a commit, a branch,
+etc. are will not be present. Links to documentation will be added on occasion."><meta http-equiv=Content-Security-Policy content="default-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src *; object-src 'none'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; worker-src 'self' blob:; base-uri 'self'"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>On linear history with Git: rebase, merge, squash</title><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-600.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-600.woff2 crossorigin><style type=text/css>@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:400;src:url(/fonts/source-sans-pro-regular.woff2)format("woff2"),url(/fonts/source-sans-pro-regular.woff)format("woff")}@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:600;src:url(/fonts/source-sans-pro-600.woff2)format("woff2"),url(/fonts/source-sans-pro-600.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:400;src:url(/fonts/inconsolata-regular.woff2)format("woff2"),url(/fonts/inconsolata-regular.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:600;src:url(/fonts/inconsolata-600.woff2)format("woff2"),url(/fonts/inconsolata-600.woff)format("woff")}footer#page-footer,nav#site-nav{background:0 0;padding:1em}footer#page-footer,nav#site-nav{background:#282a2e;color:#c5c8c6;line-height:3em}nav#site-nav{display:flex;overflow:auto;scrollbar-width:none}nav#site-nav::-webkit-scrollbar{display:none}nav#site-nav a{display:inline-block;width:6em;font-weight:700;text-align:center;color:inherit;flex-shrink:0}@media screen and (min-width:60em){footer#page-footer,nav#site-nav{line-height:inherit}}html{background:#252628}body{width:100%;max-width:60em;margin:0 auto;line-height:1.5em;font-family:source sans pro,helvetica,liberation sans,open sans,sans-serif;font-size:100%;color:#c5c8c6}@media screen and (min-width:60em){body{margin:2em auto!important}}h1,h2,h3,h4,h5,h6{margin:1.1em 0 .83em}h1,h2,h3{color:#8c9440}h4,h5,h6{color:#b5bd68}h1{font-size:1.5em}h2{font-size:1.26em}h3{font-size:1.1em}h4{font-size:1.03em}h5{font-size:.67em}h6{font-size:.51em}a{text-decoration:initial;color:#de935f}a:hover{text-decoration:underline}em{color:#f0c674;font-style:normal}strong{color:#c66}nav#site-nav{border-radius:1em 1em 0 0;background:0 0;color:#c5c8c6}nav#site-nav a.push-right{margin-left:auto}nav#site-nav a.current{color:#81a2be}label#toc-toggle{display:flex;width:100%;margin-top:1em;height:3em;align-items:center;justify-content:center}input#toc-toggle-box{display:none}input#toc-toggle-box~nav#TableOfContents{display:none}input#toc-toggle-box:checked~nav#TableOfContents{display:block}nav#TableOfContents{margin:.5em 0 0;box-sizing:border-box;background:#282a2e;padding:1em;border-radius:.5em;overflow:hidden;font-weight:700;color:#de935f}nav#TableOfContents ul{margin:0;padding:0;list-style-type:none}nav#TableOfContents ul li{overflow:hidden;white-space:nowrap;text-overflow:' ...'}nav#TableOfContents ul li+li{margin-top:1em}nav#TableOfContents ul ul{padding-left:1em;margin-top:1em}@media screen and (min-width:60em){nav#TableOfContents{float:right;margin:1em 0 1em 1em;max-width:40%;font-size:85%}nav#TableOfContents ul li+li{margin-top:initial}nav#TableOfContents ul ul{margin-top:initial}}@media screen and (min-width:60em){label#toc-toggle{display:none}}@media screen and (min-width:60em){input#toc-toggle-box~nav#TableOfContents{display:initial}}footer#page-footer{background:0 0;color:#707880;display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr)}footer#page-footer a{color:#f0c674}footer#page-footer span.commit-subject{color:#de935f;margin-left:.5em}footer#page-footer p#commit{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}footer#page-footer p#commit span.commit-hash{font-family:inconsolata,dejavu sans mono,liberation mono,monospace}footer#page-footer p#timestamp,footer#page-footer p#commit{margin:0}footer#page-footer p#timestamp{text-align:right}article{background:#1d1f21;padding:.1em 1.5em .8em}@media screen and (min-width:60em){article{border-radius:.5em}}article header{font-weight:700}article header section.header-line{display:flex;justify-content:space-between;align-items:center}article header section.header-line h1{color:#8c9440;margin-bottom:.25em}article header section.header-line aside#translations{margin:1.1em 0 .25em}article header section.header-line aside#translations ul#translations{list-style:none;padding:0;margin:0;display:flex;justify-content:space-around;font-size:115%}article header section.header-line aside#translations ul#translations li:not(:first-child){margin-left:1em}article header section.subheader-line{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}article header section.subheader-line p.subtitle{color:#5e8d87;margin:0}article header section.subheader-line p.subtitle em{color:inherit;font-style:italic}article header section.subheader-line ul#article-tags{list-style-type:none;padding-left:0;margin:0;font-size:85%}article header section.subheader-line ul#article-tags li{display:inline-block}article header section.subheader-line ul#article-tags li:nth-child(n+2){margin-left:1em}article header section.subheader-line ul#article-tags li a{color:#f0c674}article blockquote{color:#979a98;padding-left:1em;border:0 solid #707880;border-left-width:.5em}article table{width:100%}article table th{color:#81a2be}article table td{color:#c5c8c6}article table td.date{width:1%;white-space:nowrap;padding:0 .5em 0 0}article table.compare-table{border-collapse:collapse}article table.compare-table th,article table.compare-table td{padding:.5em 1em;box-sizing:border-box}article table.compare-table th:first-child,article table.compare-table td:first-child{padding-left:0}article table.compare-table th:last-child,article table.compare-table td:last-child{padding-right:0}article table.compare-table th,article table.compare-table td:nth-child(n+2){text-align:center}article table.compare-table td{border-top:.1em solid #707880}article table.compare-table th:nth-child(n+2){min-width:4em}article li::marker{color:#f0c674}article figure{margin:1.25em 0;text-align:center}article figure img{min-height:5em;max-height:15em;width:100%;object-fit:cover;border-radius:1em}article figure figcaption p{margin-top:0}article code{font-family:inconsolata,dejavu sans mono,liberation mono,monospace;font-size:100%}article pre{background:#282a2e;border-radius:.5em;padding:.5em 1em;overflow-x:auto;line-height:initial}article>hr{color:#707880;opacity:.5;margin:2em 0}article p code,article li code{background:#282a2e;padding:0 .3em;border-radius:.25em}article>p a,article>ul li a,article>ol li a{text-decoration:underline}article.extra-pages h2~p{margin-left:2em}article section.dialog{display:flex;padding:1em;align-content:center;border-radius:.5em;border:.2em solid #707880;margin:.5em 0 0;box-sizing:border-box;max-width:100%}article section.dialog p:first-child{margin-top:0}article section.dialog p:last-child{margin-bottom:0}article section.dialog .dialog-icon{margin-right:1em}article section.dialog.dialog-info{border-color:#5f819d}article section.dialog.dialog-warning{border-color:#de935f}article section.dialog.dialog-error{border-color:#a54242}article section.dialog.dialog-success{border-color:#8c9440}@media screen and (min-width:60em){article section.dialog{margin:1em 0 0}}</style></head><body><nav id=site-nav><a href=/ class=[]>Home
+</a><a href=/blog/ class=[]>Blog
+</a><a href=/glob/ class=[]>Glob
+</a><a href=/projects/ class=[]>Projects
+</a><a href=/about/ class=push-right>About</a></nav><main role=main><article id=content><header><section class=header-line><h1>On linear history with Git: rebase, merge, squash</h1><aside id=translations><ul id=translations><li><a href=/pt-br/blog/git-rebase-vs-merge/ title="Português Brasileiro"><span role=img aria-label="Bandeira do Brasil">🇧🇷</span></a></li></ul></aside></section><section class=subheader-line><p class=subtitle>To rebase or not to rebase, that is the question&mldr;</p><ul id=article-tags><li><a href=/tags/versioning>Versioning</a></li><li><a href=/tags/git>Git</a></li><li><a href=/tags/technology>Technology</a></li><li><a href=/tags/opinions>Opinions</a></li></ul></section></header><p><strong>DISCLAIMER:</strong> I do not claim to be an expert on Git, nor do I claim to have a
+lot of experience in source code management tools. This article is being
+written as I decide what I want for my own projects, and how I position myself
+on the application of each &ldquo;philosophy&rdquo;, so to speak. This topic is
+controversial in ways I hadn&rsquo;t even imagined before.</p><p><em>Note:</em> Decent knowledge of Git and its terminology is assumed here. Some
+commands might be shown, but explanations about what a <code>commit</code>, a <code>branch</code>,
+etc. are will not be present. Links to documentation will be added on occasion.</p><h2 id=what-is-linear-history>What is linear history?</h2><p>A repository&rsquo;s commit history is said to be linear (sometimes semi-linear) when
+there are no parallel branches of development with visible changes. In other
+words, changes follow a <em>strict order,</em> which may or may not be chronological.
+Put more succinctly, you are able to follow the <code>commit</code> history without having
+to branching out at any point in time.</p><p>An example of linear history:</p><pre tabindex=0><code>* a64cdd6 feat(bar): extend new feature
+* 8bce4d5 feat(bar): introduce new feature
+* 12757f0 feat(foo): send processed info to server
+* f26b0a5 feat(foo): process some information
+* 3016bae chore: starting this repository
+</code></pre><p>These commits are in a clear and direct order: <code>3016bae</code>, then <code>f26b0a5</code>, and
+so on until we reach <code>a64cdd6</code>. We can perfectly understand the project&rsquo;s
+evolution, especially if we can count on well crafted commit messages.</p><p>Speaking of commits, projects of every scale tend to follow workflows that &mdash;
+at least on paper &mdash; follow the general guidelines of &ldquo;<code>commit</code> often,
+<code>branch</code> out for every feature.&rdquo; As we run<code>git merge</code> to incorporate changes,
+soon we&rsquo;ll have created &ldquo;train tracks&rdquo; in our Git history.</p><p>However, if we try to preserve linearity when merging, we&rsquo;ll likely request a
+<code>rebase</code> before every <code>merge</code>. In the end, picking merge commits over a
+<em>fast-forward</em> merge, our history will take a shape that we often refer to by
+&ldquo;semi-linear&rdquo;:</p><pre tabindex=0><code>*   1d26fed merge: feature/bar into master
+|\
+| * be56591 feat(bar): extend new feature
+| * ad2cf56 feat(bar): introduce new feature
+|/
+*   189e487 merge: feature/foo into master
+|\
+| * 36d49e6 feat(foo): send processed info to server
+| * 1528f6c feat(foo): process some information
+|/
+* 3ad35f0 chore: starting this repository
+</code></pre><p>There are technically parallel branches, but changes are <em>always on only one of
+them,</em> while the other is a direct link between the <em>merge-base</em> of our
+significant branch and its end point. That way, we do not lose the ability to
+follow changes made to the work tree sequentially.</p><p>To do so, you need only &ldquo;flatten&rdquo; the history above. The result, without taking
+commit hashes into consideration, is the same as the first commit history shown
+here. The &ldquo;layers&rdquo;, &ldquo;levels&rdquo;, branches, however you wish to call them, serve
+the function of identifying each <em>arc</em> of the development process, or at least
+the times we stopped to review what was done.</p><h3 id=train-tracks>Train tracks</h3><p>You might not know it by this name, but the following is an example of a commit
+history that we call &ldquo;train tracks&rdquo;:</p><pre tabindex=0><code>*   1805ccb merge: bar into master
+|\
+| * 9232bac feat(bar): more stuff
+| * 87ddf92 feat(bar): do stuff
+* | 2cb78b7 something changed again
+* |   1e7e0e8 merge: foo into master
+|\ \
+| * | 4b0d990 feat(foo): add something else
+| * | 51fb8b4 feat(foo): something something
+| |/
+* / 26339fc whoops, something changed here
+|/
+* f51dc43 chore: start
+</code></pre><p>Notice how difficult it is to read changes made to the code in a well ordered
+manner. It isn&rsquo;t impossible, and it isn&rsquo;t <em>wrong:</em> Git was designed to be able
+to merge vastly different development branches, since many people working on
+the same file tree cannot always stop to update their local histories. Instead
+you work while hoping there aren&rsquo;t <em>merge conflicts</em> in the end.</p><h2 id=what-is-the-meaning-of-history-to-you-what-about-git>What is the meaning of history to you? What about Git?</h2><p>Before we list the pros and cons of having linear history, I believe it is
+necessary to discuss the subjective aspect of commit history. Git is a version
+control software, but the question of <em>which versions should be stored</em> is very
+relevant.</p><p>Some possible answers:</p><ul><li>Every change made to the code by a developer who considered it sufficient to
+constitute a commit.</li><li>Every version of the code that passes the automated tests.</li><li>Every change made in the software development lifecycle, be it something we
+can read sequentially or not.</li><li>Everything we believe is relevant, even if it breaks automated tests,
+compilation, or functionality.</li></ul><p>Perhaps the reasoning behind each answer can be explained by their use of Git.
+Do we wish to preserve <em>history</em> as it really happened, or do we wish to
+compose the clean and comprehensible <em>story</em> of how our project was developed?
+If we find a bug, do we search for the change that introduced it by using <code>git bisect</code> and automated tests, or do we just look for the piece of code that is
+causing the bug?</p><p><strong>In my opinion,</strong> the history should show the evolution of the project and not
+every developer&rsquo;s involvement. I say that because I see commits as part of
+documentation, and changes scattered across 30 pages is more difficult to read
+than well structured sections in a clear order.</p><p>In an ideal world, no commit would introduce bugs, and Git hooks could be used
+to run tests before every new commit. In reality, be it a result of
+carelessness, whim, or <code>rebase</code>, we frequently create commits that break the
+tests that <em>hopefully</em> exist. <a href=https://medium.com/@fredrikmorken/why-you-should-stop-using-git-rebase-5552bee4fed1>This article</a> explains some
+drawbacks of using <code>git rebase</code>, but it does so from a standpoint of someone
+who uses Git to find the source of an error, or like a &ldquo;safety net.&rdquo;</p><p>I ask the reader:</p><ol><li><p>Those who defend the <em>merge</em> strategy claim that there are few people who
+know how to <em>rebase.</em> How many people do you know who not only know of the
+<em>bisect</em> command, but also how to use it?</p></li><li><p>Using Git as a debugging tool depends on a well written test for <em>bisect</em>,
+which is compatible up to its starting point, as well as on developers who
+test their changes before each commit. Do you see that as a common thing?</p></li><li><p>Those who defend the <em>merge</em> strategy claim <em>rebase</em> is &ldquo;rewriting history&rdquo;.
+It is indeed, but if history is messy and involves changes that break the
+build or testing process, wouldn&rsquo;t <em>bisect</em> fail us anyway?</p></li><li><p>We can <em>squash</em> commits before they&rsquo;re merged and in doing so guarantee
+they&rsquo;re going to work, so we can <em>bisect</em> with more confidence, but&mldr; isn&rsquo;t
+that also rewriting history?</p></li></ol><p>It is a well written article that raises a good point, but that creates a
+requirement even harder to meet than being able to perform a measly <em>rebase.</em>
+After all, if every developer tested their own changes before committing them,
+<em>why would we need CI builds?</em></p><h2 id=what-happens-in-practice>What happens in practice</h2><p>I will sound pessimistic and arrogant in saying this, but the majority of
+developers, no matter the company, will create commits without testing their
+changes, without reviewing them, without updating their local history before
+creating a new branch. Try not to read this as criticism, as I myself am guilty
+of these same sins. Instead, read my words as mere paraphrasing of the maxim
+&ldquo;it is only human to make mistakes.&rdquo;</p><p>Building upon this mutual understanding of &ldquo;we&rsquo;re going to screw up,&rdquo; we can
+imagine real situations that might take place when applying one strategy over
+the other, and even name them:</p><ol><li><p><em>Free-for-all, chaos,</em> or <em>harsh reality:</em> to preserve history as it is,
+keeping every change made by the developer, even if their branch originates
+80 commits ago, and 80% of changes to be incorporated have to do with
+conflict resolution. Since <em>squash</em> and maybe even CI builds are absent, it
+is not possible to guarantee each commit in the repository passes the
+testing phase.</p><ul><li>It is <strong>not</strong> possible to follow the history sequentially.</li><li>It is <strong>not</strong> easy to find errors using <em>bisect.</em></li><li>Each developer&rsquo;s history is <em>preserved.</em></li></ul></li><li><p><em>Compressed changes</em> or <em>code bombs:</em> before each merge, no matter where the
+source branch started, <em>squash</em> and <em>rebase</em> the proposed commits, so a
+single commit is merged in the end. CI builds will guarantee the final
+commit &mdash; that becomes a code bomb with potentially thousands of lines &mdash;
+passes the testing phase.</p><ul><li>It <em>is</em> possible to follow the history sequentially, <strong>but</strong> there&rsquo;ll most
+likely be code bombs here and there.</li><li>It <em>is</em> relatively easy to find errors using <em>bisect,</em> <strong>but</strong> they end up
+hidden in big diffs.</li><li>The history of each developer is <strong>not</strong> preserved, for commits end up
+being dropped.</li></ul></li><li><p><em>Linearity at last:</em> to perform a <em>rebase</em> before each merge, guaranteeing
+changes to be incorporated find their starting point at the most recent
+version of their target branch, even if that means abandoning commits that
+previously passed the automated testing phase.</p><ul><li>It <em>is</em> possible to follow the history sequentially.</li><li>It <em>is</em> possible to pinpoint errors using <em>bisect</em>, but there might be
+plenty of false positives due to broken commits.</li><li>The history of each developer is <strong>not</strong> preserved, as commits will likely
+need to be recreated.</li></ul></li><li><p><em>The automated tests dictatorship:</em> linearity is no longer the focus, and
+instead the aim is for <strong>every</strong> commit to pass the automated testing phase.
+The developer must guarantee each commit being proposed passes the available
+tests, and that there are no merge conflicts. Afraid to be called an
+imbecile, the developer makes all the changes they need to at once and runs
+the tests before submitting a single commit, which could&rsquo;ve easily been the
+result of a <em>squash,</em> like in the situation described in item 2.</p><ul><li>It <em>is</em> possible to follow the history sequentially, <strong>but</strong> there&rsquo;ll
+likely be code bombs.</li><li>It <em>is</em> relatively easy to find errors using <em>bisect,</em> <strong>but</strong> they end up
+hidden in big diffs.</li><li>The history of each developer is <em>scary, but preserved.</em></li></ul></li></ol><p>Right now, I&rsquo;m leaning towards situation number 3, thinking it&rsquo;s the lesser of
+all evils.</p></article></main><footer id=page-footer><p id=commit><a href=https://github.com/d3adb5/website/commit/538f1828a225229364fac663e3a9549e8db8e1d9><span class=commit-hash>538f182</span><span class=commit-subject>feat: add tags to existing blog posts</span></a></p><p id=timestamp>Updated May 14, 2023</p></footer></body></html>

@@ -1,0 +1,217 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="This is yet another foray into Git matters. I must say that, albeit not by
+much, my opinions have changed since the last time I wrote down my thoughts on
+Git. While I&rsquo;m still an advocate for linear history &mdash;
+provided it doesn&rsquo;t come at considerable expense &mdash; I&rsquo;ve come to revel in my
+laziness, appreciate the power of a Git merge, and hold in contempt the
+inability of suites like GitLab, GitHub, and BitBucket to handle conflict
+resolution in merge commits."><meta http-equiv=Content-Security-Policy content="default-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src *; object-src 'none'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; worker-src 'self' blob:; base-uri 'self'"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Updated Git opinions and lessons learned</title><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-600.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-600.woff2 crossorigin><style type=text/css>@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:400;src:url(/fonts/source-sans-pro-regular.woff2)format("woff2"),url(/fonts/source-sans-pro-regular.woff)format("woff")}@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:600;src:url(/fonts/source-sans-pro-600.woff2)format("woff2"),url(/fonts/source-sans-pro-600.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:400;src:url(/fonts/inconsolata-regular.woff2)format("woff2"),url(/fonts/inconsolata-regular.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:600;src:url(/fonts/inconsolata-600.woff2)format("woff2"),url(/fonts/inconsolata-600.woff)format("woff")}footer#page-footer,nav#site-nav{background:0 0;padding:1em}footer#page-footer,nav#site-nav{background:#282a2e;color:#c5c8c6;line-height:3em}nav#site-nav{display:flex;overflow:auto;scrollbar-width:none}nav#site-nav::-webkit-scrollbar{display:none}nav#site-nav a{display:inline-block;width:6em;font-weight:700;text-align:center;color:inherit;flex-shrink:0}@media screen and (min-width:60em){footer#page-footer,nav#site-nav{line-height:inherit}}html{background:#252628}body{width:100%;max-width:60em;margin:0 auto;line-height:1.5em;font-family:source sans pro,helvetica,liberation sans,open sans,sans-serif;font-size:100%;color:#c5c8c6}@media screen and (min-width:60em){body{margin:2em auto!important}}h1,h2,h3,h4,h5,h6{margin:1.1em 0 .83em}h1,h2,h3{color:#8c9440}h4,h5,h6{color:#b5bd68}h1{font-size:1.5em}h2{font-size:1.26em}h3{font-size:1.1em}h4{font-size:1.03em}h5{font-size:.67em}h6{font-size:.51em}a{text-decoration:initial;color:#de935f}a:hover{text-decoration:underline}em{color:#f0c674;font-style:normal}strong{color:#c66}nav#site-nav{border-radius:1em 1em 0 0;background:0 0;color:#c5c8c6}nav#site-nav a.push-right{margin-left:auto}nav#site-nav a.current{color:#81a2be}label#toc-toggle{display:flex;width:100%;margin-top:1em;height:3em;align-items:center;justify-content:center}input#toc-toggle-box{display:none}input#toc-toggle-box~nav#TableOfContents{display:none}input#toc-toggle-box:checked~nav#TableOfContents{display:block}nav#TableOfContents{margin:.5em 0 0;box-sizing:border-box;background:#282a2e;padding:1em;border-radius:.5em;overflow:hidden;font-weight:700;color:#de935f}nav#TableOfContents ul{margin:0;padding:0;list-style-type:none}nav#TableOfContents ul li{overflow:hidden;white-space:nowrap;text-overflow:' ...'}nav#TableOfContents ul li+li{margin-top:1em}nav#TableOfContents ul ul{padding-left:1em;margin-top:1em}@media screen and (min-width:60em){nav#TableOfContents{float:right;margin:1em 0 1em 1em;max-width:40%;font-size:85%}nav#TableOfContents ul li+li{margin-top:initial}nav#TableOfContents ul ul{margin-top:initial}}@media screen and (min-width:60em){label#toc-toggle{display:none}}@media screen and (min-width:60em){input#toc-toggle-box~nav#TableOfContents{display:initial}}footer#page-footer{background:0 0;color:#707880;display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr)}footer#page-footer a{color:#f0c674}footer#page-footer span.commit-subject{color:#de935f;margin-left:.5em}footer#page-footer p#commit{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}footer#page-footer p#commit span.commit-hash{font-family:inconsolata,dejavu sans mono,liberation mono,monospace}footer#page-footer p#timestamp,footer#page-footer p#commit{margin:0}footer#page-footer p#timestamp{text-align:right}article{background:#1d1f21;padding:.1em 1.5em .8em}@media screen and (min-width:60em){article{border-radius:.5em}}article header{font-weight:700}article header section.header-line{display:flex;justify-content:space-between;align-items:center}article header section.header-line h1{color:#8c9440;margin-bottom:.25em}article header section.header-line aside#translations{margin:1.1em 0 .25em}article header section.header-line aside#translations ul#translations{list-style:none;padding:0;margin:0;display:flex;justify-content:space-around;font-size:115%}article header section.header-line aside#translations ul#translations li:not(:first-child){margin-left:1em}article header section.subheader-line{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}article header section.subheader-line p.subtitle{color:#5e8d87;margin:0}article header section.subheader-line p.subtitle em{color:inherit;font-style:italic}article header section.subheader-line ul#article-tags{list-style-type:none;padding-left:0;margin:0;font-size:85%}article header section.subheader-line ul#article-tags li{display:inline-block}article header section.subheader-line ul#article-tags li:nth-child(n+2){margin-left:1em}article header section.subheader-line ul#article-tags li a{color:#f0c674}article blockquote{color:#979a98;padding-left:1em;border:0 solid #707880;border-left-width:.5em}article table{width:100%}article table th{color:#81a2be}article table td{color:#c5c8c6}article table td.date{width:1%;white-space:nowrap;padding:0 .5em 0 0}article table.compare-table{border-collapse:collapse}article table.compare-table th,article table.compare-table td{padding:.5em 1em;box-sizing:border-box}article table.compare-table th:first-child,article table.compare-table td:first-child{padding-left:0}article table.compare-table th:last-child,article table.compare-table td:last-child{padding-right:0}article table.compare-table th,article table.compare-table td:nth-child(n+2){text-align:center}article table.compare-table td{border-top:.1em solid #707880}article table.compare-table th:nth-child(n+2){min-width:4em}article li::marker{color:#f0c674}article figure{margin:1.25em 0;text-align:center}article figure img{min-height:5em;max-height:15em;width:100%;object-fit:cover;border-radius:1em}article figure figcaption p{margin-top:0}article code{font-family:inconsolata,dejavu sans mono,liberation mono,monospace;font-size:100%}article pre{background:#282a2e;border-radius:.5em;padding:.5em 1em;overflow-x:auto;line-height:initial}article>hr{color:#707880;opacity:.5;margin:2em 0}article p code,article li code{background:#282a2e;padding:0 .3em;border-radius:.25em}article>p a,article>ul li a,article>ol li a{text-decoration:underline}article.extra-pages h2~p{margin-left:2em}article section.dialog{display:flex;padding:1em;align-content:center;border-radius:.5em;border:.2em solid #707880;margin:.5em 0 0;box-sizing:border-box;max-width:100%}article section.dialog p:first-child{margin-top:0}article section.dialog p:last-child{margin-bottom:0}article section.dialog .dialog-icon{margin-right:1em}article section.dialog.dialog-info{border-color:#5f819d}article section.dialog.dialog-warning{border-color:#de935f}article section.dialog.dialog-error{border-color:#a54242}article section.dialog.dialog-success{border-color:#8c9440}@media screen and (min-width:60em){article section.dialog{margin:1em 0 0}}</style></head><body><nav id=site-nav><a href=/ class=[]>Home
+</a><a href=/blog/ class=[]>Blog
+</a><a href=/glob/ class=[]>Glob
+</a><a href=/projects/ class=[]>Projects
+</a><a href=/about/ class=push-right>About</a></nav><main role=main><article id=content><header><section class=header-line><h1>Updated Git opinions and lessons learned</h1></section><section class=subheader-line><p class=subtitle>More unanswerable questions, and some personal answers</p><ul id=article-tags><li><a href=/tags/versioning>Versioning</a></li><li><a href=/tags/git>Git</a></li><li><a href=/tags/opinions>Opinions</a></li><li><a href=/tags/technology>Technology</a></li></ul></section></header><p>This is yet another foray into Git matters. I must say that, albeit not by
+much, my opinions have changed since <a href=https://d3adb5.net/blog/git-rebase-vs-merge/>the last time I wrote down my thoughts on
+Git.</a> While I&rsquo;m still an advocate for linear history &mdash;
+provided it doesn&rsquo;t come at considerable expense &mdash; I&rsquo;ve come to revel in my
+laziness, appreciate the power of a Git merge, and hold in contempt the
+inability of suites like GitLab, GitHub, and BitBucket to handle conflict
+resolution in merge commits.</p><p>The summary of updates to my views is as follows:</p><ul><li><p>Perhaps we shouldn&rsquo;t so vehemently avoid pushing to &ldquo;special&rdquo; branches like
+<em>master</em> or <em>develop,</em> or even <em>release/x.y.z</em>. One ought to follow rules as
+determined by the team&rsquo;s chosen workflow, but surely there are instances
+where going by the book is less appropriate than to do otherwise.</p></li><li><p>Linear history has its advantages, but as long as the people working on the
+repository are frugal in their use of <em>git merge,</em> it&rsquo;s not such a big
+detriment to the project&rsquo;s history. Sometimes it&rsquo;s easier to merge than to
+rebase and go back to ensure each commit is still functional, accurate, and
+purposeful.</p></li><li><p>Following made-up rules in all cases, workflow or not, is <em>silly</em> and
+<em>generally a waste of time and brainpower.</em> You should do what is sensible
+and comes at no cost to the team&rsquo;s productivity. If that means letting go of
+some pride for being the one who memorizes and follows mnemonics, then so be
+it. You&rsquo;re not competing for anyone&rsquo;s approval, unless you&rsquo;re playing office
+politics, in which case, you&rsquo;re probably not reading this.</p></li></ul><p>These statements might come to some as inflammatory. Perhaps you conflate your
+identity, self-respect, ego, or self-esteem with your knowledge of Git. It&rsquo;s
+infantile to do so, but I&rsquo;m not here to judge &mdash; I&rsquo;ve been guilty of that
+myself. <em>Carry on if you disagree and don&rsquo;t care to be convinced otherwise.</em></p><p>For those who care, I&rsquo;ll explain the reasoning behind each bullet point in the
+sections that follow.</p><h2 id=why-you-might-want-to-push-to-special-branches>Why you might want to push to special branches</h2><p>No, I&rsquo;m not here to say you should start pushing to <em>master</em> willy-nilly,
+bypass the CI pipeline, forget about quality and status checks, and get those
+commits to production now to skip all the bureaucracy. That&rsquo;s a terrible idea
+and one for which I shall never be a proponent. For most simple workflows,
+<em>master is the only special branch,</em> so what am I talking about?</p><p>I&rsquo;m talking about more complicated workflows, or when a developer royally
+screws up the master branch &mdash; work with Git for long enough and you&rsquo;ll see it
+happen. Let&rsquo;s exemplify so we&rsquo;re not lost in the abstract.</p><p>A brief explanation of the legacy GitFlow workflow:</p><ol><li><p>There are two long lived branches: <em>master</em> and <em>develop</em>. The former is
+always in a deployable state, and the latter is the branch where all
+development, aside from hotfixes, is done.</p></li><li><p>Working on a new <em>feature?</em> Create a feature branch off of <em>develop,</em> work
+on it, and merge it back into <em>develop</em> when it&rsquo;s ready. It&rsquo;s okay if there
+were new commits in <em>develop</em> by the time you merged your feature, but
+beware of merge conflicts and bugs.</p></li><li><p>Your project is gearing up for a release. To avoid features in development
+from affecting it, you create a new release off of <em>develop,</em> and perform
+any bug fixes and final adjustments you need to make on it. Once you&rsquo;re
+ready to actually perform the release, merge it into <em>master,</em> tag it with a
+version number, and merge it into <em>develop</em> to ensure the changes made for
+release are carried over to the next one.</p></li><li><p><strong>Oh no, something&rsquo;s wrong with production!</strong> Quick, create a <em>hotfix</em> off
+of the production branch &mdash; <em>master</em> &mdash; and once you fixed the issue,
+merge it back there as well as <em>develop</em>. We wouldn&rsquo;t want our next release
+to be afflicted by the same bug, would we?</p></li></ol><p>And that&rsquo;s it. It&rsquo;s a simple workflow, though it&rsquo;s fallen out of favor and is
+now considered a legacy Git workflow. Let&rsquo;s come up with a scenario where one
+or more developers messed things up a bit, so you can clearly see what I mean.</p><p>You have two developers, Alice and Bob. They are both working on a new feature,
+which started off the same commit in <em>develop</em>. The repository has a single
+YAML file, and each is tasked with changing a line in it. This is the situation
+for their branches:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>* beafa18 feat: change second key in example.yaml         # Bob
+</span></span><span style=display:flex><span>| * cdbbf17 feat: change first key in example.yaml        # Alice
+</span></span><span style=display:flex><span>|/
+</span></span><span style=display:flex><span>*   8d43282 Merge branch &#39;feature/example&#39; into develop   # develop
+</span></span><span style=display:flex><span>|\
+</span></span><span style=display:flex><span>| * 36b8ebf feat: add example.yaml
+</span></span><span style=display:flex><span>|/
+</span></span><span style=display:flex><span>* b9455e8 initial commit
+</span></span></code></pre></div><p>They&rsquo;ve both finished their work, as you can see, with a single commit. Their
+work was independent of one another&rsquo;s, and it is very safe to merge the changes
+together, except&mldr; <em>there&rsquo;s a merge conflict.</em> Turns out even though their
+work was independent, they edited lines that were right next to one another,
+and Git determined the changes were made to the same location.</p><p>Once again we&rsquo;ll avoid getting lost in the abstract. These are the versions of
+<code>example.yaml</code> in <em>develop</em>, <em>feature/new-first</em>, and <em>feature/new-second</em>,
+respectively and side by side:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>example:             example:                      example:
+</span></span><span style=display:flex><span>  first-key: foo       first-key: new-first-key      first-key: foo
+</span></span><span style=display:flex><span>  second-key: bar      second-key: bar               second-key: new-second-key
+</span></span></code></pre></div><p>Okay, so what do we do? We just reviewed the changes made by each developer and
+we want to merge them into <em>develop</em> so that the next release has both of them.
+Assume this wasn&rsquo;t such a trivial change and that each developer spent a good
+amount of effort implementing and testing their changes, and that albeit
+trivial to you, the way to resolve the conflict is not obvious to them.</p><p>You could merge Alice&rsquo;s changes into <em>develop,</em> then ask Bob to resolve the
+conflicts in his branch, be it by rebasing or merging, before you merge his
+changes as well. <strong>You push conflict resolution onto Bob.</strong></p><p>Alternatively, merge Bob&rsquo;s changes and then ask Alice to resolve the conflicts
+herself before her merge takes place. This is analogous to the solution above.
+<strong>You push conflict resolution onto Alice.</strong></p><p>Maybe you&rsquo;ll do the conflict resolution yourself, but in either of their
+branches instead of having the developers do it. You&rsquo;ll get to respect your
+golden rule of not pushing to <em>master</em> or <em>develop</em> &mdash; it&rsquo;s not possible to
+make the second merge while resolving conflicts if you&rsquo;re depending on the
+suite (GitLab, GitHub, etc.) &mdash; and you&rsquo;ll end up with one of the following
+histories.</p><p><em>If you go the merge route,</em> merging <em>develop</em> into Bob&rsquo;s branch after merging
+Alice&rsquo;s changes:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>*   9b8f4b3 Merge branch &#39;develop&#39; into feature/new-second
+</span></span><span style=display:flex><span>|\
+</span></span><span style=display:flex><span>| *   0803738 Merge branch &#39;feature/new-first&#39; into develop
+</span></span><span style=display:flex><span>| |\
+</span></span><span style=display:flex><span>| | * cdbbf17 feat: change first key in example.yaml
+</span></span><span style=display:flex><span>| |/
+</span></span><span style=display:flex><span>* / beafa18 feat: change second key in example.yaml
+</span></span><span style=display:flex><span>|/
+</span></span><span style=display:flex><span>*   8d43282 Merge branch &#39;feature/example&#39; into develop
+</span></span><span style=display:flex><span>|\
+</span></span><span style=display:flex><span>| * 36b8ebf feat: add example.yaml
+</span></span><span style=display:flex><span>|/
+</span></span><span style=display:flex><span>* b9455e8 initial commit
+</span></span></code></pre></div><p>The process you need to undergo:</p><ol><li>Through the suite, merge Alice&rsquo;s pull request.</li><li>Fetch from the remote, checkout Bob&rsquo;s branch, and merge <em>develop</em> into it.</li><li>Fix the merge conflicts locally.</li><li>Push the changes to Bob&rsquo;s branch on the remote.</li><li>Merge Bob&rsquo;s pull request.</li></ol><p><em>If you go the rebase route,</em> rebasing Bob&rsquo;s branch on top of <em>develop</em> after
+merging Alice&rsquo;s changes:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>*   3858212 Merge branch &#39;feature/new-second&#39; into develop
+</span></span><span style=display:flex><span>|\
+</span></span><span style=display:flex><span>| * 6e91ebd feat: change second key in example.yaml
+</span></span><span style=display:flex><span>|/
+</span></span><span style=display:flex><span>*   0803738 Merge branch &#39;feature/new-first&#39; into develop
+</span></span><span style=display:flex><span>|\
+</span></span><span style=display:flex><span>| * cdbbf17 feat: change first key in example.yaml
+</span></span><span style=display:flex><span>|/
+</span></span><span style=display:flex><span>*   8d43282 Merge branch &#39;feature/example&#39; into develop
+</span></span><span style=display:flex><span>|\
+</span></span><span style=display:flex><span>| * 36b8ebf feat: add example.yaml
+</span></span><span style=display:flex><span>|/
+</span></span><span style=display:flex><span>* b9455e8 initial commit
+</span></span></code></pre></div><p>The process you need to undergo:</p><ol><li>Through the suite, merge Alice&rsquo;s pull request.</li><li>Fetch from the remote, checkout Bob&rsquo;s branch, and rebase it on top of
+<em>develop</em>.</li><li>Fix the merge conflicts locally.</li><li>Force-push the changes to Bob&rsquo;s branch on the remote.</li><li>Merge Bob&rsquo;s pull request.</li></ol><p>By rebasing, you achieved linear history in this example, but you&rsquo;re not really
+trying to maintain that, and history might turn non-linear after a few merges
+that have no conflicts, so <strong>let&rsquo;s not preach linear history here.</strong> It&rsquo;ll do
+us no good, and in real world scenarios it&rsquo;s not always possible.</p><p>If we&rsquo;re not denying ourselves the possibility of fast forwarding or pushing to
+<em>develop</em>, we can always merge the two branches together ourselves, resolving
+the conflicts, and pushing the result to the remote. This is what it could look
+like in the end:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>*   bfc381f Merge branches &#39;feature/new-first&#39; and &#39;feature/new-second&#39; into develop
+</span></span><span style=display:flex><span>|\
+</span></span><span style=display:flex><span>| * beafa18 feat: change second key in example.yaml
+</span></span><span style=display:flex><span>* | cdbbf17 feat: change first key in example.yaml
+</span></span><span style=display:flex><span>|/
+</span></span><span style=display:flex><span>*   8d43282 Merge branch &#39;feature/example&#39; into develop
+</span></span><span style=display:flex><span>|\
+</span></span><span style=display:flex><span>| * 36b8ebf feat: add example.yaml
+</span></span><span style=display:flex><span>|/
+</span></span><span style=display:flex><span>* b9455e8 initial commit
+</span></span></code></pre></div><p>The process you need to undergo:</p><ol><li>Locally merge Alice and Bob&rsquo;s changes into <em>develop</em>.</li><li>Fix the merge conflicts as they appear.</li><li>Push the changes to <em>develop</em> on the remote.</li></ol><p>Here, we have a single merge commit joining two branches together &mdash; so we&rsquo;re
+not dealing with an octopus merge &mdash; and we&rsquo;re not losing any information
+regarding what work was done, where it started and where it ended. <strong>Do you
+want to revert the changes Bob made because it introduced bugs?</strong> No problem,
+<em>the revert command can be used for merge commits</em> and you need only tell it
+which path to the common ancestor contains the changes you want to revert.</p><p>I will not preach to you that this is the way things should be done. Advanced
+Git users &mdash; such as the maintainers of the Linux kernel &mdash; use mailing lists
+to select what they&rsquo;re going to merge into their local clones, and <a href="https://marc.info/?l=linux-kernel&amp;m=139033182525831">are known
+to perform octopus merges now and then.</a> They don&rsquo;t even use any
+Git suites to maintain the code or anything.</p><p>What I will tell you is that this doesn&rsquo;t go against the GitFlow workflow, it
+just goes against suites. Don&rsquo;t get me wrong, they&rsquo;re useful, but they&rsquo;re not
+deities to be worshipped. They&rsquo;re tools, and you can choose not to use them for
+what they&rsquo;re not good at. GitLab isn&rsquo;t able to resolve conflicts for you, and
+it won&rsquo;t allow you to resolve conflicts yourself when merging branches, but
+<em>that doesn&rsquo;t mean it should never be done.</em></p><p>We&rsquo;ll come back to that point in a little bit. Let&rsquo;s talk about linear history.</p><h2 id=linear-history-isnt-always-a-good-thing>Linear history isn&rsquo;t always a good thing</h2><p>Hopefully you read the previous section and you&rsquo;ve kept an open mind to the
+idea of merging branches instead of rebasing every single time. Git&rsquo;s ability
+to merge changes together is one of the reasons it&rsquo;s so popular, after all. I
+would like you to keep the following in mind as you debate the matter in your
+own head:</p><blockquote><p>Tools like Git aim to make our lives easier, and collaborative work possible
+without major headaches. It is not without its flaws, and workflow rules are
+not set in stone. Sometimes more productivity may be reached if we bend the
+rules a little bit. <em>As with any other tool, proceed on a case-by-case
+basis.</em></p></blockquote><p>That was a quote by me. I just typed it. Hopefully it caught your attention and
+you read it from start to finish. Keep it in mind. It&rsquo;s important. Refer to the
+following maxims if you need to, and not just while working with Git:</p><ul><li>There is no one true way to do things, and you should not be afraid to
+experiment or to be proven wrong.</li><li>Goals are more important than rules. If the rules get in the way of our
+goals, we should be willing to change them.</li><li>People are more often praised for achieving their goals than for following
+rules that effectively hindered them.</li></ul><p>That said, <em>I am a law abiding citizen,</em> and I quite like to follow the rules.
+Okay, enough with the antics, onto linear history.</p><p>I was just put to work on a project that uses a variant of GitFlow. Looking at
+the commit history gave me a headache, with all the merge commits strewn
+around. The person I was put to work with, when told to keep up with <em>develop</em>,
+merged it into his branch &mdash; sometimes even multiple times &mdash; instead of
+rebasing onto it.</p><p>If you tried looking at the graph of commits, you&rsquo;d see so many train tracks
+running in parallel that it would be hard to tell where one branch started and
+where it ended, especially when it had many other merge commits along its
+history. <em>Could that have been avoided?</em></p><p><strong>The short answer is no.</strong> There are way too many projects being worked on at
+the same time, and way too many developers working on them for us to be able to
+ask each and every one of them to rebase their branches onto <em>develop</em> every
+time a merge occurs. It&rsquo;s just not practical. Let&rsquo;s embrace the mess instead.</p><p>Aside from the fact that it&rsquo;s not practical, it&rsquo;s also not necessary. What
+would the team gain in productivity from having a linear commit history? People
+are too busy gearing up for releases and working on new features to stop and
+read the commit history. Hotfixes are performed as soon as they&rsquo;re necessary,
+and rarely do developers need to point out what commit introduced the bug.</p><p>The bitter truth is Git isn&rsquo;t even considered much help for these guys during
+their debugging process. And why should it, when the commit history is so messy
+they can&rsquo;t tell what&rsquo;s going on? Even <em>bisect</em> is of little help, because
+they&rsquo;re fine with keeping broken commits in their branches if the latest
+mergeable tree passes the status checks.</p><p>This is not a rant about incompetent people, about a broken tool, about
+preserving history as it happened, or about the flaws of GitFlow. I once again
+suggest you read <a href=https://medium.com/@fredrikmorken/why-you-should-stop-using-git-rebase-5552bee4fed1>this article on avoiding the rebase command,</a>
+but with everything I just said in mind.</p><h2 id=on-golden-rules>On golden rules</h2><p>The last point I listed at the beginning of this article was:</p><blockquote><p>Following made-up rules in all cases, workflow or not, is <em>silly</em> and
+<em>generally a waste of time and brainpower.</em> You should do what is sensible
+and comes at no cost to the team&rsquo;s productivity.</p></blockquote><p>Another disclaimer: I&rsquo;m not encouraging you to break the rules set forth by
+your company, your boss, your team, or the customer. I am also not trying to
+insult those who are able to remember and follow protocol. I bring you,
+however, my criticism of some widely accepted rules that I believe are not so
+golden after all.</p><ul><li>You should <em>never</em> push to <em>master</em> or other special branches.</li></ul><p>I believe this was already addressed in the previous section. The gist of it is
+there are situations where this might be desirable, especially if someone made
+a mistake and merged or pushed something they shouldn&rsquo;t have. Project
+maintainers, able to bypass the limitations imposed by the suite being used &mdash;
+if any &mdash; can easily revert the changes and fix the problem before everybody
+else is affected.</p><p>Even if you are altering history, the impact may be null or minimized if your
+collaborators are moderately proficient with Git.</p><ul><li>You should <em>never</em> force push to a branch.</li></ul><p>What if I just rebased my branch onto another commit, but had previously pushed
+it upstream?</p><ul><li>You should use forks instead of branching upstream.</li></ul><p>If you want to ensure only the project maintainers have write access to the
+upstream repository, then yes, you should use forks. It&rsquo;ll also allow your
+developers to not worry about branch name clashing, so it seems there are some
+benefits here after all, right? Well, <em>what good is a suite if you can&rsquo;t use it
+to protect some of the branches?</em></p><p>Additionally, when working solely with forks, not granting developers read
+access to their coworkers&rsquo; forks by default means discouraging collaboration,
+as they&rsquo;ll have to request fiddling with permissions to cherry-pick or rebase
+onto other people&rsquo;s work.</p><p>In the end, what is the problem with branching upstream? It&rsquo;ll make setting up
+CI/CD pipelines easier. Besides, how often do people give the same name to
+their branches? Naming conventions are born naturally, if not part of
+onboarding.</p><ul><li>You should <em>never</em> rebase public branches.</li></ul><p>What is a public branch? Git makes no such distinction, so the proponent of
+this &ldquo;golden rule of rebasing&rdquo; should be more specific. Often they&rsquo;re talking
+about branches that other people are working on, but even that is not so
+clearly defined. Some projects have a weird definition of what is &ldquo;public&rdquo;,
+too. If I pushed it even once, is it public?</p><p>This is just silly. I&rsquo;ll rephrase this supposed golden rule in a way that makes
+more sense, but will drive the point of its silliness home:</p><blockquote><p>Don&rsquo;t mess with other people&rsquo;s work, you could create problems for them.</p></blockquote><p>Does this platitude have any place being taught in Git courses? Of course you
+shouldn&rsquo;t change the history of a branch that other people are working on. All
+you have to teach, realistically, is that <em>the rebase command recreates commit
+objects and consequently rewrites history.</em> If you can&rsquo;t teach that without
+giving your pupils a rule of thumb, I&rsquo;d say you&rsquo;re not doing a very good job,
+and perhaps even insulting their intelligence.</p><ul><li>You should squash your PR&rsquo;s commits before merging it.</li></ul><p>And rewrite history for no good reason? It is a good idea to have only commits
+that pass the continuous integration checks, but imagine you&rsquo;re merging a pull
+request with months worth of work. You&rsquo;d end up with a code bomb for a commit
+ending up in master. Talk about a useless output for the <em>blame</em> command.</p><p>That&rsquo;s it, folks. Hope you enjoyed the rant.</p></article></main><footer id=page-footer><p id=commit><a href=https://github.com/d3adb5/website/commit/538f1828a225229364fac663e3a9549e8db8e1d9><span class=commit-hash>538f182</span><span class=commit-subject>feat: add tags to existing blog posts</span></a></p><p id=timestamp>Updated May 14, 2023</p></footer></body></html>

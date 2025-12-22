@@ -1,0 +1,259 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="WARNING: This became such a lengthy article despite the relative lack of
+detail that it forced me to include a table of contents. Hopefully it isn&rsquo;t too
+tiresome to read through, and whoever reads it can jump to whatever topic might
+interest them.
+The goal of this blogpost is to give the reader an overview of what it was like
+for me to get accustomed to and implement some continuous integration (CI) and
+continuous deployment (CD) solutions to my own personal projects. It was and
+is still being a bumpy ride, but it&rsquo;s more gratifying than I thought it would be
+when I first started."><meta http-equiv=Content-Security-Policy content="default-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src *; object-src 'none'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; worker-src 'self' blob:; base-uri 'self'"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Experiences with CI/CD and DevOps</title><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-600.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-600.woff2 crossorigin><style type=text/css>@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:400;src:url(/fonts/source-sans-pro-regular.woff2)format("woff2"),url(/fonts/source-sans-pro-regular.woff)format("woff")}@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:600;src:url(/fonts/source-sans-pro-600.woff2)format("woff2"),url(/fonts/source-sans-pro-600.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:400;src:url(/fonts/inconsolata-regular.woff2)format("woff2"),url(/fonts/inconsolata-regular.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:600;src:url(/fonts/inconsolata-600.woff2)format("woff2"),url(/fonts/inconsolata-600.woff)format("woff")}footer#page-footer,nav#site-nav{background:0 0;padding:1em}footer#page-footer,nav#site-nav{background:#282a2e;color:#c5c8c6;line-height:3em}nav#site-nav{display:flex;overflow:auto;scrollbar-width:none}nav#site-nav::-webkit-scrollbar{display:none}nav#site-nav a{display:inline-block;width:6em;font-weight:700;text-align:center;color:inherit;flex-shrink:0}@media screen and (min-width:60em){footer#page-footer,nav#site-nav{line-height:inherit}}html{background:#252628}body{width:100%;max-width:60em;margin:0 auto;line-height:1.5em;font-family:source sans pro,helvetica,liberation sans,open sans,sans-serif;font-size:100%;color:#c5c8c6}@media screen and (min-width:60em){body{margin:2em auto!important}}h1,h2,h3,h4,h5,h6{margin:1.1em 0 .83em}h1,h2,h3{color:#8c9440}h4,h5,h6{color:#b5bd68}h1{font-size:1.5em}h2{font-size:1.26em}h3{font-size:1.1em}h4{font-size:1.03em}h5{font-size:.67em}h6{font-size:.51em}a{text-decoration:initial;color:#de935f}a:hover{text-decoration:underline}em{color:#f0c674;font-style:normal}strong{color:#c66}nav#site-nav{border-radius:1em 1em 0 0;background:0 0;color:#c5c8c6}nav#site-nav a.push-right{margin-left:auto}nav#site-nav a.current{color:#81a2be}label#toc-toggle{display:flex;width:100%;margin-top:1em;height:3em;align-items:center;justify-content:center}input#toc-toggle-box{display:none}input#toc-toggle-box~nav#TableOfContents{display:none}input#toc-toggle-box:checked~nav#TableOfContents{display:block}nav#TableOfContents{margin:.5em 0 0;box-sizing:border-box;background:#282a2e;padding:1em;border-radius:.5em;overflow:hidden;font-weight:700;color:#de935f}nav#TableOfContents ul{margin:0;padding:0;list-style-type:none}nav#TableOfContents ul li{overflow:hidden;white-space:nowrap;text-overflow:' ...'}nav#TableOfContents ul li+li{margin-top:1em}nav#TableOfContents ul ul{padding-left:1em;margin-top:1em}@media screen and (min-width:60em){nav#TableOfContents{float:right;margin:1em 0 1em 1em;max-width:40%;font-size:85%}nav#TableOfContents ul li+li{margin-top:initial}nav#TableOfContents ul ul{margin-top:initial}}@media screen and (min-width:60em){label#toc-toggle{display:none}}@media screen and (min-width:60em){input#toc-toggle-box~nav#TableOfContents{display:initial}}footer#page-footer{background:0 0;color:#707880;display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr)}footer#page-footer a{color:#f0c674}footer#page-footer span.commit-subject{color:#de935f;margin-left:.5em}footer#page-footer p#commit{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}footer#page-footer p#commit span.commit-hash{font-family:inconsolata,dejavu sans mono,liberation mono,monospace}footer#page-footer p#timestamp,footer#page-footer p#commit{margin:0}footer#page-footer p#timestamp{text-align:right}article{background:#1d1f21;padding:.1em 1.5em .8em}@media screen and (min-width:60em){article{border-radius:.5em}}article header{font-weight:700}article header section.header-line{display:flex;justify-content:space-between;align-items:center}article header section.header-line h1{color:#8c9440;margin-bottom:.25em}article header section.header-line aside#translations{margin:1.1em 0 .25em}article header section.header-line aside#translations ul#translations{list-style:none;padding:0;margin:0;display:flex;justify-content:space-around;font-size:115%}article header section.header-line aside#translations ul#translations li:not(:first-child){margin-left:1em}article header section.subheader-line{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}article header section.subheader-line p.subtitle{color:#5e8d87;margin:0}article header section.subheader-line p.subtitle em{color:inherit;font-style:italic}article header section.subheader-line ul#article-tags{list-style-type:none;padding-left:0;margin:0;font-size:85%}article header section.subheader-line ul#article-tags li{display:inline-block}article header section.subheader-line ul#article-tags li:nth-child(n+2){margin-left:1em}article header section.subheader-line ul#article-tags li a{color:#f0c674}article blockquote{color:#979a98;padding-left:1em;border:0 solid #707880;border-left-width:.5em}article table{width:100%}article table th{color:#81a2be}article table td{color:#c5c8c6}article table td.date{width:1%;white-space:nowrap;padding:0 .5em 0 0}article table.compare-table{border-collapse:collapse}article table.compare-table th,article table.compare-table td{padding:.5em 1em;box-sizing:border-box}article table.compare-table th:first-child,article table.compare-table td:first-child{padding-left:0}article table.compare-table th:last-child,article table.compare-table td:last-child{padding-right:0}article table.compare-table th,article table.compare-table td:nth-child(n+2){text-align:center}article table.compare-table td{border-top:.1em solid #707880}article table.compare-table th:nth-child(n+2){min-width:4em}article li::marker{color:#f0c674}article figure{margin:1.25em 0;text-align:center}article figure img{min-height:5em;max-height:15em;width:100%;object-fit:cover;border-radius:1em}article figure figcaption p{margin-top:0}article code{font-family:inconsolata,dejavu sans mono,liberation mono,monospace;font-size:100%}article pre{background:#282a2e;border-radius:.5em;padding:.5em 1em;overflow-x:auto;line-height:initial}article>hr{color:#707880;opacity:.5;margin:2em 0}article p code,article li code{background:#282a2e;padding:0 .3em;border-radius:.25em}article>p a,article>ul li a,article>ol li a{text-decoration:underline}article.extra-pages h2~p{margin-left:2em}article section.dialog{display:flex;padding:1em;align-content:center;border-radius:.5em;border:.2em solid #707880;margin:.5em 0 0;box-sizing:border-box;max-width:100%}article section.dialog p:first-child{margin-top:0}article section.dialog p:last-child{margin-bottom:0}article section.dialog .dialog-icon{margin-right:1em}article section.dialog.dialog-info{border-color:#5f819d}article section.dialog.dialog-warning{border-color:#de935f}article section.dialog.dialog-error{border-color:#a54242}article section.dialog.dialog-success{border-color:#8c9440}@media screen and (min-width:60em){article section.dialog{margin:1em 0 0}}</style></head><body><nav id=site-nav><a href=/ class=[]>Home
+</a><a href=/blog/ class=[]>Blog
+</a><a href=/glob/ class=[]>Glob
+</a><a href=/projects/ class=[]>Projects
+</a><a href=/about/ class=push-right>About</a></nav><main role=main><article id=content><header><section class=header-line><h1>Experiences with CI/CD and DevOps</h1><aside id=translations><ul id=translations><li><a href=/pt-br/blog/experiences-with-ci-cd/ title="Português Brasileiro"><span role=img aria-label="Bandeira do Brasil">🇧🇷</span></a></li></ul></aside></section><section class=subheader-line><p class=subtitle>Practicing DevOps with pen and paper</p><ul id=article-tags><li><a href=/tags/devops>DevOps</a></li><li><a href=/tags/ci/cd>CI/CD</a></li><li><a href=/tags/technology>Technology</a></li></ul></section></header><input type=checkbox id=toc-toggle-box>
+<label for=toc-toggle-box id=toc-toggle><em>• Table of Contents •</em></label><nav id=TableOfContents><ul><li><a href=#humble-beginnings-git-hooks--gnu-make>Humble beginnings: Git hooks & GNU Make</a><ul><li><a href=#why-this-lacks-continuous-integration>Why this lacks Continuous Integration</a></li><li><a href=#how-it-might-have-continuous-deployment>How it might have Continuous Deployment</a></li></ul></li><li><a href=#the-road-to-proper-cicd>The road to proper CI/CD</a><ul><li><a href=#why-i-dont-like-using-jenkins-unless-i-have-to>Why I don&rsquo;t like using Jenkins unless I have to</a></li><li><a href=#github-actions-just-saves-time-and-money>GitHub Actions just saves time and money</a></li><li><a href=#picking-a-project-tools-and-workflow>Picking a project, tools, and workflow</a></li></ul></li><li><a href=#picking-up-ansible>Picking up Ansible</a><ul><li><a href=#modules-are-a-barrier-to-entry-in-a-way>Modules are a barrier to entry, in a way</a></li><li><a href=#what-it-was-like-to-put-into-practice>What it was like to put into practice</a></li></ul></li><li><a href=#gitops-what-it-is-and-why>GitOps, what it is and why</a><ul><li><a href=#how-i-think-i-achieved-it-with-my-current-setup>How I think I achieved it with my current setup</a></li></ul></li></ul></nav><p><strong>WARNING:</strong> This became such a lengthy article despite the relative lack of
+detail that it forced me to include a table of contents. Hopefully it isn&rsquo;t too
+tiresome to read through, and whoever reads it can jump to whatever topic might
+interest them.</p><p>The goal of this blogpost is to give the reader an overview of what it was like
+for me to get accustomed to and implement some <em>continuous integration (CI)</em> and
+<em>continuous deployment (CD)</em> solutions to my own personal projects. It was and
+is still being a bumpy ride, but it&rsquo;s more gratifying than I thought it would be
+when I first started.</p><p>My general attitude towards CI/CD services, programs, platforms, and the like
+was that they were &ldquo;simply not for me,&rdquo; and something only big projects or
+companies, led by a highly qualified work force, would really need and benefit
+from.</p><p>That position has, of course, changed since then as working with improving the
+software development lifecycle first hand made me realize just how much sense it
+all makes. I now crave to bring automated tests, code reviews, constant pull
+requests, and automated deployment to all of my personal projects. It is a great
+way to define and guarantee a standard of quality.</p><h2 id=humble-beginnings-git-hooks--gnu-make>Humble beginnings: Git hooks & GNU Make</h2><p>The first software development pipeline &mdash; if you can even call it that &mdash; I
+devised was a combination of Git, Bash, and GNU Make, the latter gluing together
+programs like <a href=https://gohugo.io>Hugo</a> and <code>rsync</code>. Its goal was to automate deploying my
+personal website.</p><p>Git was used to version the source files, GNU Make was used to simplify the
+build and deployment processes into <code>make</code> and <code>make deploy</code>, Hugo was used to
+turn Markdown + templates into HTML/CSS, and <code>rsync</code> was used to copy the
+generated static pages to the web root &mdash; <code>/var/www</code>.</p><p>To turn a <code>git push</code> into the only command necessary to trigger a build and
+deploy the new content, <a href=https://git-scm.com/docs/githooks#post-receive>a <code>post-receive</code> Git hook</a> was set up on a
+bare repository hosted on the VPS that served the website. The hook was nothing
+more than a shell script, which was roughly:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cd /path/to/the/worktree        <span style=color:#75715e># go to a clone of the repo</span>
+</span></span><span style=display:flex><span>git fetch origin                <span style=color:#75715e># fetch the new commits</span>
+</span></span><span style=display:flex><span>git reset --hard origin/master  <span style=color:#75715e># sync up with the master branch</span>
+</span></span><span style=display:flex><span>make <span style=color:#f92672>&amp;&amp;</span> make deploy             <span style=color:#75715e># build and deploy pages</span>
+</span></span></code></pre></div><p>As long as all permissions were properly set and dependencies were met, this
+meant all I realistically had to do to update the pages on my website was edit
+the files locally, create new commits, and push them to the remote. If any
+errors occurred, I was able to see them in the output of <code>git push</code>, since it
+displays the output of Git hooks as they&rsquo;re executed.</p><h3 id=why-this-lacks-continuous-integration>Why this lacks Continuous Integration</h3><p>As happy as I was with my new discovery (namely Git hooks) and my setup, looking
+back on it I cannot say it featured CI. Before my reasons for thinking so are
+outlined, the following is the definition of Continuous Integration given by
+<a href=https://www.atlassian.com/continuous-delivery/continuous-integration>Atlassian</a>:</p><blockquote><p>Continuous Integration (CI) is the practice of automating the integration of
+code changes from multiple contributors into a single software project. It&rsquo;s a
+primary DevOps best practice, allowing developers to frequently merge code
+changes into a central repository where builds and tests then run.</p></blockquote><p>I believe CI can be achieved even when there&rsquo;s a single contributor, but if you
+disagree with me, add that to the following list of reasons why I don&rsquo;t think
+what I was up to was continous integration.</p><p><strong>Reason #1:</strong> There was always a single branch &mdash; <code>master</code> &mdash; so changes
+being tested had already been integrated.</p><p>The point of CI is to test and review changes before they make their way to
+their target branch. That&rsquo;s why a suite like GitHub, GitLab, Bitbucket, and so
+on is so useful: they all materialize the proposal of changes into pull (or
+merge) requests. These requests can be denied, accepted, reviewed, etc., and the
+coolest thing is that when they&rsquo;re created or changes are made to them, these
+suites can let us know so programmatically through webhooks, and even handle the
+events themselves natively.</p><p>In my case, there were no pull requests: commits were added to <code>master</code> and
+pushed <strong>directly upstream,</strong> no questions asked.</p><p><strong>Reason #2:</strong> The only test being performed is deployment.</p><p>There&rsquo;s no automated testing of any kind, not even to see if the static pages
+can still be generated. I can even recall some times I broke the static page
+generation by experimenting with Hugo&rsquo;s layout capabilities &mdash; the version of
+Hugo installed on my machine and on the remote host were different.</p><p>The lack of a reproducible environment for testing (and obviously the tests
+themselves) meant the risk of breaking production was taken every time a
+deployment was performed.</p><p><strong>Reason #3:</strong> Changes didn&rsquo;t undergo any review processes.</p><p>For many people, code review isn&rsquo;t necessarily within the scope of continous
+integration, but in my humble opinion, it is central to it. If CI is about
+controlling or ensuring a degree of quality before any changes are merged into
+stable branches, reviews are perfectly aligned with it, and sit in the way of
+integration.</p><p>I said before that <em>I believe CI can be achieved even when there&rsquo;s a single
+contributor,</em> so why do I bring up this point? That&rsquo;s because I simply didn&rsquo;t
+review my own changes. I tested them locally, sure, but I didn&rsquo;t review them
+with &ldquo;impartial eyes&rdquo; after development. The lack of any manner of review
+process, to me, makes it unfit for the moniker of Continuous Integration.</p><h3 id=how-it-might-have-continuous-deployment>How it might have Continuous Deployment</h3><p>If you squint hard enough, or if you&rsquo;re permissive in the coupling of CI and CD,
+the Git hook setup did feature continuous deployment. Once more, we&rsquo;ll start
+with a definition. This time, it comes from <a href=https://www.techtarget.com/searchitoperations/definition/continuous-deployment>TechTarget:</a></p><blockquote><p>Continuous Deployment (CD) is a strategy for software releases wherein any
+code commit that passes the automated testing phase is automatically released
+into the production environment, making changes that are visible to the
+software&rsquo;s users.</p></blockquote><p>Commits that reached the <code>master</code> branch, used for production in our situation,
+would automatically make their way to production &mdash; the website as it was
+served by my VPS. In that sense, this is an example of continuous deployment,
+but <em>if there&rsquo;s no CI, can there be CD?</em> Is the &ldquo;automated testing phase&rdquo;
+necessary to constitute continuous deployment?</p><p>Myself, I&rsquo;d say no. While both are fundamental premises for DevOps, setting up
+CI and CD is often done separately. Were the two truly codependent, we&rsquo;d
+probably have a single term for the entire process that specifically addressed
+both practices.</p><h2 id=the-road-to-proper-cicd>The road to proper CI/CD</h2><p>My eyes were opened to CI/CD when I started working. Up until then I didn&rsquo;t
+really know what the terms meant, if I&rsquo;d heard them at all. To me, CI was the
+latter part of the name for <a href=https://travis-ci.com>Travis CI</a>, a tool that ran some
+automated builds on the XMonad repository, and CD was an optical media format.</p><p>Then I started working and came into contact with <a href=https://jenkins.io>Jenkins</a>. It was
+presented to me as the CI/CD tool of choice for most people, and I can tell why.
+It feels incredibly hacked together, however, and very resource hungry. Despite
+that, with gleeming eyes gazing at a newfound appreciation for software
+development, I vowed to write some <code>Jenkinsfile</code>s for my own purposes.</p><p>Soon after setting up my first couple of repositories and reading through
+Jenkins&rsquo; documentation, thinking &ldquo;man, this took some effort to set up, but
+it&rsquo;ll pay off,&rdquo; my attention shifted to <a href=https://github.com/actions>GitHub Actions</a>. With just
+a few lines of YAML and reading through documentation, a workflow was set up,
+and work could start on another. GitHub would handle everything natively, and
+run it all for free as long as the repository remained public or I didn&rsquo;t go
+over my minutes-per-month limit.</p><h3 id=why-i-dont-like-using-jenkins-unless-i-have-to>Why I don&rsquo;t like using Jenkins unless I have to</h3><p>This is a shortened example of an average <code>Jenkinsfile</code> using the declarative
+pipeline syntax:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-groovy data-lang=groovy><span style=display:flex><span>pipeline <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>  agent      <span style=color:#f92672>{</span> <span style=color:#75715e>/* ... */</span> <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>  options    <span style=color:#f92672>{</span> <span style=color:#75715e>/* ... */</span> <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>  parameters <span style=color:#f92672>{</span> <span style=color:#75715e>/* ... */</span> <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>  stages <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    stage<span style=color:#f92672>(</span><span style=color:#e6db74>&#39;Do something&#39;</span><span style=color:#f92672>)</span> <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>      steps <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>        actuallyDoSomething
+</span></span><span style=display:flex><span>      <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span></code></pre></div><p>The options usually span multiple lines, as does the agent specification and the
+parameters, if this is a parameterized pipeline. On top of that, a pipeline with
+a single stage is a rare thing, so replicate the one stage in the file above,
+keeping in mind it&rsquo;ll definitely have more than one step. Moreover, suppose the
+<code>when</code> clause will be made necessary for subsequent stages, and you have
+yourself unnecessary levels of indentation and line numbers.</p><p>It&rsquo;s just so tiresome. Sometimes necessary, I&rsquo;ll give Jenkins that, but so
+tiresome.</p><p>Finally, remember that when setting up Jenkins you&rsquo;ll probably have to set up
+Jenkins agents, be it dynamically provisioned through a &ldquo;cloud&rdquo; or set up once
+and maintained. Good luck managing dependencies, I just hope there are enough
+<a href=https://docker.com>Docker</a> images for what you need and you don&rsquo;t have to spin up a
+certain repository manager.</p><p><em>One last thing:</em> are you going to need plugins? Here&rsquo;s hoping they&rsquo;re well
+maintained and don&rsquo;t break in newer versions.</p><h3 id=github-actions-just-saves-time-and-money>GitHub Actions just saves time and money</h3><p>Jenkins relies on plugins for its integration with suites like GitHub, GitLab,
+Bitbucket, etc. You&rsquo;ll also have to set up webhooks unless you like polling for
+updates periodically. All these platforms are smart enough to cash in on
+companies implementing CI/CD while hosting their repositories there, and provide
+their own solutions to make the integration painless, or just unnecessary.</p><p><a href=https://github.com/actions>GitHub Actions</a> is an example of such a service. It&rsquo;s free for
+public repositories as of the time of this writing, and you get 2000 minutes per
+month for free for private repositories on a basic account. Want to skip setting
+up Jenkins, the plugin, the webhook, the <code>Jenkinsfile</code>, and run <code>make</code> for every
+pull request? This is enough:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>on</span>: <span style=color:#ae81ff>pull_request</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>jobs</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>build</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>runs-on</span>: <span style=color:#ae81ff>ubuntu-latest</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>steps</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/checkout@v3</span>
+</span></span><span style=display:flex><span>      - <span style=color:#f92672>run</span>: <span style=color:#ae81ff>make</span>
+</span></span></code></pre></div><p>More intricate workflows will necessitate more lines, of course, perhaps even
+more jobs, which are run in parallel unless inter-job dependencies are
+explicitly stated. On top of that, you don&rsquo;t have to pay a dime if you use
+self-hosted runners for your runs, so you still have the option to set up your
+own infrastructure for CI/CD while using GitHub Actions.</p><p>That&rsquo;s enough praise for GitHub Actions. I&rsquo;m not sponsored by them, but the
+point is I quite like it.</p><h3 id=picking-a-project-tools-and-workflow>Picking a project, tools, and workflow</h3><p>There is no better way to learn than the hard way, and the hard way usually
+means plunging into open sea when you barely know how to swim. <em>Metaphorically,</em>
+of course; don&rsquo;t go doing that or you will most likely drown. In my situation,
+that means picking the tools I want to work with after some consideration,
+picking a project I think would benefit from them, and devising and implementing
+a workflow that works for me.</p><p>The project chosen was automating server setup, configuration and deployment of
+services based on a list and few other parameters. The goal is to be able to
+almost entirely recreate a server from scratch if need be.</p><p>The tools picked were:</p><ul><li><em>Git</em> for version control, for obvious reasons.</li><li><em>Docker</em> for the services, primarily using <em>Compose</em> files.</li><li><em>Ansible</em> for server setup, due to idempotency and, well, because I wanted to
+pick it up.</li><li><em>GitHub Actions</em> for the CI/CD workflows, for reasons already outlined.</li></ul><p>Finally, the workflow I wanted was similar to what I achieved with the Git hook
+of years prior, with a couple of key differences: changes would all have to go
+through <em>pull requests</em>, which in turn trigger <em>CI runs</em>, that run Ansible in
+check mode; finally, the <em>CD runs</em> are triggered by merges into <code>master</code>.</p><figure><a href=/media/git-ansible-sketch.png><img src=/media/git-ansible-sketch.png alt="Rough sketch of what I wanted, from git commit to production."></a><figcaption><p>Rough sketch of what I wanted, from <code>git commit</code> to production.</p></figcaption></figure><h2 id=picking-up-ansible>Picking up Ansible</h2><p><a href=https://ansible.com/>Ansible</a> was presented to me at one point a few years ago, but I
+shrugged it off completely. At the time I had only one VPS, and I was using it
+as a mail server on top of hosting my website and other simple services such as
+<a href=https://syncplay.pl>Syncplay</a>. It was hardly tempting to learn how to set it all up again
+from scratch, as that wasn&rsquo;t going to happen anytime soon.</p><p>Now, years later, I&rsquo;m no longer maintaining the cumbersome mail server setup,
+and my website is hosted on GitHub Pages, so I&rsquo;m free to experiment with the
+VPS<em>es</em> as much as I want &mdash; none of them come with an uptime requirement.</p><p>The thing I didn&rsquo;t know back then that really made Ansible stand out is its goal
+to be <em>idempotent:</em> to converge into a desired state and remain there even when
+the playbooks are applied again and again. A worthy goal, but also one that
+would bring with it some difficulties.</p><h3 id=modules-are-a-barrier-to-entry-in-a-way>Modules are a barrier to entry, in a way</h3><p>One thing that is a bit of a barrier to entry in Ansible is the fact that tasks
+rely on <em>Ansible modules</em>, some of which are built-in, some of which are
+provided in the &ldquo;core&rdquo;, some of which are provided by third party &ldquo;galaxies&rdquo; or
+whatever they&rsquo;re called.</p><p>When it comes to picking up a programming or markup language, all you really
+need to learn is the general syntax, the core concepts, the first class members,
+and so on. Ansible uses YAML, and after understanding the notion of a <em>task</em>, a
+<em>play</em>, a <em>playbook</em>, a <em>handler</em>, a <em>variable</em>, a <em>role</em>, you&rsquo;re sort of left
+on your own to explore available modules.</p><p>This is not meant as a harsh critique of Ansible &mdash; I quite like it, after all
+&mdash; but it does make it feel more difficult to immediately convert the concepts
+you just learned into practice. <em>I know what a play is, and I&rsquo;m about to write
+my first playbook, but&mldr; how do I make Ansible ensure some line is present in a
+file?</em> In reading about those concepts, you&rsquo;re not even once shown there is a
+<a href=https://docs.ansible.com/ansible/latest/collections/ansible/builtin/lineinfile_module.html>built-in module called <code>lineinfile</code></a>.</p><p>Can you use Ansible without any knowledge of its available modules? Of course!
+If you know some shell scripting, you can write plays with tasks that are no
+different from any old Bash script. To ensure some file has the right ownership,
+for example, you can use the <code>chown</code> program, and write a task using the <code>shell</code>
+module:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>- <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Ensure /tmp/hippopotamus is owned by Max</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>shell</span>: <span style=color:#ae81ff>chown max:max /tmp/hippopotamus</span>
+</span></span></code></pre></div><p>It works, but the disadvantage of such a task is that Ansible is unaware of its
+purpose, consequences, or context, and so it can only run the script every time
+without knowing whether or not the <em>desired state</em> is achieved. That is, after
+all, the whole point of Ansible: <em>idempotency</em>, i.e. to converge to a desired
+state and remain there no matter how many times the tasks are executed.</p><p>The only way to give Ansible this sort of awareness is by using a more specific
+module. In this case one that handles generic operations on files, rather than
+the one that runs generic shell scripts. We can achieve what we want with the
+<a href=https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html>built-in <code>file</code> module:</a></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>- <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Ensure /tmp/hippopotamus is owned by Max</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>file</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/tmp/hippopotamus</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>owner</span>: <span style=color:#ae81ff>max</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>group</span>: <span style=color:#ae81ff>max</span>
+</span></span></code></pre></div><p>This way, if the file is owned by someone else, its ownership will be changed to
+<code>max:max</code>, and Ansible will report <em>changes</em> were made. If the file is already
+owned by <code>max:max</code>, Ansible will report the task&rsquo;s status as <em>ok</em> (no changes
+were necessary).</p><p>With the <code>shell</code> example, Ansible would <em>always</em> report changes were made, since
+it can&rsquo;t know whether the script had to make changes or not, nor if it actually
+did, only that it had to run the script. You can force Ansible not to report
+changes, or to report changes on the task based on a condition, through the
+<code>changed_when</code> key:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>- <span style=color:#f92672>name</span>: <span style=color:#ae81ff>Ensure /tmp/hippopotamus is owned by Max</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>shell</span>: <span style=color:#ae81ff>chown max:max /tmp/hippopotamus</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>changed_when</span>: <span style=color:#66d9ef>false</span>
+</span></span></code></pre></div><p>Note that the same is true for the <a href=https://docs.ansible.com/ansible/latest/collections/ansible/builtin/command_module.html>built-in <code>command</code> module,</a>,
+which differs from <code>shell</code> in the sense that it invokes the command directly,
+while <code>shell</code> forwards its contents to something like <code>/bin/bash</code>. Effectively,
+<code>shell</code> lets us write scripts in our playbooks.</p><p>All in all, I find myself often looking up <em>how to do X in Ansible,</em> since I
+can&rsquo;t be bothered to read through more than a few pages listing modules
+available for use. The day I decide to do so, the plays in my repositories will
+likely all be rewritten from scratch. In the end, learning Ansible is akin to
+expanding one&rsquo;s vocabulary in a different <em>human</em> language: practice is pretty
+much necessary.</p><h3 id=what-it-was-like-to-put-into-practice>What it was like to put into practice</h3><p>In the end, I wrote multiple playbooks, some of which were made public and some
+of which remain private since they contain some information I&rsquo;d rather keep
+private for the time being. A brief summary:</p><ul><li>A playbook to bootstrap hosts with essential configuration;</li><li>A playbook to sync users with the target host;</li><li>A playbook to ensure some essential tools are installed;</li><li>A playbook to bring up or down services as specified for each host.</li></ul><p>At times I had to draw inspiration from Ansible roles available online. I never
+truly wanted to use them, especially since they either did much more than I
+wanted, or didn&rsquo;t have support for specifically what I wanted. It was quite the
+learning experience, but the best thing I can say came out of it was learning
+how to use the <code>ansible-doc</code> command.</p><p>One thing I wish could change &mdash; and I hope to one day stop being too lazy to
+create my own Ansible modules &mdash; is my reliance on tasks that use the <code>stat</code>
+module being used to decide whether to skip further tasks. If statements, which
+this is an equivalent of, are not pretty in Ansible, even if they get the job
+done and allow us to achieve idempotency. It&rsquo;s &ldquo;cheap idempotency,&rdquo; if you will.</p><h2 id=gitops-what-it-is-and-why>GitOps, what it is and why</h2><p>There&rsquo;s plenty I could write on the other tools I chose to use and the way I
+used them, but this article has extended itself enough. More articles are to
+come explaining and / or teaching how to do this or that with the tools I&rsquo;ve
+managed to familiarize myself with over time.</p><p>What I can say has been a bit of a goal and motivation for me is what
+<a href=https://www.weave.works/blog/what-is-gitops-really>WeaveWorks</a> decided to call GitOps; a workflow &mdash;
+philosophy, some would say &mdash; summarized by &ldquo;a Git repository should be the
+single source of truth.&rdquo; There are plenty of candidates for a proper definition,
+but this should suffice:</p><blockquote><p>A Git repository is the single source of truth for the desired state of the
+whole system. This desired state is described declaratively, while convergence
+mechanisms are put in place to ensure the desired state is reached.</p></blockquote><p>In other words, <em>changes in configuration</em> equate to <em>pull requests</em> in a GitOps
+workflow.</p><p>Take <em>configuration</em> here to mean the state of a system, not just configuration
+files and the like, that different pieces of software use to alter their
+behavior. Exclude from this whatever persistent data is produced by the use of
+the system &mdash; which hopefully won&rsquo;t actually affect its general behavior, as
+determinism makes software a little unpredictable, or at the very least
+unmanageable.</p><p>While this approach to deployment might come with its own shortcomings or
+eventually fall out of fashion for one reason or another, it does provide
+relative <em>agility</em>, going hand in hand with DevOps culture and agile development
+methodologies.</p><h3 id=how-i-think-i-achieved-it-with-my-current-setup>How I think I achieved it with my current setup</h3><p>WeaveWorks coined the term in describing a workflow surrounding
+<a href=https://kubernetes.io>Kubernetes</a>. It makes a lot of sense to speak of declarative descriptions
+of the intended state of the system, considering Kubernetes objects all have
+what we call YAML manifests to them. Though there are certain properties under
+<code>{.status}</code> that only exist when the object itself is up and &ldquo;running,&rdquo; objects
+are for the most part equal to the YAML manifests that generated them.</p><p>Without something like Kubernetes, it is really possible to award a workflow the
+name <em>GitOps?</em> If you think about it, and obviously keep an open mind for this,
+as long as you can declare the state of your &ldquo;target&rdquo; instead of outlining a
+series of instructions to perform &mdash; it is debatable whether Ansible meets the
+criteria, considering order is more than relevant &mdash; and you have convergence
+mechanisms put in place, you <em>should</em> be.</p><p>Let&rsquo;s say that despite Ansible&rsquo;s heavy reliance on the order of the changes it
+needs to perform, and the lack of seamless dependency management &mdash; how would
+Ansible know that <code>certbot</code>, the package, needs to be installed for <code>cerbot</code>,
+the tool, to be used? &mdash; is no reason why we can&rsquo;t call playbooks a declarative
+specification for how we want our hosts to be. <em>In that case,</em> it is perfectly
+fine to say that a workflow that uses Ansible for converging to a desired state
+constitutes GitOps.</p><p>I believe we can leave out the parts of the system&rsquo;s state that aren&rsquo;t managed
+by Ansible, since these &ldquo;unmanaged parts&rdquo; are also part of workflows surrounding
+Kubernetes (think of the contents of <code>PersistentVolume</code> objects, or
+authentication with the cluster). Let&rsquo;s just be happy that <em>we can say a <code>git commit</code> is the only change we truly need,</em> and rejoice in the simplicity of our
+CI/CD setups.</p></article></main><footer id=page-footer><p id=commit><a href=https://github.com/d3adb5/website/commit/538f1828a225229364fac663e3a9549e8db8e1d9><span class=commit-hash>538f182</span><span class=commit-subject>feat: add tags to existing blog posts</span></a></p><p id=timestamp>Updated May 14, 2023</p></footer></body></html>

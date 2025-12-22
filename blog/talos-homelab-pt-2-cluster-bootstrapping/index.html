@@ -1,0 +1,168 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
+  ⚠️
+  
+I began writing this article about a year ago. Some of the content may be
+outdated and I&rsquo;m now hazy on the details. An attempt was made to keep it
+accurate, but note that this was never meant to be a tutorial or a step-by-step
+guide.
+  
+
+This article is not meant as a replacement for the Talos documentation page
+on getting started with a cluster. Instead, I&rsquo;ll just mention what
+I&rsquo;ve done and how easy it is to set it up, as well as the steps that I took to
+set up Argo CD and an App of Apps repository. For reference, the repository I
+ended up with is available on GitHub under d3adb5/homelab."><meta http-equiv=Content-Security-Policy content="default-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src *; object-src 'none'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; worker-src 'self' blob:; base-uri 'self'"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Talos Linux Homelab Pt. 2: Cluster and Argo CD Bootstrapping</title><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-600.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-600.woff2 crossorigin><style type=text/css>@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:400;src:url(/fonts/source-sans-pro-regular.woff2)format("woff2"),url(/fonts/source-sans-pro-regular.woff)format("woff")}@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:600;src:url(/fonts/source-sans-pro-600.woff2)format("woff2"),url(/fonts/source-sans-pro-600.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:400;src:url(/fonts/inconsolata-regular.woff2)format("woff2"),url(/fonts/inconsolata-regular.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:600;src:url(/fonts/inconsolata-600.woff2)format("woff2"),url(/fonts/inconsolata-600.woff)format("woff")}footer#page-footer,nav#site-nav{background:0 0;padding:1em}footer#page-footer,nav#site-nav{background:#282a2e;color:#c5c8c6;line-height:3em}nav#site-nav{display:flex;overflow:auto;scrollbar-width:none}nav#site-nav::-webkit-scrollbar{display:none}nav#site-nav a{display:inline-block;width:6em;font-weight:700;text-align:center;color:inherit;flex-shrink:0}@media screen and (min-width:60em){footer#page-footer,nav#site-nav{line-height:inherit}}html{background:#252628}body{width:100%;max-width:60em;margin:0 auto;line-height:1.5em;font-family:source sans pro,helvetica,liberation sans,open sans,sans-serif;font-size:100%;color:#c5c8c6}@media screen and (min-width:60em){body{margin:2em auto!important}}h1,h2,h3,h4,h5,h6{margin:1.1em 0 .83em}h1,h2,h3{color:#8c9440}h4,h5,h6{color:#b5bd68}h1{font-size:1.5em}h2{font-size:1.26em}h3{font-size:1.1em}h4{font-size:1.03em}h5{font-size:.67em}h6{font-size:.51em}a{text-decoration:initial;color:#de935f}a:hover{text-decoration:underline}em{color:#f0c674;font-style:normal}strong{color:#c66}nav#site-nav{border-radius:1em 1em 0 0;background:0 0;color:#c5c8c6}nav#site-nav a.push-right{margin-left:auto}nav#site-nav a.current{color:#81a2be}label#toc-toggle{display:flex;width:100%;margin-top:1em;height:3em;align-items:center;justify-content:center}input#toc-toggle-box{display:none}input#toc-toggle-box~nav#TableOfContents{display:none}input#toc-toggle-box:checked~nav#TableOfContents{display:block}nav#TableOfContents{margin:.5em 0 0;box-sizing:border-box;background:#282a2e;padding:1em;border-radius:.5em;overflow:hidden;font-weight:700;color:#de935f}nav#TableOfContents ul{margin:0;padding:0;list-style-type:none}nav#TableOfContents ul li{overflow:hidden;white-space:nowrap;text-overflow:' ...'}nav#TableOfContents ul li+li{margin-top:1em}nav#TableOfContents ul ul{padding-left:1em;margin-top:1em}@media screen and (min-width:60em){nav#TableOfContents{float:right;margin:1em 0 1em 1em;max-width:40%;font-size:85%}nav#TableOfContents ul li+li{margin-top:initial}nav#TableOfContents ul ul{margin-top:initial}}@media screen and (min-width:60em){label#toc-toggle{display:none}}@media screen and (min-width:60em){input#toc-toggle-box~nav#TableOfContents{display:initial}}footer#page-footer{background:0 0;color:#707880;display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr)}footer#page-footer a{color:#f0c674}footer#page-footer span.commit-subject{color:#de935f;margin-left:.5em}footer#page-footer p#commit{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}footer#page-footer p#commit span.commit-hash{font-family:inconsolata,dejavu sans mono,liberation mono,monospace}footer#page-footer p#timestamp,footer#page-footer p#commit{margin:0}footer#page-footer p#timestamp{text-align:right}article{background:#1d1f21;padding:.1em 1.5em .8em}@media screen and (min-width:60em){article{border-radius:.5em}}article header{font-weight:700}article header section.header-line{display:flex;justify-content:space-between;align-items:center}article header section.header-line h1{color:#8c9440;margin-bottom:.25em}article header section.header-line aside#translations{margin:1.1em 0 .25em}article header section.header-line aside#translations ul#translations{list-style:none;padding:0;margin:0;display:flex;justify-content:space-around;font-size:115%}article header section.header-line aside#translations ul#translations li:not(:first-child){margin-left:1em}article header section.subheader-line{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}article header section.subheader-line p.subtitle{color:#5e8d87;margin:0}article header section.subheader-line p.subtitle em{color:inherit;font-style:italic}article header section.subheader-line ul#article-tags{list-style-type:none;padding-left:0;margin:0;font-size:85%}article header section.subheader-line ul#article-tags li{display:inline-block}article header section.subheader-line ul#article-tags li:nth-child(n+2){margin-left:1em}article header section.subheader-line ul#article-tags li a{color:#f0c674}article blockquote{color:#979a98;padding-left:1em;border:0 solid #707880;border-left-width:.5em}article table{width:100%}article table th{color:#81a2be}article table td{color:#c5c8c6}article table td.date{width:1%;white-space:nowrap;padding:0 .5em 0 0}article table.compare-table{border-collapse:collapse}article table.compare-table th,article table.compare-table td{padding:.5em 1em;box-sizing:border-box}article table.compare-table th:first-child,article table.compare-table td:first-child{padding-left:0}article table.compare-table th:last-child,article table.compare-table td:last-child{padding-right:0}article table.compare-table th,article table.compare-table td:nth-child(n+2){text-align:center}article table.compare-table td{border-top:.1em solid #707880}article table.compare-table th:nth-child(n+2){min-width:4em}article li::marker{color:#f0c674}article figure{margin:1.25em 0;text-align:center}article figure img{min-height:5em;max-height:15em;width:100%;object-fit:cover;border-radius:1em}article figure figcaption p{margin-top:0}article code{font-family:inconsolata,dejavu sans mono,liberation mono,monospace;font-size:100%}article pre{background:#282a2e;border-radius:.5em;padding:.5em 1em;overflow-x:auto;line-height:initial}article>hr{color:#707880;opacity:.5;margin:2em 0}article p code,article li code{background:#282a2e;padding:0 .3em;border-radius:.25em}article>p a,article>ul li a,article>ol li a{text-decoration:underline}article.extra-pages h2~p{margin-left:2em}article section.dialog{display:flex;padding:1em;align-content:center;border-radius:.5em;border:.2em solid #707880;margin:.5em 0 0;box-sizing:border-box;max-width:100%}article section.dialog p:first-child{margin-top:0}article section.dialog p:last-child{margin-bottom:0}article section.dialog .dialog-icon{margin-right:1em}article section.dialog.dialog-info{border-color:#5f819d}article section.dialog.dialog-warning{border-color:#de935f}article section.dialog.dialog-error{border-color:#a54242}article section.dialog.dialog-success{border-color:#8c9440}@media screen and (min-width:60em){article section.dialog{margin:1em 0 0}}</style></head><body><nav id=site-nav><a href=/ class=[]>Home
+</a><a href=/blog/ class=[]>Blog
+</a><a href=/glob/ class=[]>Glob
+</a><a href=/projects/ class=[]>Projects
+</a><a href=/about/ class=push-right>About</a></nav><main role=main><article id=content><header><section class=header-line><h1>Talos Linux Homelab Pt. 2: Cluster and Argo CD Bootstrapping</h1></section><section class=subheader-line><p class=subtitle>No, I&rsquo;m not going to duplicate the tutorial</p><ul id=article-tags><li><a href=/tags/devops>DevOps</a></li><li><a href=/tags/homelab>Homelab</a></li><li><a href=/tags/kubernetes>Kubernetes</a></li><li><a href=/tags/talos>Talos</a></li><li><a href=/tags/technology>Technology</a></li></ul></section></header><input type=checkbox id=toc-toggle-box>
+<label for=toc-toggle-box id=toc-toggle><em>• Table of Contents •</em></label><nav id=TableOfContents><ul><li><a href=#wrapping-the-cli-with-a-makefile>Wrapping the CLI with a Makefile</a><ul><li><a href=#directories-and-file-hierarchy>Directories and file hierarchy</a><ul><li><a href=#secretsyaml>secrets.yaml</a></li><li><a href=#schematicyaml>schematic.yaml</a></li><li><a href=#patches>patches/</a></li><li><a href=#nodes>nodes/</a></li></ul></li><li><a href=#important-operations>Important operations</a></li></ul></li><li><a href=#argo-cd-and-app-of-apps>Argo CD and App of Apps</a></li><li><a href=#container-network-interface>Container Network Interface</a></li></ul></nav><section class="dialog dialog-warning"><section class=dialog-icon>⚠️</section><section class=dialog-content><p>I began writing this article about a year ago. Some of the content may be
+outdated and I&rsquo;m now hazy on the details. An attempt was made to keep it
+accurate, but note that this was never meant to be a tutorial or a step-by-step
+guide.</p></section></section><p>This article is <strong>not</strong> meant as a replacement for the Talos documentation page
+on <a href=https://www.talos.dev/v1.9/introduction/getting-started/>getting started with a cluster</a>. Instead, I&rsquo;ll just mention what
+I&rsquo;ve done and how easy it is to set it up, as well as the steps that I took to
+set up Argo CD and an App of Apps repository. For reference, the repository I
+ended up with is available on GitHub under <a href=https://github.com/d3adb5/homelab>d3adb5/homelab</a>.</p><h2 id=wrapping-the-cli-with-a-makefile>Wrapping the CLI with a Makefile</h2><p>Talos has a neat CLI called <code>talosctl</code>, but to perform operations on multiple
+nodes at a time it is necessary to use the <code>--nodes</code> flag. If you want to
+<code>apply-config</code> on any node, you have to also pass the configuration file, and
+since there is no automatic detection of patch files, I took inspiration from
+someone else&rsquo;s article on Talos and wrote a Makefile.</p><p><strong>Why a Makefile?</strong> GNU Make is good for generating files, and that&rsquo;s precisely
+what we&rsquo;ll be doing at the core of managing a Talos cluster. Talos luckily
+implements IaC at the cluster management level. It does have state, don&rsquo;t get
+me wrong, and sometimes you might want to <code>talosctl reset</code> a node, but for the
+most part it is as simple as editing the machine configuration and applying it.</p><p>Let&rsquo;s start with targets in the output of <code>make help</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>config                  Generate configuration files for all nodes
+</span></span><span style=display:flex><span>  config-control          Generate config files for controlplane nodes
+</span></span><span style=display:flex><span>  config-workers          Generate config files for worker nodes
+</span></span><span style=display:flex><span>apply                   Apply configuration files to all nodes
+</span></span><span style=display:flex><span>  apply-control-&lt;node&gt;    Apply config file to controlplane node
+</span></span><span style=display:flex><span>  apply-worker-&lt;node&gt;     Apply config file to worker node
+</span></span><span style=display:flex><span>upgrade                 Upgrade all nodes to desired installer image
+</span></span><span style=display:flex><span>  upgrade-control         Upgrade only controlplane nodes
+</span></span><span style=display:flex><span>  upgrade-workers         Upgrade only worker nodes
+</span></span><span style=display:flex><span>  upgrade-control-&lt;node&gt;  Upgrade a controlplane node
+</span></span><span style=display:flex><span>  upgrade-worker-&lt;node&gt;   Upgrade a worker node
+</span></span><span style=display:flex><span>help                    Display this help message
+</span></span><span style=display:flex><span>clean                   Remove generated configuration files
+</span></span></code></pre></div><p>Essentially, this Makefile is used to <em>generate Talos machine configuration
+files</em> for each node in both the control and data planes. The machine
+configuration files will end up under a directory called <code>generated</code>, which can
+be reset with a simple <code>make clean</code>. Upon updating the source files, <em>new
+machine configuration can be applied through <code>make apply</code>.</em> New nodes are added
+by creating new files under <code>nodes/</code> with their name, followed by <code>.yaml</code>.</p><h3 id=directories-and-file-hierarchy>Directories and file hierarchy</h3><p>I&rsquo;ll briefly explain what the file hierarchy is like, and potentially copy this
+from this article into my repository&rsquo;s <code>README.md</code> for future reference. Here
+is the file tree I&rsquo;m currently working with:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>├── Makefile
+</span></span><span style=display:flex><span>├── nodes
+</span></span><span style=display:flex><span>│   ├── controlplane
+</span></span><span style=display:flex><span>│   │   └── ottawa.yaml
+</span></span><span style=display:flex><span>│   └── workers
+</span></span><span style=display:flex><span>│       ├── edmonton.yaml
+</span></span><span style=display:flex><span>│       ├── halifax.yaml
+</span></span><span style=display:flex><span>│       ├── regina.yaml
+</span></span><span style=display:flex><span>│       └── victoria.yaml
+</span></span><span style=display:flex><span>├── patches
+</span></span><span style=display:flex><span>│   ├── allow-controlplane-workloads.yaml
+</span></span><span style=display:flex><span>│   ├── cluster-name.yaml
+</span></span><span style=display:flex><span>│   ├── longhorn-mount.yaml
+</span></span><span style=display:flex><span>│   ├── resolve-cluster-members.yaml
+</span></span><span style=display:flex><span>│   ├── unprivileged-user-ns-creation.yaml
+</span></span><span style=display:flex><span>│   └── use-calico-and-flannel-for-cni.yaml
+</span></span><span style=display:flex><span>├── schematic.yaml
+</span></span><span style=display:flex><span>└── secrets.yaml
+</span></span></code></pre></div><h4 id=secretsyaml>secrets.yaml</h4><p>This file is generated through <code>talosctl gen secrets</code>. It generates a &ldquo;secret
+bundle&rdquo;, as Talos calls it, which is a collection of credentials and
+certificate keypairs that are used to secure the cluster. Through keeping this
+separate we can reuse it without having to repeat it across multiple files.</p><h4 id=schematicyaml>schematic.yaml</h4><p>This file is the <em>schematic</em> for the node image. It is used to grab the right
+Talos image to use, based on the extensions I wish to be included in it. You
+can read more about system extensions on the <a href=https://www.talos.dev/v1.3/talos-guides/configuration/system-extensions/>Talos documentation
+page</a>, and for reference this is what I&rsquo;m using as of the time of
+writing:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>customization</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>systemExtensions</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>officialExtensions</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>siderolabs/i915-ucode</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>siderolabs/intel-ucode</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>siderolabs/iscsi-tools</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>siderolabs/gvisor</span>
+</span></span></code></pre></div><p>The way this file is used in the Makefile is as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-make data-lang=make><span style=display:flex><span>FACTORY_URL      <span style=color:#f92672>:=</span> https://factory.talos.dev/schematics
+</span></span><span style=display:flex><span>TALOS_VERSION    <span style=color:#f92672>:=</span> 1.9.0
+</span></span><span style=display:flex><span>INSTALL_IMAGE_ID <span style=color:#f92672>:=</span> <span style=color:#66d9ef>$(</span>shell curl -s --data-binary @schematic.yaml <span style=color:#66d9ef>$(</span>FACTORY_URL<span style=color:#66d9ef>)</span> | jq -r <span style=color:#e6db74>&#39;.id&#39;</span><span style=color:#66d9ef>)</span>
+</span></span><span style=display:flex><span>INSTALL_IMAGE    <span style=color:#f92672>:=</span> factory.talos.dev/installer/<span style=color:#66d9ef>$(</span>INSTALL_IMAGE_ID<span style=color:#66d9ef>)</span>:v<span style=color:#66d9ef>$(</span>TALOS_VERSION<span style=color:#66d9ef>)</span>
+</span></span></code></pre></div><section class="dialog dialog-info"><section class=dialog-icon>ℹ️</section><section class=dialog-content><p>This was later changed into a directory, to allow setting a default Talos image
+schematic as well as node-specific schematics. This is because one of my nodes
+has an NVIDIA GPU and should use related extensions.</p></section></section><h4 id=patches>patches/</h4><p>This is the most important directory. All the YAML files within will be passed
+to <code>talosctl gen config</code> through the <code>--config-patch</code> flag, merging them with
+each base node machine configuration file. An example of what that looks like:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>cluster</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>allowSchedulingOnControlPlanes</span>: <span style=color:#66d9ef>true</span>
+</span></span></code></pre></div><h4 id=nodes>nodes/</h4><p>These files are the base machine configuration that&rsquo;ll be applied to each
+individual node. They are separated into <code>controlplane/</code> and <code>workers/</code>
+directories, and are used to generate the final machine configuration files.
+They can be as simple as just stating the node&rsquo;s network hostname and
+identifying which disk Talos should be installed to. Here&rsquo;s an example:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>machine</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>network</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>hostname</span>: <span style=color:#ae81ff>regina.lan</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>install</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>disk</span>: <span style=color:#ae81ff>/dev/nvme0n1</span>
+</span></span></code></pre></div><h3 id=important-operations>Important operations</h3><p>Since Talos implements something akin to stateless IaC, the only operations we
+truly need to make easy through this Makefile &mdash; other than, of course,
+generating machine configuration &mdash; is applying the configuration and
+upgrading Talos itself. The latter is done through the <code>upgrade</code> command, and
+is a separate operation from applying machine configuration or upgrading the
+Kubernetes version in use.</p><p>It&rsquo;s sadly somewhat necessary to separate these by control and data plane,
+since Talos operations often jump from where the cluster was bootstrapped,
+rather than from the client machine to each of the target nodes individually.
+Combine this with the fact my cluster has, currently, a single control plane
+node and no external load balancer to route traffic to the appropriate
+endpoint.</p><h2 id=argo-cd-and-app-of-apps>Argo CD and App of Apps</h2><p>With the cluster properly set up, bootstrapped, and everything, it&rsquo;s pretty
+simple to set up Argo CD and the App of Apps for the first time, provided the
+repository where the App of Apps will be is immediately accessible. <em>Since my
+repository will contain more than just my Argo CD top level application,</em> I
+created a directory called <code>argo/</code> where I placed most of the things Argo CD
+will need to deploy service on the cluster.</p><p>The directory structure as of <code>2025-08-25</code> is as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>├── argo                  # Argo CD-reachable manifests
+</span></span><span style=display:flex><span>│   ├── app-of-apps       # Top level Argo CD application as a Helm chart
+</span></span><span style=display:flex><span>│   ├── cert-manager      # cert-manager issuer configuration
+</span></span><span style=display:flex><span>│   ├── cluster-utils     # Miscellaneous manifests for cluster stuff
+</span></span><span style=display:flex><span>│   ├── ddclient          # ddclient-related secrets and release values
+</span></span><span style=display:flex><span>│   ├── democratic-csi    # democratic-csi application manifests + secrets
+</span></span><span style=display:flex><span>│   ├── keycloak          # Manifests used to deploy Keycloak (e.g. database)
+</span></span><span style=display:flex><span>│   ├── longhorn          # Additional manifests related to Longhorn
+</span></span><span style=display:flex><span>│   ├── media             # Extra resources for media services
+</span></span><span style=display:flex><span>│   ├── metallb           # Extra MetalLB manifests (e.g. IPAddressPool)
+</span></span><span style=display:flex><span>│   ├── monitoring        # Extra resources for the monitoring stack
+</span></span><span style=display:flex><span>│   ├── network-policies  # Network policies to apply across the cluster
+</span></span><span style=display:flex><span>│   └── olmv0             # Operator Lifecycle Manager v0 manifests
+</span></span><span style=display:flex><span>├── democratic-csi        # democratic-csi driver configuration (encrypted)
+</span></span><span style=display:flex><span>├── images                # Container image build files
+</span></span><span style=display:flex><span>├── talos                 # Talos-related configuration and Makefile
+</span></span><span style=display:flex><span>└── terraform             # Infrastructure as Code for, well, infrastructure
+</span></span><span style=display:flex><span>    ├── dns               # DNS records for multiple domains
+</span></span><span style=display:flex><span>    └── keycloak          # Keycloak configuration
+</span></span></code></pre></div><p>Bootstrapping Argo CD is as simple as creating a Helm release using the values
+defined in the <code>Application</code> manifest I wrote for it, and then the App of Apps
+(top level application) chart itself can be released, and then consequently
+managed through Argo CD. <strong>It&rsquo;s like magic,</strong> honestly, seeing all the
+resources pop up in the Argo CD UI.</p><section class="dialog dialog-warning"><section class=dialog-icon>⚠️</section><section class=dialog-content><p><strong>WARNING:</strong> The network policies created through enabling network policies for
+the official Argo CD Helm chart are <strong>NOT</strong> sufficient. You will need to create
+additional policies allowing traffic from Argo CD&rsquo;s server, repo-server and
+application controller pods to reach Redis (Redis HA HAProxy if you have
+enabled high availability).</p></section></section><h2 id=container-network-interface>Container Network Interface</h2><p>When I first wrote this and up until some time ago, I was using &ldquo;Canal&rdquo;, or
+Calico (for policies) and Flannel (for networking), as my CNI. This was to keep
+things as simple as possible while enabling network policies. However, as part
+of troubleshooting an issue with Argo CD &mdash; that I later discovered was due to
+network policies being too restrictive &mdash; I switched to full-on Calico.</p><p>This is how that was done:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span># talos/patches/use-calico-for-cni.yaml
+</span></span><span style=display:flex><span>cluster:
+</span></span><span style=display:flex><span>  network:
+</span></span><span style=display:flex><span>    cni:
+</span></span><span style=display:flex><span>      name: custom
+</span></span><span style=display:flex><span>      urls:
+</span></span><span style=display:flex><span>        - https://raw.githubusercontent.com/projectcalico/calico/v3.30.2/manifests/operator-crds.yaml
+</span></span><span style=display:flex><span>        - https://raw.githubusercontent.com/projectcalico/calico/v3.30.2/manifests/tigera-operator.yaml
+</span></span></code></pre></div><p>This adds manifests for Talos to install the Tigera Operator, which will be
+responsible for bringing up Calico itself with our help:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>curl -O -L https://raw.githubusercontent.com/projectcalico/calico/v3.30.2/manifests/custom-resources.yaml
+</span></span><span style=display:flex><span>nvim custom-resources.yaml <span style=color:#75715e># Edit to your liking!</span>
+</span></span><span style=display:flex><span>kubectl apply -f custom-resources.yaml
+</span></span></code></pre></div><p>This was taken from the <a href=https://docs.tigera.io/calico/latest/getting-started/kubernetes/self-managed-onprem/onpremises>Calico installation docs</a> for
+on-premises deployments.</p><p><em>There must be a better way to do this</em> that doesn&rsquo;t involve manual steps or
+uploading manifests elsewhere that we&rsquo;d then depend on. Maybe Calico could be
+installed through Argo CD, but I don&rsquo;t like the idea of having the CNI
+installed by a service already running on the cluster and virtually dependant
+on it.</p></article></main><footer id=page-footer><p id=commit><a href=https://github.com/d3adb5/website/commit/eec4adaddb76c8fa848eea33a038152eed0913b4><span class=commit-hash>eec4ada</span><span class=commit-subject>content(blog): add part 2 of talos homelab series</span></a></p><p id=timestamp>Updated August 31, 2025</p></footer></body></html>

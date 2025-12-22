@@ -1,0 +1,511 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="
+  ℹ️
+  
+DISCLAIMER: Heed the warning in this article&rsquo;s subtitle. Use the right
+tool for the job, this is just for fun. Well, it wasn&rsquo;t just
+for fun in the beginning, but now that I did it and found a better alternative
+that fits my use case, it became just for fun.
+  
+
+For better or for worse, one of the principal tools for any developer or
+operator using Kubernetes is Helm. It&rsquo;s a powerful tool for sure, but
+it uses Go templates, which doesn&rsquo;t have the most intuitive syntax. On top of
+that, there are some weird decisions made by the developers of the tool &mdash;
+semantic versioning is a requirement for chart versions, for instance."><meta http-equiv=Content-Security-Policy content="default-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src *; object-src 'none'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; worker-src 'self' blob:; base-uri 'self'"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Implementing the Blue/Green deployment strategy with Helm</title><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-600.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-600.woff2 crossorigin><style type=text/css>@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:400;src:url(/fonts/source-sans-pro-regular.woff2)format("woff2"),url(/fonts/source-sans-pro-regular.woff)format("woff")}@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:600;src:url(/fonts/source-sans-pro-600.woff2)format("woff2"),url(/fonts/source-sans-pro-600.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:400;src:url(/fonts/inconsolata-regular.woff2)format("woff2"),url(/fonts/inconsolata-regular.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:600;src:url(/fonts/inconsolata-600.woff2)format("woff2"),url(/fonts/inconsolata-600.woff)format("woff")}footer#page-footer,nav#site-nav{background:0 0;padding:1em}footer#page-footer,nav#site-nav{background:#282a2e;color:#c5c8c6;line-height:3em}nav#site-nav{display:flex;overflow:auto;scrollbar-width:none}nav#site-nav::-webkit-scrollbar{display:none}nav#site-nav a{display:inline-block;width:6em;font-weight:700;text-align:center;color:inherit;flex-shrink:0}@media screen and (min-width:60em){footer#page-footer,nav#site-nav{line-height:inherit}}html{background:#252628}body{width:100%;max-width:60em;margin:0 auto;line-height:1.5em;font-family:source sans pro,helvetica,liberation sans,open sans,sans-serif;font-size:100%;color:#c5c8c6}@media screen and (min-width:60em){body{margin:2em auto!important}}h1,h2,h3,h4,h5,h6{margin:1.1em 0 .83em}h1,h2,h3{color:#8c9440}h4,h5,h6{color:#b5bd68}h1{font-size:1.5em}h2{font-size:1.26em}h3{font-size:1.1em}h4{font-size:1.03em}h5{font-size:.67em}h6{font-size:.51em}a{text-decoration:initial;color:#de935f}a:hover{text-decoration:underline}em{color:#f0c674;font-style:normal}strong{color:#c66}nav#site-nav{border-radius:1em 1em 0 0;background:0 0;color:#c5c8c6}nav#site-nav a.push-right{margin-left:auto}nav#site-nav a.current{color:#81a2be}label#toc-toggle{display:flex;width:100%;margin-top:1em;height:3em;align-items:center;justify-content:center}input#toc-toggle-box{display:none}input#toc-toggle-box~nav#TableOfContents{display:none}input#toc-toggle-box:checked~nav#TableOfContents{display:block}nav#TableOfContents{margin:.5em 0 0;box-sizing:border-box;background:#282a2e;padding:1em;border-radius:.5em;overflow:hidden;font-weight:700;color:#de935f}nav#TableOfContents ul{margin:0;padding:0;list-style-type:none}nav#TableOfContents ul li{overflow:hidden;white-space:nowrap;text-overflow:' ...'}nav#TableOfContents ul li+li{margin-top:1em}nav#TableOfContents ul ul{padding-left:1em;margin-top:1em}@media screen and (min-width:60em){nav#TableOfContents{float:right;margin:1em 0 1em 1em;max-width:40%;font-size:85%}nav#TableOfContents ul li+li{margin-top:initial}nav#TableOfContents ul ul{margin-top:initial}}@media screen and (min-width:60em){label#toc-toggle{display:none}}@media screen and (min-width:60em){input#toc-toggle-box~nav#TableOfContents{display:initial}}footer#page-footer{background:0 0;color:#707880;display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr)}footer#page-footer a{color:#f0c674}footer#page-footer span.commit-subject{color:#de935f;margin-left:.5em}footer#page-footer p#commit{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}footer#page-footer p#commit span.commit-hash{font-family:inconsolata,dejavu sans mono,liberation mono,monospace}footer#page-footer p#timestamp,footer#page-footer p#commit{margin:0}footer#page-footer p#timestamp{text-align:right}article{background:#1d1f21;padding:.1em 1.5em .8em}@media screen and (min-width:60em){article{border-radius:.5em}}article header{font-weight:700}article header section.header-line{display:flex;justify-content:space-between;align-items:center}article header section.header-line h1{color:#8c9440;margin-bottom:.25em}article header section.header-line aside#translations{margin:1.1em 0 .25em}article header section.header-line aside#translations ul#translations{list-style:none;padding:0;margin:0;display:flex;justify-content:space-around;font-size:115%}article header section.header-line aside#translations ul#translations li:not(:first-child){margin-left:1em}article header section.subheader-line{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}article header section.subheader-line p.subtitle{color:#5e8d87;margin:0}article header section.subheader-line p.subtitle em{color:inherit;font-style:italic}article header section.subheader-line ul#article-tags{list-style-type:none;padding-left:0;margin:0;font-size:85%}article header section.subheader-line ul#article-tags li{display:inline-block}article header section.subheader-line ul#article-tags li:nth-child(n+2){margin-left:1em}article header section.subheader-line ul#article-tags li a{color:#f0c674}article blockquote{color:#979a98;padding-left:1em;border:0 solid #707880;border-left-width:.5em}article table{width:100%}article table th{color:#81a2be}article table td{color:#c5c8c6}article table td.date{width:1%;white-space:nowrap;padding:0 .5em 0 0}article table.compare-table{border-collapse:collapse}article table.compare-table th,article table.compare-table td{padding:.5em 1em;box-sizing:border-box}article table.compare-table th:first-child,article table.compare-table td:first-child{padding-left:0}article table.compare-table th:last-child,article table.compare-table td:last-child{padding-right:0}article table.compare-table th,article table.compare-table td:nth-child(n+2){text-align:center}article table.compare-table td{border-top:.1em solid #707880}article table.compare-table th:nth-child(n+2){min-width:4em}article li::marker{color:#f0c674}article figure{margin:1.25em 0;text-align:center}article figure img{min-height:5em;max-height:15em;width:100%;object-fit:cover;border-radius:1em}article figure figcaption p{margin-top:0}article code{font-family:inconsolata,dejavu sans mono,liberation mono,monospace;font-size:100%}article pre{background:#282a2e;border-radius:.5em;padding:.5em 1em;overflow-x:auto;line-height:initial}article>hr{color:#707880;opacity:.5;margin:2em 0}article p code,article li code{background:#282a2e;padding:0 .3em;border-radius:.25em}article>p a,article>ul li a,article>ol li a{text-decoration:underline}article.extra-pages h2~p{margin-left:2em}article section.dialog{display:flex;padding:1em;align-content:center;border-radius:.5em;border:.2em solid #707880;margin:.5em 0 0;box-sizing:border-box;max-width:100%}article section.dialog p:first-child{margin-top:0}article section.dialog p:last-child{margin-bottom:0}article section.dialog .dialog-icon{margin-right:1em}article section.dialog.dialog-info{border-color:#5f819d}article section.dialog.dialog-warning{border-color:#de935f}article section.dialog.dialog-error{border-color:#a54242}article section.dialog.dialog-success{border-color:#8c9440}@media screen and (min-width:60em){article section.dialog{margin:1em 0 0}}</style></head><body><nav id=site-nav><a href=/ class=[]>Home
+</a><a href=/blog/ class=[]>Blog
+</a><a href=/glob/ class=[]>Glob
+</a><a href=/projects/ class=[]>Projects
+</a><a href=/about/ class=push-right>About</a></nav><main role=main><article id=content><header><section class=header-line><h1>Implementing the Blue/Green deployment strategy with Helm</h1></section><section class=subheader-line><p class=subtitle>Use the right tool for the job, don&rsquo;t follow in my footsteps</p><ul id=article-tags><li><a href=/tags/devops>DevOps</a></li><li><a href=/tags/helm>Helm</a></li><li><a href=/tags/kubernetes>Kubernetes</a></li><li><a href=/tags/technology>Technology</a></li></ul></section></header><input type=checkbox id=toc-toggle-box>
+<label for=toc-toggle-box id=toc-toggle><em>• Table of Contents •</em></label><nav id=TableOfContents><ul><li><a href=#defining-the-bluegreen-strategy>Defining the Blue/Green strategy</a></li><li><a href=#helm-charts-and-limitations>Helm charts and limitations</a><ul><li><a href=#partial-templates-or-pseudo-functions>Partial templates or pseudo-functions?</a></li></ul></li><li><a href=#an-example-chart-to-start-with>An example chart to start with</a></li><li><a href=#bluegreen-on-kubernetes>Blue/Green on Kubernetes</a></li><li><a href=#bluegreen-with-helm-templates>Blue/Green with Helm templates</a><ul><li><a href=#how-simple-it-is-when-outlined>How simple it is when outlined</a></li><li><a href=#why-it-is-actually-complicated>Why it is actually complicated</a></li><li><a href=#how-do-we-use-this>How do we use this?</a></li></ul></li><li><a href=#the-hard-part-generalizing-the-templates>The Hard Part: generalizing the templates</a><ul><li><a href=#utility-pseudo-functions-templates>Utility pseudo-functions (templates)</a></li><li><a href=#converting-a-generated-deployment>Converting a generated Deployment</a></li><li><a href=#creating-preview-versions-of-each-service>Creating preview versions of each Service</a><ul><li><a href=#the-nodeport-caveat>The NodePort caveat</a></li></ul></li><li><a href=#creating-preview-versions-of-each-ingress>Creating preview versions of each Ingress</a></li></ul></li><li><a href=#conclusion>Conclusion</a></li></ul></nav><section class="dialog dialog-info"><section class=dialog-icon>ℹ️</section><section class=dialog-content><p><strong>DISCLAIMER:</strong> Heed the warning in this article&rsquo;s subtitle. Use the <a href=https://argoproj.github.io/argo-rollouts/>right
+tool for the job,</a> this is just for fun. Well, it wasn&rsquo;t just
+for fun in the beginning, but now that I did it and found a better alternative
+that fits my use case, it became just for fun.</p></section></section><p>For better or for worse, one of the principal tools for any developer or
+operator using Kubernetes is <a href=https://helm.sh/>Helm.</a> It&rsquo;s a powerful tool for sure, but
+it uses Go templates, which doesn&rsquo;t have the most intuitive syntax. On top of
+that, there are some weird decisions made by the developers of the tool &mdash;
+semantic versioning is a requirement for chart versions, for instance.</p><p>I&rsquo;ve been working with Helm charts for a while now. A recent project I started
+to work on a few months ago pushed me to familiarize myself with its more
+advanced features, and as a result I even started a repository where I sought
+to implement a complete Brainf*ck interpreter as a Helm chart. Check my GitHub
+repositories if you&rsquo;re interested.</p><p>The same project had an item on the backlog that consisted of implementing the
+Blue/Green deployment strategy for one of the customer&rsquo;s applications.
+Initially I thought of using <a href=https://argoproj.github.io/argo-rollouts/>Argo Rollouts</a>, however the lack
+of support for managing multiple Service&rsquo;s &mdash; and my inability to add it in
+time, being a Go newbie &mdash; made it a non-starter. <em>&ldquo;Can I do this with pure
+Helm?&rdquo;</em> I asked myself. Surprisingly, the answer was yes.</p><p>A working version of these solutions &mdash; not 1:1 with what you see here, but
+with the same usage &mdash; is available on my <a href=https://github.com/d3adb5/helm-playground>helm-playground</a>
+repository, on GitHub. The implementations are named <code>bluegreen-simple</code> and
+<code>bluegreen-generic</code>.</p><p>You can use the table of contents on the right to skip to the parts that
+interest you.</p><h2 id=defining-the-bluegreen-strategy>Defining the Blue/Green strategy</h2><p>Blue/Green (blue green, bluegreen, etc.) is a deployment strategy that consists
+of having concurrently running production and staging instances of a given
+service. The production instance serves real users, while the staging instance
+is reserved for testing up until the operator decides to flip the switch,
+making staging production and production a thing of the past.</p><p>Perhaps some illustrations will make more sense:</p><figure><a href=/media/bluegreen-1.webp><img src=/media/bluegreen-1.webp alt="Users are served by green (v1.0), testers test blue (v2.0)."></a><figcaption><p>Users are served by <em>green</em> (v1.0), testers test <em>blue</em> (v2.0).</p></figcaption></figure><p>In the figure above, version 1.0 of the service &mdash; green in this case &mdash; is
+the one serving users. Meanwhile, some testers, be it bots or actual people,
+are performing some tests to see if version 2.0 of the application, running in
+the staging environment &mdash; blue in this case &mdash; is working as expected and
+thus ready to be <em>promoted</em> to production.</p><p>Assuming everything&rsquo;s well with the application, with the flip of a switch the
+testers start redirecting users to version 2.0, promoting <em>blue</em> to production.
+Meanwhile, <em>green</em> can receive some new version as it has now become staging.
+Let&rsquo;s say that tests now begin for version 3.0 of the application:</p><figure><a href=/media/bluegreen-2.webp><img src=/media/bluegreen-2.webp alt="Users are served by blue (v2.0), testers test green (v3.0)."></a><figcaption><p>Users are served by <em>blue</em> (v2.0), testers test <em>green</em> (v3.0).</p></figcaption></figure><p>One might ask how different this is from just having a fixed staging
+environment and a production environment that can be updated with, say, a
+rolling update. Here are some advantages that may or may not apply on a case by
+case basis:</p><ul><li><p><em>Staging and production environments are running under pretty much the same
+conditions,</em> so the results of tests are more likely to be accurate. This is
+very important, as minor differences in the network configuration or a
+database can lead to catastrophic results.</p></li><li><p><em>There is virtually zero downtime.</em> The old production environment is still
+running and responding to the requests that reached it before the flip of the
+switch. The new production environment is &mdash; or should be &mdash; ready to
+receive requests by the time the switch is flipped.</p></li><li><p><em>Rollback is trivial.</em> If something unforeseen in the testing phase happens,
+the switch can be flipped back to the old production environment, and the new
+one can be discarded. <strong>It&rsquo;s good to have a policy in place for this,</strong>
+though, as the old production environment might be in a bad state or have
+developers ready to use it as staging.</p></li></ul><p>Your mileage may vary, but I personally think if the applications are ready for
+such a deployment strategy, it&rsquo;s a good one to use.</p><h2 id=helm-charts-and-limitations>Helm charts and limitations</h2><p>So what is <a href=https://helm.sh/>Helm,</a> then? It&rsquo;s mostly a templating tool with release
+management thrown on top of it to aid you in controlling your deployments to
+Kubernetes. <em>Huh?</em> Let me try to make it a little easier on you.</p><p>Kubernetes deployments are nothing but a collection of Kubernetes primitives /
+resources. These resources have a definition that can be written in YAML, a
+markup language. Any application that runs on Kubernetes is a collection of
+said resources, and usually we version the YAML definitions with Git. It looks
+somewhat like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1             </span> <span style=color:#75715e># Don&#39;t mind this.</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment                </span> <span style=color:#75715e># This is a Deployment.</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>my-beautiful-app        </span> <span style=color:#75715e># It&#39;s called my-beautiful-app.</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>hopkins-consulting </span> <span style=color:#75715e># It&#39;s in the hopkins-consulting namespace.</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#75715e># ...</span>
+</span></span></code></pre></div><p>And what if we want to deploy many of these on a single cluster, with a bunch
+of different names and in a bunch of different namespaces? It would sure be
+nice to have a templating tool so we can just edit some fields at will, right?
+That&rsquo;s what Helm is for.</p><p>It doesn&rsquo;t look pretty, but it does what we want:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }} </span> <span style=color:#75715e># This uses a partial template.</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>namespace</span>: <span style=color:#ae81ff>.Release.Namespace        </span> <span style=color:#75715e># This is implied, we can omit it.</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>misc</span>: {{ <span style=color:#ae81ff>.Values.labels.misc }}    </span> <span style=color:#75715e># This is a value from values.yaml.</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#75715e># ...</span>
+</span></span></code></pre></div><p>We can tweak these values at will through the command line or through YAML
+files that are usually called &ldquo;value overrides&rdquo;.</p><p>In case you&rsquo;re wondering why they&rsquo;re called <em>charts,</em> it may be because helm is
+what we call the steering wheel of a ship. The ship in this case is the
+Kubernetes cluster, and to navigate it we use a chart. Also, doesn&rsquo;t the
+Kubernetes logo look like a helm itself?</p><h3 id=partial-templates-or-pseudo-functions>Partial templates or pseudo-functions?</h3><p><em>Helm is Turing-complete.</em> Okay, that&rsquo;s a very bold claim to make. Brainf*ck
+is a Turing complete esoteric language, and it is very much possible to
+implement an interpreter using purely Helm templates. With one caveat: due to
+<a href=https://github.com/helm/helm/pull/7558>PR #7558</a>, Helm limits recursive calls to partial templates to 1000
+calls. Due to the way that limit is implemented, one can circumvent it through
+multiple partial templates in a closed recursive loop, but I digress.</p><p>Luckily for us one doesn&rsquo;t have to squint too hard to see how that may be the
+case. It&rsquo;s possible to emulate functions through Helm&rsquo;s <em>partial templates.</em> So
+much so that throughout this article I&rsquo;ll be referring to them as
+<em>pseudo-functions.</em></p><p>What are partial templates, you ask? They&rsquo;re defined using <code>define</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;partial-template&#34; -}}</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>This is a partial template. This text appears literally when you &#39;include&#39; it.</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>They wouldn&rsquo;t be useful without their &ldquo;argument&rdquo;, which we can call scope,
+context, or top value. It is the thing you use as the last argument of
+<code>include</code> (I will not cover the <code>template</code> function here):</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>include &#34;partial-template&#34; &#34;this string is the scope&#34; -}}</span>
+</span></span></code></pre></div><p>And you may refer to it in the partial template as <code>.</code>, as you can see here:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;partial-template&#34; -}}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>I was given</span>: {{ <span style=color:#ae81ff>. }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>This scope can be many things, including a map, a list, a string, or a number.
+Usually we pass around the top scope of the entire chart, which is a map
+containing things like <code>.Values</code> and <code>.Release</code>.</p><p>There are some examples and more explanation in my
+<a href=https://github.com/d3adb5/helm-playground>helm-playground</a> repository&rsquo;s README.</p><h2 id=an-example-chart-to-start-with>An example chart to start with</h2><p>Brace yourself, there&rsquo;ll be plenty of YAML here.</p><p>Let&rsquo;s conceive a simple application that runs the <code>argoproj/rollouts-demo</code>
+image, which exposes a webpage with pretty looking lights, the color of which
+is determined by the image tag. No, we&rsquo;re not going to demo <a href=https://argoproj.github.io/argo-rollouts/>Argo
+Rollouts,</a> but it&rsquo;s a perfect image to demonstrate deployment
+strategies in action.</p><p>We&rsquo;ll need a <em>Deployment</em> to bring up Pods, a <em>Service</em> to expose the
+application, and an <em>Ingress</em> to route traffic to the Service.</p><p>Let&rsquo;s start the boilerplate galore with our Deployment. We&rsquo;ll use the following
+as a base to work on moving forward:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># app/templates/deployment.yaml</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>include &#34;app.labels&#34; . | nindent 4 }}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      {{- <span style=color:#ae81ff>include &#34;app.selectorLabels&#34; . | nindent 6 }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>        {{- <span style=color:#ae81ff>include &#34;app.selectorLabels&#34; . | nindent 8 }}</span>
+</span></span><span style=display:flex><span>   <span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>     <span style=color:#f92672>containers</span>:
+</span></span><span style=display:flex><span>       - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>christmas-lights</span>
+</span></span><span style=display:flex><span>         <span style=color:#f92672>image</span>: <span style=color:#e6db74>&#34;argoproj/rollouts-demo:{{ .Values.color }}&#34;</span>
+</span></span><span style=display:flex><span>         <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>           - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>http</span>
+</span></span><span style=display:flex><span>             <span style=color:#f92672>containerPort</span>: <span style=color:#ae81ff>8080</span>
+</span></span></code></pre></div><p>Assume partial templates like <code>app.fullname</code> and <code>app.labels</code> are defined in a
+<code>_helpers.tpl</code> file, like the one Helm generates automatically when you issue
+<code>helm create app</code>. We&rsquo;ll define <code>color: yellow</code> or something in our chart&rsquo;s
+<code>values.yaml</code> file. That&rsquo;ll be the default color, if none is specified in the
+command line upon installation of our chart to a K8s cluster.</p><p>Now, let&rsquo;s add a Service to expose the application:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># app/templates/service.yaml</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Service</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>include &#34;app.labels&#34; . | nindent 4 }}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>include &#34;app.selectorLabels&#34; . | nindent 4 }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>port</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>targetPort</span>: <span style=color:#ae81ff>http</span>
+</span></span></code></pre></div><p>And finally, an Ingress to route traffic to the Service:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># app/templates/ingress.yaml</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>networking.k8s.io/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Ingress</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>include &#34;app.labels&#34; . | nindent 4 }}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>rules</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>host</span>: {{ <span style=color:#ae81ff>.Values.ingress.host }}</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>http</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>          - <span style=color:#f92672>path</span>: <span style=color:#ae81ff>/</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>pathType</span>: <span style=color:#ae81ff>Prefix</span>
+</span></span><span style=display:flex><span>            <span style=color:#f92672>backend</span>:
+</span></span><span style=display:flex><span>              <span style=color:#f92672>service</span>:
+</span></span><span style=display:flex><span>                <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>port</span>:
+</span></span><span style=display:flex><span>                  <span style=color:#f92672>number</span>: <span style=color:#ae81ff>80</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>tls</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>hosts</span>:
+</span></span><span style=display:flex><span>        - {{ <span style=color:#ae81ff>.Values.ingress.host }}</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>secretName</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}-tls</span>
+</span></span></code></pre></div><p>It&rsquo;s admittedly a lot of YAML, but it&rsquo;s not that bad. We can now install this.</p><h2 id=bluegreen-on-kubernetes>Blue/Green on Kubernetes</h2><p>What is Blue/Green like on Kubernetes, even? How do you implement it?! There
+are different ways to achieve it, but in this article we&rsquo;re going to try and
+mimick the way it&rsquo;s done by <a href=https://argoproj.github.io/argo-rollouts/>Argo Rollouts:</a> we&rsquo;ll have a label
+to distinguish between <em>blue</em> and <em>green,</em> and we&rsquo;ll have a Deployment &mdash; Argo
+Rollouts manages ReplicaSet&rsquo;s by itself &mdash; for each; additionally, a Service
+pointing to the <em>active / production</em> deployment and a Service pointing to the
+<em>preview / staging</em> deployment will be created.</p><p>In this case, flipping the switch means changing the active Service&rsquo;s selector
+so it points to our new deployment. Again, probably clearer shown through
+illustrations:</p><figure><a href=/media/bluegreen-k8s-1.webp><img src=/media/bluegreen-k8s-1.webp alt="Here, green is pointed to by Preview, and blue by Stable."></a><figcaption><p>Here, <em>green</em> is pointed to by <em>Preview,</em> and <em>blue</em> by <em>Stable.</em></p></figcaption></figure><p>Tests are performed, deployment validated, yada yada. A flip of the switch is
+when the selector labels for the Service&rsquo;s are swapped:</p><figure><a href=/media/bluegreen-k8s-2.webp><img src=/media/bluegreen-k8s-2.webp alt="Now, green has become Stable, and blue has become Preview."></a><figcaption><p>Now, <em>green</em> has become <em>Stable,</em> and <em>blue</em> has become <em>Preview.</em></p></figcaption></figure><p>Note the color of the arrows. They represent the labels in <code>spec.selector</code> for
+each Service. Why not just change the labels in each Deployment instead?
+Because the selector labels for a Deployment cannot be changed! Later in this
+article I&rsquo;ll cover that more in-depth, but suffice to say it just wouldn&rsquo;t
+work.</p><h2 id=bluegreen-with-helm-templates>Blue/Green with Helm templates</h2><p>Now that we know what Blue/Green looks like on Kubernetes, or at least how we
+want to implement it there, we start to ask if it&rsquo;s even possible to do it
+purely with Helm. It&rsquo;s not straightforward at all: in the following command,
+are we upgrading the Blue deployment, the Green deployment, Stable, Preview,
+both? How do we promote preview / staging to stable / production?</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>helm upgrade -i my-app my-app -f overrides.yaml
+</span></span></code></pre></div><p>Should we have two separate releases of the same chart? Or both environments in
+a single chart, always being deployed, with no concern for resource
+consumption? How complicated should environment promotion be? Or the
+implementation, even?</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#75715e># Template based on .Release.Name ... ???</span>
+</span></span><span style=display:flex><span>helm upgrade -i my-app-blue  my-app -f overrides.yaml
+</span></span><span style=display:flex><span>helm upgrade -i my-app-green my-app -f overrides.yaml
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># Or something like .Values.environment?</span>
+</span></span><span style=display:flex><span>helm upgrade -i my-app-blue  my-app -f overrides.yaml --set environment<span style=color:#f92672>=</span>blue
+</span></span><span style=display:flex><span>helm upgrade -i my-app-green my-app -f overrides.yaml --set environment<span style=color:#f92672>=</span>green
+</span></span></code></pre></div><p>In the case of multiple releases, since Helm won&rsquo;t interfere with resources not
+controlled by the same release, promotion would mean both releases have to be
+manipulated &mdash; one promoted, another demoted. This means <strong>increased potential
+downtime.</strong></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>helm upgrade -i my-app-blue  my-app -f old-overrides.yaml --set youre<span style=color:#f92672>=</span>no-longer-stable
+</span></span><span style=display:flex><span>helm upgrade -i my-app-green my-app -f new-overrides.yaml --set youre<span style=color:#f92672>=</span>now-stable
+</span></span></code></pre></div><p>A <em>single release</em> means we connect to Kubernetes to perform changes only once,
+cutting in half the network overhead of the earlier proposition. Rendering of
+the YAML manifests happens entirely before changes are applied to the cluster,
+which brings us to the next problem: <em>how do we decide which Deployment to
+recreate?</em></p><h3 id=how-simple-it-is-when-outlined>How simple it is when outlined</h3><p>Our chart values change as we update our application and prepare the testing
+environment. The following steps summarize the <code>helm upgrade</code> process:</p><ol><li>Identify which version &mdash; Blue or Green &mdash; is currently considered stable.</li><li>If <em>Blue</em> is stable, we&rsquo;re updating <em>Green.</em> Conversely if Green is stable,
+we&rsquo;re updating Blue.</li><li>If we <code>--set promote=true</code>, we have to update the Services&rsquo; selector labels
+accordingly. <strong>Keep them intact otherwise.</strong></li><li>In the case of promotion, we can discard the old Deployment. <strong>Keep it
+intact otherwise.</strong></li></ol><p>Simple, right? Note that discarding the old stable Deployment in step 4 is
+specific to our use case and generally discouraged for production use. The
+reason for that is by discarding the old Deployment we lose the ability to
+perform a near instantaneous rollback.</p><h3 id=why-it-is-actually-complicated>Why it is actually complicated</h3><p>Let&rsquo;s review the steps outlined above. In step 1, how do we identify which
+deployment is the stable one? Helm doesn&rsquo;t keep track of its past revisions
+locally, and even if it could, the cluster could&rsquo;ve changed since the last
+release upgrade. Inevitably, <em>we have to query the Kubernetes API.</em> Can Helm do
+it? Yes, it can, with the <code>lookup</code> function:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>$serviceName   := include &#34;app.fullname&#34; . | printf &#34;%s-stable&#34; -}}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>$stableService := lookup &#34;v1&#34; &#34;Service&#34; .Release.Namespace $serviceName -}}</span>
+</span></span></code></pre></div><p>After the line above, <code>$stableService</code> will be either empty &mdash; <code>nil</code> &mdash; or
+it&rsquo;ll be a <code>dict</code> containing the state of the object in the cluster. If we&rsquo;re
+using a <code>bluegreen</code> label to identify the target Deployment, we can get it this
+way:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># Should be either &#34;blue&#34; or &#34;green&#34;!</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>if $stableService -}}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>$currentStable := $stableService.spec.selector.bluegreen -}}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>else -}}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>/* Assume &#34;blue&#34; is stable if no Service exists. */ -}}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>$currentStable := &#34;blue&#34; -}}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>Simple enough, but incredibly verbose, especially with Go template&rsquo;s <code>{{}}</code>
+wrappers.</p><p>That&rsquo;s step 1 done. <em>Step 2 is trivial:</em></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;bluegreen.flip&#34; -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>if eq . &#34;blue&#34; -}} green</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>else           -}} blue</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>end -}}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>The above pseudo-function can be invoked as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>$currentDeployment := include &#34;bluegreen.flip&#34; $currentStable -}}</span>
+</span></span></code></pre></div><p><em>What about step 3?</em> Assuming the Service is a stable resource, all we have to
+do is implement the logic behind each Service&rsquo;s selector labels. For the stable
+Service:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>if .Values.promote }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>bluegreen</span>: {{ <span style=color:#ae81ff>include &#34;bluegreen.flip&#34; $currentStable }}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>else }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>bluegreen</span>: {{ <span style=color:#ae81ff>$currentStable }}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>end }}</span>
+</span></span></code></pre></div><p>Meanwhile, the preview Service will always point to the current deployment,
+since in our example we don&rsquo;t care for the old stable Deployment anymore. If
+that is what you want, you can just do the opposite of what is done above, for
+the newest stable environment. For our purposes, the following suffices:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>bluegreen</span>: {{ <span style=color:#ae81ff>$currentDeployment }}</span>
+</span></span></code></pre></div><p><em>Step 4 is a little more complicated.</em> The reason for that is <strong>we must ensure
+the stable Deployment isn&rsquo;t altered in any way,</strong> lest the service go offline
+or its version is modified for whatever reason. To accomplish that, we&rsquo;ll use
+the <code>lookup</code> function again:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>$deploymentName := printf &#34;%s-%s&#34; (include &#34;app.fullname&#34; .) $currentStable -}}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>$stableDeployment := lookup &#34;apps/v1&#34; &#34;Deployment&#34; .Release.Namespace $deploymentName -}}</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>#...</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># After the Deployment templating, we tackle on the current stable one.</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>if not .Values.promote | and $stableDeployment }}</span>
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>{{ <span style=color:#ae81ff>toYaml $stableDeployment }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end }}</span>
+</span></span></code></pre></div><p><em>And voilà!</em> Combining all these snippets into our Helm chart means we have
+just implemented Blue/Green deployment purely through Helm. Well, purely
+through features available through Helm. There is a last step, which is adding
+on another Ingress object that points to the preview Service at all times. That
+is trivial, though:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>---
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>networking.k8s.io/v1beta1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Ingress</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># ... Insert the rules and all that here.</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># ... Remember to use a different host name!</span>
+</span></span><span style=display:flex><span>          - <span style=color:#f92672>backend</span>:
+</span></span><span style=display:flex><span>              <span style=color:#f92672>service</span>:
+</span></span><span style=display:flex><span>                <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}-preview</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>port</span>:
+</span></span><span style=display:flex><span>                  <span style=color:#f92672>number</span>: <span style=color:#ae81ff>80</span>
+</span></span></code></pre></div><h3 id=how-do-we-use-this>How do we use this?</h3><p>By default, every deployment is a preview deployment. Our first installation
+will create stable services and, if you configured it in your Helm chart, a
+stable Ingress resource as well. They&rsquo;ll be pointing to a nonexistent
+Deployment, however, until you promote the current installation.</p><p>The first installation will create everything but a stable Deployment. Rather,
+it&rsquo;ll create a <em>green</em> one and have the <code>???-preview</code> Service point to it. The
+Helm command is the same as for a usual installation:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#75715e># Our overrides.yaml points to &#39;company/app:1.0.0&#39;.</span>
+</span></span><span style=display:flex><span>helm install app ./app -f overrides.yaml
+</span></span></code></pre></div><p>Once the application is up and we&rsquo;re satisfied with our tests, let&rsquo;s promote
+the installation. <strong>This shouldn&rsquo;t create or terminate any Pods,</strong> just flip
+the selector labels around in the Service resources:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#75715e># Assuming we didn&#39;t change overrides.yaml, of course!</span>
+</span></span><span style=display:flex><span>helm upgrade app ./app -f overrides.yaml --set promote<span style=color:#f92672>=</span>true
+</span></span></code></pre></div><p>Now that that is serving users, we start work on the newest version of our
+application. Of course we&rsquo;ll need to test it out, so let&rsquo;s deploy it to the
+cluster, alongside production. <strong>Watch as the stable Deployment is left
+intact</strong> and a new one is created:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#75715e># We changed overrides.yaml to use image &#39;company/app:2.0.0&#39;.</span>
+</span></span><span style=display:flex><span>helm upgrade app ./app -f overrides.yaml
+</span></span></code></pre></div><p>A few months have passed, we tested everything we wanted and we&rsquo;re satisfied
+with <code>company/app:2.0.0</code>. Time to flip the switch and make it the new stable
+version, so it starts serving our users. This time, <strong>if you&rsquo;re following the
+example configuration closely, the old stable Deployment will be deleted,</strong> and
+its Pods will begin terminating:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span><span style=color:#75715e># Again, leave overrides.yaml unchanged since the last upgrade.</span>
+</span></span><span style=display:flex><span>helm upgrade app ./app -f overrides.yaml --set promote<span style=color:#f92672>=</span>true
+</span></span></code></pre></div><p>Note that Kubernetes will send a <code>SIGTERM</code> signal to the Pods and wait for a
+few (configurable) seconds to <code>SIGKILL</code> the containers. Make sure the
+production version of the app is able to gracefully shut down. You can always
+choose to keep the old Deployment in case of promotion until you want to
+overwrite it with a new upgrade.</p><h2 id=the-hard-part-generalizing-the-templates>The Hard Part: generalizing the templates</h2><p>It&rsquo;s fairly possible a bunch of templating goes into creating your K8s
+resources, and you don&rsquo;t want to repeat all of that for, say, the Ingress
+object. It&rsquo;s also probable you have a Helm chart for an application and only
+now you&rsquo;re considering using Blue/Green as a deployment strategy. It was my
+case, and I can imagine it&rsquo;ll be many others'.</p><p>Fret not, with a lot of convoluted Go template / Helm template magic, we can
+even add toggles to make a chart support both the standard deployment process
+and this version of Blue/Green. <strong>It&rsquo;s&mldr; unmaintainable</strong> unless you have
+plenty of developers that are very comfortable with Helm. Consider doing
+something else.</p><p>I&rsquo;ll divide these steps into sections so it&rsquo;s easier to comprehend.</p><h3 id=utility-pseudo-functions-templates>Utility pseudo-functions (templates)</h3><p>We&rsquo;ll get these out of the way first. You&rsquo;ve seen these snippets before,
+they&rsquo;re just here for the sake of having everything in one place.They make a
+few assumptions, such as the desired name for a Service or Deployment,
+originally.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># Get the currently stable &#34;color&#34;.</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;bluegreen.stable&#34; -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$serviceName   := include &#34;lib.fullname&#34; . | printf &#34;%s-stable&#34; -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$stableService := lookup &#34;v1&#34; &#34;Service&#34; .Release.Namespace $serviceName -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>if $stableService -}}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>$stableService.spec.selector.bluegreen -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>else -}}</span>
+</span></span><span style=display:flex><span>    <span style=color:#ae81ff>blue</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>end -}}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># This will always be the opposite of the stable &#34;color&#34;.</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;bluegreen.current&#34; -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>if eq (include &#34;bluegreen.stable&#34; .) &#34;blue&#34; -}} green</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>else -}} blue</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>end -}}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><h3 id=converting-a-generated-deployment>Converting a generated Deployment</h3><p>For starters, make your original Deployment template into a partial template,
+which you could even move to a library chart. With a partial template, we can
+easily grab the rendered Deployment object as text.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;app.deployment&#34; -}}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>apps/v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Deployment</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># ... Insert the rest of the Deployment here.</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>From this rendered object, we must be able to generate a &ldquo;current&rdquo; Deployment.
+We need to override a few of its keys. Let&rsquo;s start by making a partial template
+that contains these changes:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;bluegreen.deployment.override.preview&#34; -}}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>include &#34;app.fullname&#34; . }}-{{ include &#34;bluegreen.current&#34; . }}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>matchLabels</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>bluegreen</span>: {{ <span style=color:#ae81ff>include &#34;bluegreen.current&#34; . }}</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>template</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>labels</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>bluegreen</span>: {{ <span style=color:#ae81ff>include &#34;bluegreen.current&#34; . }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>With this we&rsquo;ll be able to change the <em>name</em> of the Deployment and add a label
+to its <em>selector</em> labels and its Pod <em>template.</em> This strimlined manifest will
+be superimposed over the originally rendered one. <strong>It&rsquo;s important that this is
+understood,</strong> because it&rsquo;ll be a recurring pattern from here on out.</p><p>Let&rsquo;s overwrite the values, then. Given a rendered Deployment object in
+<code>$deployment</code> and an original scope in <code>$scope</code>, the following snippet should
+work:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>$overrides := include &#34;bluegreen.deployment.override.preview&#34; $scope | fromYaml -}}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>$deployment = mergeOverwrite $deployment $overrides -}}</span>
+</span></span></code></pre></div><p>Remember, though, <em>we want to keep the stable Deployment around.</em> Yet another
+partial template joins the collection:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;bluegreen.deployments&#34; -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$scope      := index . 0 -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$deployment := index . 1 | fromYaml -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$overrides  := include &#34;bluegreen.deployment.override.preview&#34; $scope | fromYaml -}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$stableName   := printf &#34;%s-%s&#34; $deployment.metadata.name (include &#34;bluegreen.stable&#34; $scope) -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$stableDeploy := lookup &#34;apps/v1&#34; &#34;Deployment&#34; $scope.Release.Namespace $stableName -}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$deployment = mergeOverwrite $deployment $overrides -}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>toYaml $deployment -}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>if not $scope.Values.promote | and $stableDeploy }}</span>
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>{{ <span style=color:#ae81ff>toYaml $stableDeploy }}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>Eliminate the first condition in that last if statement if you want to keep old
+stable even in the case of promotion.</p><p>If you were able to comprehend all of that, you should be able to generalize it
+further by creating a pseudo-function that receives a rendered Deployment and
+adapts it instead of generating it in-function. It just boils down to
+parameterizing our override template, <code>"bluegreen.deployment.override"</code>.</p><p>In the end, an application that uses Blue/Green for its Deployment will have
+the following template:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#75715e># app/templates/deployment.yaml</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>$deployment := include &#34;app.deployment&#34; . -}}</span>
+</span></span><span style=display:flex><span>{{ <span style=color:#ae81ff>include &#34;bluegreen.deployments&#34; (list . $deployment) }}</span>
+</span></span></code></pre></div><h3 id=creating-preview-versions-of-each-service>Creating preview versions of each Service</h3><p>The process is more or less the same, but this time we need to create overrides
+for the stable and for the preview Service objects.</p><p>The stable Service should point to the current Deployment in the case of
+promotion, but otherwise should remain pointing to the currently stable one.
+That is really all we would have to change:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;bluegreen.service.override.stable&#34; -}}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>if .Values.promote }}</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>bluegreen</span>: {{ <span style=color:#ae81ff>include &#34;bluegreen.current&#34; . }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>else }}</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>bluegreen</span>: {{ <span style=color:#ae81ff>include &#34;bluegreen.stable&#34; . }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>For the preview version of a Service, we&rsquo;ll need to make changes that depend on
+the original one, so its override needs it as a parameter. Let&rsquo;s feed it a list
+with the original scope and the original Service as a <code>dict</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;bluegreen.service.override.preview&#34; -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$scope   := index . 0 -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$service := index . 1 -}}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>$service.metadata.name }}-preview</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>selector</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>bluegreen</span>: {{ <span style=color:#ae81ff>include &#34;bluegreen.current&#34; $scope }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>So how are we going to use these to produce the pairs of stable and preview
+Service resources? We&rsquo;ll have to implement a pseudo-function that takes a list
+containing the original scope (<code>.</code> from where it is being included) and all the
+rendered Service manifests we want to create stable-preview pairs for.</p><p>This pseudo-function could receive a dictionary to emulate named arguments,
+similar to Python&rsquo;s <code>**keyargs</code>. It could also take the manifests parsed into a
+dictionary, for easier use with the Go template structure, but that&rsquo;s just
+moving the invocation of <code>fromYaml</code> around. Anyway, this is how I decided to
+write it:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;bluegreen.services&#34; -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$scope    := index . 0 -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$services := rest . -}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>range $services }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>$serviceDict     := fromYaml . -}}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>$stableOverride  := include &#34;bluegreen.service.override.stable&#34;  $scope -}}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>$previewOverride := include &#34;bluegreen.service.override.preview&#34; (list $scope $serviceDict) -}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>$stableService  := mergeOverwrite (deepCopy $serviceDict) (fromYaml $stableOverride) -}}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>$previewService := mergeOverwrite (deepCopy $serviceDict) (fromYaml $previewOverride) -}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>toYaml $stableService }}</span>
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>toYaml $previewService }}</span>
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>Hopefully that was easy to understand. If you&rsquo;re wondering why <code>deepCopy</code> is
+being called in the above snippet, it is because <code>merge</code> and <code>mergeOverwrite</code>
+make shallow copies of the dictionaries given to it, meaning references would
+remain the same in the destination dictionary. <em>That means we&rsquo;d end up with two
+equal Services if we were to not call <code>deepCopy</code>.</em></p><h4 id=the-nodeport-caveat>The NodePort caveat</h4><p>Services of type NodePort take over ports from within a range on all worker
+nodes. As such, they compete with each other for the same ports and there can&rsquo;t
+be multiple Service resources with type NodePort requesting the same host port.
+My suggestion, if you have a NodePort that needs a specific port number, is to
+add 1 to the port for the preview Service.</p><p>How would that look? Ugly, I tell you. You&rsquo;d add the following to the preview
+overrides:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>ports</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>range $service.spec.ports }}</span>
+</span></span><span style=display:flex><span>    - {{- <span style=color:#ae81ff>if .nodePort }}</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>nodePort</span>: {{ <span style=color:#ae81ff>add1 .nodePort }}</span>
+</span></span><span style=display:flex><span>      {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>      {{- <span style=color:#ae81ff>omit &#34;nodePort&#34; . | toYaml | nindent 6 }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>end }}</span>
+</span></span></code></pre></div><p>The <code>omit</code> function there is used to replicate the ServicePort object entirely
+without the <code>nodePort</code> field.</p><h3 id=creating-preview-versions-of-each-ingress>Creating preview versions of each Ingress</h3><p>This one should be a little more straightforward. For each Ingress resource
+that we would normally create, we&rsquo;ll need an accompanying preview version of
+it. We&rsquo;ll apply the same logic we did for Services. <em>I know, it&rsquo;s getting
+tiresome.</em></p><p>So what do we need to change? Name, host, and backend. For simplicity, this
+example will just prepend the original host with &ldquo;preview&rdquo;, so if it was
+associated to <code>example.com</code> before, it&rsquo;ll become <code>preview.example.com</code>. More
+ugly templates:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;bluegreen.ingress.override.preview&#34; -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$scope    := index . 0 -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$ingress  := index . 1 -}}</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>$ingress.metadata.name }}-preview</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>spec</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>rules</span>:
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>range $ingress.spec.rules }}</span>
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>host</span>: <span style=color:#ae81ff>preview.{{ .host }}</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>http</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>paths</span>:
+</span></span><span style=display:flex><span>          {{- <span style=color:#ae81ff>range .http.paths }}</span>
+</span></span><span style=display:flex><span>          - <span style=color:#f92672>backend</span>:
+</span></span><span style=display:flex><span>              <span style=color:#f92672>service</span>:
+</span></span><span style=display:flex><span>                <span style=color:#f92672>name</span>: {{ <span style=color:#ae81ff>.backend.service.name }}-preview</span>
+</span></span><span style=display:flex><span>                <span style=color:#f92672>port</span>: {{ <span style=color:#ae81ff>.backend.service.port }}</span>
+</span></span><span style=display:flex><span>            {{- <span style=color:#ae81ff>omit &#34;backend&#34; . | toYaml | nindent 12 }}</span>
+</span></span><span style=display:flex><span>          {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>And so we use this to create a preview Ingress for each Ingress our next
+pseudo-function receives. The logic is pretty much the same as for Services,
+though this time we don&rsquo;t need to adapt the original Ingress, just add a
+preview one:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span>{{- <span style=color:#ae81ff>define &#34;bluegreen.ingresses&#34; -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$scope     := index . 0 -}}</span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>$ingresses := rest . -}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>range $ingresses }}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>$ingressDict     := fromYaml . -}}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>$previewOverride := include &#34;bluegreen.ingress.override.preview&#34; (list $scope $ingressDict) -}}</span>
+</span></span><span style=display:flex><span>    {{- <span style=color:#ae81ff>$previewIngress  := mergeOverwrite (deepCopy $ingressDict) (fromYaml $previewOverride) -}}</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>toYaml $ingressDict }}</span>
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>toYaml $previewIngress }}</span>
+</span></span><span style=display:flex><span>---
+</span></span><span style=display:flex><span>  {{- <span style=color:#ae81ff>end }}</span>
+</span></span><span style=display:flex><span>{{- <span style=color:#ae81ff>end -}}</span>
+</span></span></code></pre></div><p>That&mldr; is it. We&rsquo;re done. Unless you have more you want to add previews for.
+<em>It&rsquo;s finally over!</em></p><h2 id=conclusion>Conclusion</h2><p>Don&rsquo;t do it this way. If you&rsquo;re going to implement Blue/Green using Helm, write
+the chart from scratch, or carefully analyze what it is you can keep without
+having to go overboard with templating magic like you&rsquo;ve seen in this article.
+It&rsquo;s not too complicated, but it&rsquo;s not friendly. It&rsquo;s hard to maintain. Helm
+wasn&rsquo;t meant to be used as some sort of esoteric programming language. <strong>Just
+because you can, it doesn&rsquo;t mean you should.</strong></p><p><a href=https://argoproj.github.io/argo-rollouts/>Argo Rollouts</a>, please add support for multiple Services
+already.</p></article></main><footer id=page-footer><p id=commit><a href=https://github.com/d3adb5/website/commit/578da00c4a41cf75a07841e8648aacb2695b1ac7><span class=commit-hash>578da00</span><span class=commit-subject>content(blog): make disclaimer a dialog note</span></a></p><p id=timestamp>Updated July 2, 2024</p></footer></body></html>

@@ -1,0 +1,514 @@
+<!doctype html><html lang=pt-br><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="O objetivo original deste artigo era documentar as minhas aventuras usando a
+suíte de serviços de CI/CD oferecidas pela AWS. No entanto, conforme eu
+encontrava empecilhos durante a implementação, ele foi se transformando em uma
+espécie de desabafo sobre o quão imaturos eles são. Muito do que havia sido
+escrito até eu decidir desistir da prova de conceito foi mantido como estava.
+O restante foi adaptado para o que você está prestes a ler."><meta http-equiv=Content-Security-Policy content="default-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src *; object-src 'none'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; worker-src 'self' blob:; base-uri 'self'"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Descobri que desgosto da stack de CI/CD da AWS</title><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-600.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-600.woff2 crossorigin><style type=text/css>@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:400;src:url(/fonts/source-sans-pro-regular.woff2)format("woff2"),url(/fonts/source-sans-pro-regular.woff)format("woff")}@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:600;src:url(/fonts/source-sans-pro-600.woff2)format("woff2"),url(/fonts/source-sans-pro-600.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:400;src:url(/fonts/inconsolata-regular.woff2)format("woff2"),url(/fonts/inconsolata-regular.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:600;src:url(/fonts/inconsolata-600.woff2)format("woff2"),url(/fonts/inconsolata-600.woff)format("woff")}footer#page-footer,nav#site-nav{background:0 0;padding:1em}footer#page-footer,nav#site-nav{background:#282a2e;color:#c5c8c6;line-height:3em}nav#site-nav{display:flex;overflow:auto;scrollbar-width:none}nav#site-nav::-webkit-scrollbar{display:none}nav#site-nav a{display:inline-block;width:6em;font-weight:700;text-align:center;color:inherit;flex-shrink:0}@media screen and (min-width:60em){footer#page-footer,nav#site-nav{line-height:inherit}}html{background:#252628}body{width:100%;max-width:60em;margin:0 auto;line-height:1.5em;font-family:source sans pro,helvetica,liberation sans,open sans,sans-serif;font-size:100%;color:#c5c8c6}@media screen and (min-width:60em){body{margin:2em auto!important}}h1,h2,h3,h4,h5,h6{margin:1.1em 0 .83em}h1,h2,h3{color:#8c9440}h4,h5,h6{color:#b5bd68}h1{font-size:1.5em}h2{font-size:1.26em}h3{font-size:1.1em}h4{font-size:1.03em}h5{font-size:.67em}h6{font-size:.51em}a{text-decoration:initial;color:#de935f}a:hover{text-decoration:underline}em{color:#f0c674;font-style:normal}strong{color:#c66}nav#site-nav{border-radius:1em 1em 0 0;background:0 0;color:#c5c8c6}nav#site-nav a.push-right{margin-left:auto}nav#site-nav a.current{color:#81a2be}label#toc-toggle{display:flex;width:100%;margin-top:1em;height:3em;align-items:center;justify-content:center}input#toc-toggle-box{display:none}input#toc-toggle-box~nav#TableOfContents{display:none}input#toc-toggle-box:checked~nav#TableOfContents{display:block}nav#TableOfContents{margin:.5em 0 0;box-sizing:border-box;background:#282a2e;padding:1em;border-radius:.5em;overflow:hidden;font-weight:700;color:#de935f}nav#TableOfContents ul{margin:0;padding:0;list-style-type:none}nav#TableOfContents ul li{overflow:hidden;white-space:nowrap;text-overflow:' ...'}nav#TableOfContents ul li+li{margin-top:1em}nav#TableOfContents ul ul{padding-left:1em;margin-top:1em}@media screen and (min-width:60em){nav#TableOfContents{float:right;margin:1em 0 1em 1em;max-width:40%;font-size:85%}nav#TableOfContents ul li+li{margin-top:initial}nav#TableOfContents ul ul{margin-top:initial}}@media screen and (min-width:60em){label#toc-toggle{display:none}}@media screen and (min-width:60em){input#toc-toggle-box~nav#TableOfContents{display:initial}}footer#page-footer{background:0 0;color:#707880;display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr)}footer#page-footer a{color:#f0c674}footer#page-footer span.commit-subject{color:#de935f;margin-left:.5em}footer#page-footer p#commit{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}footer#page-footer p#commit span.commit-hash{font-family:inconsolata,dejavu sans mono,liberation mono,monospace}footer#page-footer p#timestamp,footer#page-footer p#commit{margin:0}footer#page-footer p#timestamp{text-align:right}article{background:#1d1f21;padding:.1em 1.5em .8em}@media screen and (min-width:60em){article{border-radius:.5em}}article header{font-weight:700}article header section.header-line{display:flex;justify-content:space-between;align-items:center}article header section.header-line h1{color:#8c9440;margin-bottom:.25em}article header section.header-line aside#translations{margin:1.1em 0 .25em}article header section.header-line aside#translations ul#translations{list-style:none;padding:0;margin:0;display:flex;justify-content:space-around;font-size:115%}article header section.header-line aside#translations ul#translations li:not(:first-child){margin-left:1em}article header section.subheader-line{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}article header section.subheader-line p.subtitle{color:#5e8d87;margin:0}article header section.subheader-line p.subtitle em{color:inherit;font-style:italic}article header section.subheader-line ul#article-tags{list-style-type:none;padding-left:0;margin:0;font-size:85%}article header section.subheader-line ul#article-tags li{display:inline-block}article header section.subheader-line ul#article-tags li:nth-child(n+2){margin-left:1em}article header section.subheader-line ul#article-tags li a{color:#f0c674}article blockquote{color:#979a98;padding-left:1em;border:0 solid #707880;border-left-width:.5em}article table{width:100%}article table th{color:#81a2be}article table td{color:#c5c8c6}article table td.date{width:1%;white-space:nowrap;padding:0 .5em 0 0}article table.compare-table{border-collapse:collapse}article table.compare-table th,article table.compare-table td{padding:.5em 1em;box-sizing:border-box}article table.compare-table th:first-child,article table.compare-table td:first-child{padding-left:0}article table.compare-table th:last-child,article table.compare-table td:last-child{padding-right:0}article table.compare-table th,article table.compare-table td:nth-child(n+2){text-align:center}article table.compare-table td{border-top:.1em solid #707880}article table.compare-table th:nth-child(n+2){min-width:4em}article li::marker{color:#f0c674}article figure{margin:1.25em 0;text-align:center}article figure img{min-height:5em;max-height:15em;width:100%;object-fit:cover;border-radius:1em}article figure figcaption p{margin-top:0}article code{font-family:inconsolata,dejavu sans mono,liberation mono,monospace;font-size:100%}article pre{background:#282a2e;border-radius:.5em;padding:.5em 1em;overflow-x:auto;line-height:initial}article>hr{color:#707880;opacity:.5;margin:2em 0}article p code,article li code{background:#282a2e;padding:0 .3em;border-radius:.25em}article>p a,article>ul li a,article>ol li a{text-decoration:underline}article.extra-pages h2~p{margin-left:2em}article section.dialog{display:flex;padding:1em;align-content:center;border-radius:.5em;border:.2em solid #707880;margin:.5em 0 0;box-sizing:border-box;max-width:100%}article section.dialog p:first-child{margin-top:0}article section.dialog p:last-child{margin-bottom:0}article section.dialog .dialog-icon{margin-right:1em}article section.dialog.dialog-info{border-color:#5f819d}article section.dialog.dialog-warning{border-color:#de935f}article section.dialog.dialog-error{border-color:#a54242}article section.dialog.dialog-success{border-color:#8c9440}@media screen and (min-width:60em){article section.dialog{margin:1em 0 0}}</style></head><body><nav id=site-nav><a href class=[]>Índice
+</a><a href=/pt-br/blog/ class=[]>Blog</a></nav><main role=main><article id=content><header><section class=header-line><h1>Descobri que desgosto da stack de CI/CD da AWS</h1><aside id=translations><ul id=translations><li><a href=/blog/disliking-aws-ci-cd/ title=English><span role=img aria-label="United States flag">🇺🇸</span></a></li></ul></aside></section><section class=subheader-line><p class=subtitle>Tentativas frustradas de usar AWS CodeCommit, CodeBuild, e CodePipeline</p><ul id=article-tags><li><a href=/pt-br/tags/devops>DevOps</a></li><li><a href=/pt-br/tags/tecnologia>Tecnologia</a></li><li><a href=/pt-br/tags/ci/cd>CI/CD</a></li></ul></section></header><input type=checkbox id=toc-toggle-box>
+<label for=toc-toggle-box id=toc-toggle><em>• Table of Contents •</em></label><nav id=TableOfContents><ul><li><a href=#o-preço-de-seguir-os-meus-passos>O preço de seguir os meus passos</a></li><li><a href=#considerações-iniciais-e-sinais-vermelhos>Considerações iniciais e sinais vermelhos</a></li><li><a href=#configurando-um-usuário-para-o-aws-codecommit>Configurando um usuário para o AWS CodeCommit</a></li><li><a href=#compilando-minha-configuração-do-xmonad-na-aws>Compilando minha configuração do XMonad na AWS</a><ul><li><a href=#enviando-commits-ao-aws-codecommit>Enviando commits ao AWS CodeCommit</a></li><li><a href=#abrindo-uma-pull-request>Abrindo uma pull request</a></li><li><a href=#criando-uma-pipeline-de-ci>Criando uma pipeline de CI</a><ul><li><a href=#usando-codepipeline-do-jeito-errado>Usando CodePipeline do jeito errado</a></li><li><a href=#usando-o-codebuild-sozinho>Usando o CodeBuild sozinho</a></li><li><a href=#escrevendo-um-buildspecyml>Escrevendo um buildspec.yml</a></li></ul></li><li><a href=#executando-builds-para-toda-pull-request>Executando builds para toda pull request</a></li><li><a href=#obtendo-aprovação-do-codebuild>Obtendo aprovação do CodeBuild</a></li></ul></li><li><a href=#por-que-não-recomendo-esses-serviços>Por que não recomendo esses serviços</a></li><li><a href=#palavras-finais>Palavras finais</a></li></ul></nav><p>O objetivo original deste artigo era documentar as minhas aventuras usando a
+suíte de serviços de CI/CD oferecidas pela AWS. No entanto, conforme eu
+encontrava empecilhos durante a implementação, ele foi se transformando em uma
+espécie de desabafo sobre o quão imaturos eles são. Muito do que havia sido
+escrito até eu decidir <em>desistir da prova de conceito</em> foi mantido como estava.
+O restante foi adaptado para o que você está prestes a ler.</p><p>Há pouco tempo eu fiz um simulado do exame para a certificação <em>AWS Certified
+DevOps Engineer Professional,</em> feito pela própria AWS. As perguntas se
+mostraram desafiadoras, provavelmente devido à minha experiência prática com a
+AWS até poucos meses atrás se resumir à manutenção de instâncias EC2 e clusters
+EKS/ECS, enquanto as perguntas do exame abordavam bastante os serviços de CI/CD
+que a AWS oferece. <strong>No fim, só 50% das minhas respostas estavam corretas.</strong></p><p>Como forma de estudar e compensar a falta de experiência, decidi experimentar
+com o <em>AWS CodeCommit, CodeBuild</em> e <em>CodePipeline</em> por conta própria ao ver
+como seria usá-los em alguns dos meus projetos pessoais. <em>Meu plano inicial</em>
+era escolher alguns projetos pessoais com requisitos diferentes, reproduzi-los
+usando os serviços mencionados, e então escrever sobre minha experiência e
+fazer uma comparação superficial entre usar exclusivamente a AWS e
+exclusivamente o GitHub ou GitLab e seus serviços integrados. <strong>Minha
+conclusão: mantenha-se nestes se puder.</strong></p><h2 id=o-preço-de-seguir-os-meus-passos>O preço de seguir os meus passos</h2><p>Neste momento em que vos escrevo, todos os serviços mencionados oferecem um
+<em>free tier</em> suficiente para que você possa experimentá-los pelo menos uma vez.
+Contudo, <em>este artigo não é um guia,</em> e se você seguir todos os passos aqui
+descritos à risca, só vai acabar perdendo tempo e ficando frustrado, pois
+<strong>também abordarei meus erros.</strong> Caso você possa usar o <em>free tier</em> e realmente
+deseja experimentar estes serviços, tudo o que posso dizer é que não tive
+nenhum custo associado ao que aqui está documentado.</p><p>Um pouco da minha frustração pode ser atribuída ao fato de eu <em>insistir em usar
+o Terraform</em> sem recorrer a módulos de terceiros. Se você não se importa em
+usar o console da AWS, recomendo que o faça a menos que você já esteja
+familiarizado com ambos AWS e Terraform.</p><h2 id=considerações-iniciais-e-sinais-vermelhos>Considerações iniciais e sinais vermelhos</h2><p>A AWS é uma plataforma com uma tonelada de serviços diferentes, e não uma suíte
+de Git. Implementar uma suíte de Git do zero não é uma tarefa fácil, mas a AWS
+fez o seu trabalho ficar ainda mais difícil ao decidir integrar seus novos
+produtos com os serviços já existentes. Botando tudo no papel, eles fizeram um
+trabalho impressionante, mas a sua experiência (de usuário) não será tão suave
+quanto seria no GitHub ou GitLab.</p><p>A seguir estão algumas observações que podem ser consideradas positivas,
+negativas, ou neutras, a depender do seu ponto de vista:</p><ul><li><em>Usuários do AWS CodeCommit são usuários IAM.</em> Ao contrário do GitHub e
+GitLab, todas as contas pertencem à mesma conta: a sua conta da AWS. As
+permissões são gerenciadas através de políticas IAM, e chaves SSH são
+adicionadas através do console do IAM.</li><li><em>Chaves SSH usadas no AWS CodeCommit não podem ser do tipo ED25519,</em> apesar
+de instâncias EC2 darem suporte à cifra de curva elíptica. Chaves SSH
+públicas precisam ser do tipo RSA ou PEM para serem usadas com o serviço, o
+que exclui chaves ED25519.</li><li><em>O nome de usuário para SSH não é <code>'git'</code>, mas sim um ID de chave aleatório,</em>
+gerado após você adicionar a chave à sua conta IAM. A alternativa seria
+restringir chaves a uma única conta, já que a chave serviria como identidade.</li><li><em>Repositórios são criados em regiões específicas,</em> em vez de existirem
+globalmente. Isso é evidenciado na URL usada para clonar o repositório, e
+pode ter sido feito por questões de conformidade legal.</li><li><em>O CodeBuild e o CodePipeline contam como usuários do CodeCommit,</em> já que
+assumem uma identidade na AWS ao acessarem repositórios, e portanto se
+encaixam na definição de usuário ativo. Já mencionei que você precisa
+gerenciar estas permissões?</li><li><em>Você não pode só adicionar um arquivo para rodar builds automaticamente,</em>
+você vai ter que usar o EventBridge para capturar eventos do CodeCommit e,
+dependendo do que você quer fazer, funções Lambda podem ser sua única opção.</li><li><em>Pipelines do CodePipeline operam em um branch fixo,</em> o que significa que você
+pode acabar criando pipelines quase idênticas dependendo do seu fluxo de
+trabalho. Nem o Jenkins é tão inflexível nesse ponto.</li></ul><p>Eu não tinha conhecimento de nada disso quando embarquei nessa jornada. Estes
+foram apenas os primeiros sinais de que eu não teria uma boa experiência. Pelo
+menos não se eu já tivesse usado GitHub Actions, GitLab CI/CD ou Jenkins antes.
+<strong>Estas ferramentas têm suas próprias falhas e limitações,</strong> e algumas não são
+pequenas, mas para a maioria dos casos de uso, eu ainda escolheria qualquer
+delas em vez dos serviços da AWS.</p><h2 id=configurando-um-usuário-para-o-aws-codecommit>Configurando um usuário para o AWS CodeCommit</h2><p>Como já mencionado, <em>usuários do CodeCommit são usuários IAM,</em> então a primeira
+coisa a ser feita é criar um usuário que tenha acesso ao serviço, ou conceder
+tal acesso a um usuário existente, que foi o que eu fiz. Aqui vai um aviso
+antes de você criar um monte de usuários para um cenário hipotético: o <em>free
+tier</em> do CodeCommit permite até 5 usuários ativos, definidos da seguinte forma:</p><blockquote><p>Um usuário ativo é uma identidade AWS (usuário/role IAM, usuário federado, ou
+conta root) único, que acessa repositórios do AWS CodeCommit durante o mês,
+seja através de requisições Git ou usando o console de gerenciamento da AWS.
+Um servidor acessando o CodeCommit usando uma identidade AWS única conta como
+um usuário ativo.</p></blockquote><p>Então não há razão para se preocupar tendo menos de 5 usuários ativos segundo a
+definição acima. Para evitar lidar com políticas inline, eu <em>criei um grupo
+chamado CodeTools,</em> ao qual adicionei a política <em>AWSCodeCommitPowerUser,</em> que
+dá acesso total ao CodeCommit, com exceção da permissão para deletar
+repositórios. Mais políticas pré-definidas podem ser adicionadas ao grupo
+conforme necessário.</p><p>O próximo passo é ir ao console do IAM e adicionar uma <em>chave pública SSH para
+AWS CodeCommit</em> ao usuário IAM que será usado. Note que a chave <strong>deve ser do
+tipo RSA ou estar no formato PEM.</strong> Não era o meu caso inicialmente, então
+apenas gerei uma nova chave RSA:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=display:flex><span>$ ssh-keygen -t rsa  <span style=color:#75715e># a pubkey gerada estará em ~/.ssh/id_rsa.pub</span>
+</span></span></code></pre></div><p>Normalmente, ao se autenticar via SSH com qualquer suíte Git, você usaria <code>git</code>
+como nome de usuário e a chave em si serviria como sua identidade. No entanto,
+para o CodeCommit você precisará usar o <em>ID da chave SSH</em> adicionada ao usuário
+IAM. Ele é gerado quando você adiciona a chave através do console. Consulte
+<a href=https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-ssh-unixes.html#setting-up-ssh-unixes-keys>esta parte da documentação</a> para mais detalhes.</p><h2 id=compilando-minha-configuração-do-xmonad-na-aws>Compilando minha configuração do XMonad na AWS</h2><p>O repositório que estou tentando hospedar na AWS é o
+<a href=https://github.com/d3adb5/dotfiles>d3adb5/dotfiles</a>, atualmente hospedado no GitHub e com uma
+pipeline de CI configurada através do GitHub Actions. Os requisitos para que
+este experimento seja considerado um sucesso são:</p><ul><li>O repositório é hospedado no AWS CodeCommit.</li><li>Quando uma pull request for criada ou atualizada, a AWS rodará a pipeline de
+CI.</li><li>A pipeline de CI deve ser capaz de restaurar dependências entre builds por
+meio de cache.</li></ul><p>O seguinte código em Terraform foi usado para provisionar o repositório:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-hcl data-lang=hcl><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_codecommit_repository&#34; &#34;dotfiles&#34;</span> {
+</span></span><span style=display:flex><span>  repository_name <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;dotfiles&#34;</span>
+</span></span><span style=display:flex><span>  description     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Configuration files for the set of programs I use daily.&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>output</span> <span style=color:#e6db74>&#34;clone_url_ssh&#34;</span> {
+</span></span><span style=display:flex><span>  description <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;URL used to clone the repository using SSH.&#34;</span>
+</span></span><span style=display:flex><span>  value       <span style=color:#f92672>=</span> <span style=color:#66d9ef>aws_codecommit_repository</span>.<span style=color:#66d9ef>dotfiles</span>.<span style=color:#66d9ef>clone_url_ssh</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Como o repositório foi criado na região <code>us-west-2</code>, os URLs para cloná-lo
+usarão o domínio <em>git-codecommit.us-west-2.amazonaws.com.</em></p><h3 id=enviando-commits-ao-aws-codecommit>Enviando commits ao AWS CodeCommit</h3><p>Eu gosto de usar nomes curtos e convenientes para hosts SSH em vez de URLs
+inteiros, então adicionei o seguinte ao meu <code>~/.ssh/config</code>:</p><pre tabindex=0><code class=language-ssh-config data-lang=ssh-config>Host aws
+  Hostname git-codecommit.us-west-2.amazonaws.com
+  User IDDAMINHACHAVESSH
+</code></pre><p>Em seguida, configurei o repositório remoto e enviei o branch <code>master</code>:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git remote add aws aws:/v1/repos/dotfiles
+</span></span><span style=display:flex><span>git push aws master
+</span></span></code></pre></div><p>E voilà! Nós agora podemos ver o repositório no console do CodeCommit:</p><figure><a href=/media/aws-codecommit-dotfiles-1.webp><img src=/media/aws-codecommit-dotfiles-1.webp alt="AWS CodeCommit mostrando os arquivos no branch principal."></a></figure><p>Sim, eu tentei fazer <em>push</em> para <code>git@git-codecommit.us-west-2.amazonaws.com</code>
+no começo. Peço-lhe um desconto, estou aprendendo as coisas da maneira difícil
+em vez de seguir um tutorial, curso, ou lendo páginas de documentação antes de
+mais nada.</p><h3 id=abrindo-uma-pull-request>Abrindo uma pull request</h3><p>Já que o &ldquo;novo&rdquo; repositório usará exclusivamente os serviços da AWS, nossa
+primeira pull request removerá o workflow do GitHub Actions. Primeiro, criemos
+um novo branch para nossas mudanças e o enviemos para o CodeCommit após
+criarmos novos commits:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git switch -c aws/remove-github-directory
+</span></span><span style=display:flex><span>git rm -r .github
+</span></span><span style=display:flex><span>git commit
+</span></span><span style=display:flex><span>git push aws
+</span></span></code></pre></div><p>Eu esperava ver uma mensagem com um URL para abrir uma pull request, mas o
+CodeCommit nem isso fez. GitHub e GitLab o fazem sem necessidade de quaisquer
+partes extras, então fiquei um pouco decepcionado.</p><p>Abrir uma pull request é trivial, se você quiser clicar no console do
+CodeCommit, mas se, como eu, você prefere usar a linha de comando, é possível
+fazê-lo através do AWS CLI. Ele não consegue inferir nenhuma informação do
+repositório em que você está, como as ferramentas CLI oficiais do GitHub e
+GitLab fazem, então você precisará fornecer, <em>no mínimo,</em> um título, o nome do
+repositório e os branches de origem e base:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>aws codecommit create-pull-request <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>  --title <span style=color:#e6db74>&#34;Remove GitHub Actions workflow&#34;</span> <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>  --targets repositoryName<span style=color:#f92672>=</span>dotfiles,sourceReference<span style=color:#f92672>=</span>aws/remove-github-directory,destinationReference<span style=color:#f92672>=</span>master
+</span></span></code></pre></div><p>O comando acima assume que você configurou o AWS CLI para usar o usuário IAM
+configurado para o CodeCommit e para usar a região da AWS onde o repositório
+foi adicionado. Uma versão completa do comando usaria a flag <code>--region</code> e
+talvez <code>--profile</code> para se referir às credenciais apropriadas.</p><p>Espera-se algo assim o console da AWS se tudo ocorreu como esperado:</p><figure><a href=/media/aws-codecommit-dotfiles-2.webp><img src=/media/aws-codecommit-dotfiles-2.webp alt="É assim que nossa pull request se mostra no console do CodeCommit."></a></figure><h3 id=criando-uma-pipeline-de-ci>Criando uma pipeline de CI</h3><p>Este é o desafio verdadeiro. Com GitHub Actions, GitLab CI/CD e Bitbucket
+Pipelines, tudo que você precisa fazer é adicionar os arquivos certos com os
+nomes certos ao repositório e eles serão automaticamente lidos pela suíte e
+enviados para uma fila para serem consumidos pelos agentes de build. Vamos,
+então, revisar o único job em nosso workflow atual do GitHub Actions:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>name</span>: <span style=color:#ae81ff>XMonad</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>runs-on</span>: <span style=color:#ae81ff>ubuntu-latest</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>steps</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/checkout@v3</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>haskell/actions/setup@v2</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>with</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>enable-stack</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>stack-version</span>: <span style=color:#ae81ff>latest</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>stack-no-global</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/cache@v3</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>with</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>path</span>: <span style=color:#ae81ff>~/.stack</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>key</span>: <span style=color:#ae81ff>stack-global-${{ hashFiles(&#39;xmonad/stack.yaml&#39;) }}</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>restore-keys</span>: <span style=color:#ae81ff>stack-global-</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>uses</span>: <span style=color:#ae81ff>actions/cache@v3</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>with</span>:
+</span></span><span style=display:flex><span>      <span style=color:#f92672>path</span>: <span style=color:#ae81ff>xmonad/.stack-work</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>key</span>: <span style=color:#ae81ff>stack-work-${{ hashFiles(&#39;xmonad/stack.yaml&#39;) }}-${{ hashFiles(&#39;**/*.hs&#39;) }}</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>restore-keys</span>: <span style=color:#ae81ff>stack-work-</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>run</span>: <span style=color:#ae81ff>sudo apt-get install -y libx11-dev libxft-dev libxinerama-dev libxrandr-dev libxss-dev</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>run</span>: <span style=color:#ae81ff>cd xmonad &amp;&amp; stack build</span>
+</span></span></code></pre></div><p>Os nomes de steps e as linhas em branco foram removidas para encurtar o trecho
+acima. O que o YAML acima nos diz é que:</p><ol><li>Este job será executado em um runner rodando a <em>última versão do Ubuntu.</em></li><li>Nós faremos <em>checkout</em> do repositório através de <code>actions/checkout</code>,</li><li>Configuraremos a toolchain de Haskell com a última versão do Stack,</li><li>Instalaremos as bibliotecas necessárias pelas dependências do XMonad, e</li><li>Entraremos no diretório do XMonad e construiremos o projeto.</li></ol><p>Adicionalmente, através da action <code>actions/cache</code>, estamos dizendo ao GitHub
+Actions que:</p><ul><li><em>Antes do passo 4,</em> tente restaurar as dependências e instalações do GHC
+armazenadas em cache.</li><li><em>Depois do passo 5,</em> armazene as dependências e instalações do GHC em cache.</li></ul><p>Como podemos reproduzir o comportamento acima com as ferramentas <em>AWS Code*</em>?
+Mais importante, de quais ferramentas nós realmente precisamos?</p><h4 id=usando-codepipeline-do-jeito-errado>Usando CodePipeline do jeito errado</h4><p>A distinção entre <em>CodePipeline</em> e <em>CodeBuild</em> não estava imediatamente clara
+para mim. Julgando pelo nome e por alguns artigos sobre pipelines de CI/CD na
+AWS, assumi que o CodePipeline seria um produto de pipeline de automação geral
+&mdash; algo parecido com o Jenkins &mdash; e que o CodeBuild seria usado pelo
+CodePipeline para os stages de build. <em>Embora o último possa ser o caso às
+vezes,</em> o CodeBuild pode ser usado por si só para integração contínua.</p><p>Sem saber disso, tentei criar e escrever uma pipeline. Para construir o código,
+é necessário um projeto CodeBuild, algo que pode ser criado automaticamente
+pela AWS ao se criar uma pipeline através do console. No entanto, aqui estamos
+provisionando todo recurso via Terraform, então vamos começar:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-terraform data-lang=terraform><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_codepipeline&#34;</span> <span style=color:#e6db74>&#34;dotfiles&#34;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span>     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;dotfiles-ci&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>role_arn</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>aws_iam_role</span>.<span style=color:#a6e22e>codepipeline</span>.<span style=color:#a6e22e>arn</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>stage</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Source&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>action</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>name</span>     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Source&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>category</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Source&#34;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>      # ...
+</span></span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>stage</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Build&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>action</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>name</span>     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Build&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>category</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Build&#34;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>      # ...
+</span></span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>A pipeline que estamos definindo precisa apenas de dois stages: fazer checkout,
+construir o projeto. Ao contrário dos stages arbitrários de pipeline do Jenkins
+que estamos acostumados a ver, a API do CodePipeline estipula que as actions
+tenham um <em>ActionTypeId</em> especificando parâmetros que serão usados para impor
+algumas restrições sobre ela. Isso deve ficar mais claro à medida que
+continuamos nossa action de checkout:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-terraform data-lang=terraform><span style=display:flex><span><span style=color:#a6e22e>action</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span>     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Source&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>category</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Source&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>provider</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;CodeCommit&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>owner</span>    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;AWS&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>version</span>  <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;1&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>configuration</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>RepositoryName</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>aws_codecommit_repository</span>.<span style=color:#a6e22e>dotfiles</span>.<span style=color:#a6e22e>repository_name</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>BranchName</span>     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;master&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Parece bom o suficiente, certo? Talvez possamos <strong>especificar qual branch nós
+queremos construir</strong> quando iniciarmos uma pipeline. Isso <em>não é possível</em> no
+momento, razão pela qual escolher o CodePipeline foi um erro. De qualquer
+jeito, vamos para a action de build. Ela pode ser definida da seguinte maneira,
+e podemos criar um <code>buildspec.yml</code> depois:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-terraform data-lang=terraform><span style=display:flex><span><span style=color:#a6e22e>action</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span>     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Build&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>category</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Build&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>provider</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;CodeBuild&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>owner</span>    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;AWS&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>version</span>  <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;1&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>configuration</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>ProjectName</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>aws_codebuild_project</span>.<span style=color:#a6e22e>dotfiles</span>.<span style=color:#a6e22e>name</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Precisamos de um projeto no CodeBuild, como você pode inferir lendo o trecho
+acima. Felizmente, criar um projeto CodeBuild é <em>trivial, mas cobriremos isso
+depois,</em> quando tocarmos na solução de fato. As únicas coisas que mudam do que
+você verá nas seções posteriores são que a string <code>"CODEPIPELINE"</code> é usada para
+ambos os tipos de <code>source</code> e <code>artifacts</code> na declaração do projeto.</p><p>Não tão felizmente, lidar com permissões não vai ser a última coisa que você
+precisará fazer nesta declaração, porque eu deixei de fora alguns argumentos
+nos blocos de action acima. Acontece que a categoria não é suficiente para
+dizer à AWS que você quer seu código fonte presente em estágios posteriores da
+pipeline: <em>você precisa declarar artefatos de input e output</em> para suas
+actions:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-terraform data-lang=terraform><span style=display:flex><span><span style=color:#a6e22e>action</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span>     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Source&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>category</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Source&#34;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # ...
+</span></span></span><span style=display:flex><span>  <span style=color:#a6e22e>output_artifacts</span> <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;source_output&#34;</span>]
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>action</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span>     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Build&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>category</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Build&#34;</span><span style=color:#75715e>
+</span></span></span><span style=display:flex><span><span style=color:#75715e>  # ...
+</span></span></span><span style=display:flex><span>  <span style=color:#a6e22e>input_artifacts</span> <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;source_output&#34;</span>]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Essa noção de artefatos de entrada e saída é generalizada, no entanto, e não se
+aplica apenas a levar arquivos de um estágio para outro. Consequentemente, você
+precisará de um lugar para armazenar esses artefatos, pois <strong>o CodePipeline não
+fará isso por você.</strong> Somos forçados a declarar um bloco <code>artifact_store</code>, e
+atualmente o CodePipeline suporta apenas S3.</p><p>Apesar de ter dito que não usaria módulos de terceiros, abro aqui uma exceção
+para declaração de um bucket S3, já que ninguém merece ter que replicar todo o
+boilerplate que acompanha o <code>resource</code> do bucket:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-terraform data-lang=terraform><span style=display:flex><span><span style=color:#66d9ef>module</span> <span style=color:#e6db74>&#34;artifacts_bucket&#34;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>source</span>  <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;terraform-aws-modules/s3-bucket/aws&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>version</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;3.8.2&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>bucket</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;codepipeline-dotfiles-ci-artifacts&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>acl</span>    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;private&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>block_public_acls</span>       <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>block_public_policy</span>     <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>ignore_public_acls</span>      <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>restrict_public_buckets</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>E então podemos adicionar o bloco <code>artifact_store</code> à declaração da pipeline:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-terraform data-lang=terraform><span style=display:flex><span><span style=color:#a6e22e>artifact_store</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>location</span> <span style=color:#f92672>=</span> module.<span style=color:#a6e22e>artifacts_bucket</span>.<span style=color:#a6e22e>s3_bucket_id</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>type</span>     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;S3&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Foi só quando tentei disparar a pipeline ao abrir ou atualizar pull requests
+que descobri que você não pode selecionar o branch que vai construir através do
+CodePipeline. Dei uma chance ao CodeBuild e percebi que <em>ele é a ferramenta a
+ser usada para integração contínua.</em></p><h4 id=usando-o-codebuild-sozinho>Usando o CodeBuild sozinho</h4><p>Não deu certo usar o CodePipeline. No lugar, vamos usar só o <em>CodeBuild,</em> já
+que a sua API permite não só especificar a referência Git que ele vai buscar no
+repositório, mas também especificar variáveis de ambiente! Há duas coisas de
+que precisamos para começar: um projeto e uma especificação de build. Esta deve
+ficar nos repositório e portanto será escrita mais abaixo.</p><p>Explicando de forma breve o CodeBuild: ele provisiona a infraestrutura
+necessária para seguir as instruções de uma especificação de build. A
+especificação de build pode vir de um arquivo <code>buildspec.yml</code> na raiz do código
+fonte que é obtido quando você inicia um build através deste serviço. Em sua
+essência, é bem parecido com um <em>workflow</em> do <em>GitHub Actions</em> no sentido de
+que ele descreve os comandos a serem executados em um ambiente de build.</p><p>Como já dito anteriormente, você pode criar um projeto pelo console e ser
+feliz. No entanto, <em>o jeito difícil é sempre mais divertido,</em> então aqui está o
+código Terraform que usei para criar meu projeto, depois de desistir do
+CodePipeline:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-terraform data-lang=terraform><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_codebuild_project&#34;</span> <span style=color:#e6db74>&#34;dotfiles&#34;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span>         <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;dotfiles&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>service_role</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>aws_iam_role</span>.<span style=color:#a6e22e>codebuild</span>.<span style=color:#a6e22e>arn</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>source</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>type</span>     <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;CODECOMMIT&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>location</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>aws_codecommit_repository</span>.<span style=color:#a6e22e>dotfiles</span>.<span style=color:#a6e22e>clone_url_http</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>environment</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>type</span>         <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;LINUX_CONTAINER&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>compute_type</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;BUILD_GENERAL1_SMALL&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>image</span>        <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;aws/codebuild/standard:7.0&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>logs_config</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>cloudwatch_logs</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>group_name</span>  <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;/aws/codebuild/dotfiles&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>stream_name</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;dotfiles&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>artifacts</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>type</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;NO_ARTIFACTS&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Sim, é simples assim! <strong>Para criar o projeto, quero dizer,</strong> repare que no
+trecho de código acima estamos nos referindo a um certo recurso
+<code>aws_iam_role.codebuild</code>, mas eu não mostrei o código que o cria nem as
+policies de que ele precisa! <em>Vamos primeiro analisar a configuração acima:</em></p><ul><li>O projeto se chama <code>dotfiles</code> e se comunica com a AWS através de uma certa
+IAM role.</li><li>O código fonte é obtido do nosso repositório no <em>AWS CodeCommit.</em></li><li>O build será executado em um container Linux com <em>pouco</em> poder de
+processamento.</li><li>O container usará a imagem <code>aws/codebuild/standard:7.0</code>, baseada em Ubuntu.</li><li>Logs serão escritos no <em>CloudWatch Logs,</em> no grupo e stream dados.</li><li>Não há artefatos a serem produzidos por este build.</li></ul><p><a href=https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project>Esta seção</a> da documentação do provider AWS para
+Terraform lhe dará muito mais detalhes do que posso fornecer aqui.</p><p>Algo que é interessante apontar aqui é que os recursos computacionais do
+container onde o build será executado são definidos no lado do <em>CodeBuild</em> e
+não na especificação de build. <em>Isso significa que haverá coisas fora do nosso
+repositório que afetam nosso build,</em> o que é algo a se ter em mente quando se
+busca por reprodutibilidade e GitOps.</p><h4 id=escrevendo-um-buildspecyml>Escrevendo um buildspec.yml</h4><p>Há espaço para melhorias aqui, incluindo usar uma imagem Docker que já conta
+com a toolchain de Haskell e talvez até as dependências de que precisamos, mas
+deixo isso para um momento futuro. Estamos criando uma prova de conceito, então
+a otimização de custo pode esperar.</p><p>Esse é o <code>buildspec.yml</code> que escrevi para reproduzir o que hoje é feito pelo
+GitHub Actions:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>version</span>: <span style=color:#ae81ff>0.2</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>phases</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>install</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>commands</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>apt-get update -y</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>apt-get install -y libx11-dev libxft-dev libxinerama-dev libxrandr-dev libxss-dev</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>curl -sSL https://get.haskellstack.org/ | sh</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>pre_build</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>commands</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>cd xmonad</span>
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>stack build --only-dependencies</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>build</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>commands</span>:
+</span></span><span style=display:flex><span>      - <span style=color:#ae81ff>stack build</span>
+</span></span></code></pre></div><p>Sinto dizer que adicionar o arquivo à staging, criando a commit e a enviando
+para o branch criado anteriormente neste artigo não resulta em builds
+automáticos. Além disso, observe os nomes das <em>phases</em> no arquivo. Esses nomes
+não são arbitrários, mas sim <a href=https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html#build-spec-ref-syntax>parte da sintaxe.</a></p><p>Com este arquivo presente no branch <code>aws/remove-github-directory</code>, iniciar um
+build nesse branch nos leva a um sucesso:</p><figure><a href=/media/aws-codecommit-dotfiles-3.webp><img src=/media/aws-codecommit-dotfiles-3.webp alt="CodeBuild showing a list of successful build phases."></a></figure><p>Já que conseguimos fazer um build com sucesso seguindo essa especificação,
+<em>vamos fazer merge</em> do nosso branch, assim a <em>master</em> estará pronta para ser
+construída a qualquer momento.</p><h3 id=executando-builds-para-toda-pull-request>Executando builds para toda pull request</h3><p>Na AWS, nada é verdadeiramente simples. Não se você estiver evitando usar o
+console para tudo que você faz, o que chamamos de <em>ClickOps.</em> Para fazer a
+pipeline de CI executar em toda pull request, precisamos reagir a eventos do
+<em>CodeCommit</em> através do <em>EventBridge,</em> disparando um build do <em>CodeBuild.</em></p><p>Queremos que nossa regra seja acionada quando uma pull request é criada
+(<code>pullRequestCreated</code>) e quando o branch de origem (head) de uma pull request é
+atualizado (<code>pullRequestSourceBranchUpdated</code>). Seguindo isso, a regra pode ser
+declarada da seguinte maneira:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-terraform data-lang=terraform><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cloudwatch_event_rule&#34;</span> <span style=color:#e6db74>&#34;pull_requests&#34;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span>        <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;dotfiles-pull-requests&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>description</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Triggered when a pull request is created or updated.&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>event_pattern</span> <span style=color:#f92672>=</span> jsonencode({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>detail</span><span style=color:#a6e22e>-type</span> <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;CodeCommit Pull Request State Change&#34;</span>]
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>resources</span>   <span style=color:#f92672>=</span> [<span style=color:#a6e22e>aws_codecommit_repository</span>.<span style=color:#a6e22e>dotfiles</span>.<span style=color:#a6e22e>arn</span>]
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>detail</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>event</span> <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;pullRequestCreated&#34;</span>, <span style=color:#e6db74>&#34;pullRequestSourceBranchUpdated&#34;</span>]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  })
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>O projeto do <em>CodeBuild</em> será nosso target, e nós precisaremos transformar o
+input para que a commit certa seja construída, pois caso contrário o
+<em>CodeBuild</em> vai construir a última versão do código por padrão, e nós daremos
+uma estrelinha de sucesso ou alerta de falha para as PRs erradas. O target é
+definido assim:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-terraform data-lang=terraform><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_cloudwatch_event_target&#34;</span> <span style=color:#e6db74>&#34;codebuild&#34;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rule</span>     <span style=color:#f92672>=</span> <span style=color:#a6e22e>aws_cloudwatch_event_rule</span>.<span style=color:#a6e22e>pull_requests</span>.<span style=color:#a6e22e>name</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>arn</span>      <span style=color:#f92672>=</span> <span style=color:#a6e22e>aws_codebuild_project</span>.<span style=color:#a6e22e>dotfiles</span>.<span style=color:#a6e22e>arn</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>role_arn</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>aws_iam_role</span>.<span style=color:#a6e22e>eventbridge_codebuild</span>.<span style=color:#a6e22e>arn</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>input_transformer</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>input_paths</span>    <span style=color:#f92672>=</span> { <span style=color:#a6e22e>sourceCommit</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#960050;background-color:#1e0010>$</span><span style=color:#e6db74>.detail.sourceCommit&#34;</span> }
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>input_template</span> <span style=color:#f92672>=</span> <span style=color:#f92672>&lt;&lt;-ENDOFINPUT</span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      {
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        &#34;sourceVersion&#34;: &#34;&lt;sourceCommit&gt;&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    </span><span style=color:#f92672>ENDOFINPUT</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>O <em>heredoc</em> indentado acima é usado em vez de <code>jsonencode()</code> porque este escapa
+os sinais de menor e maior que que usamos para nos referir à chave de entrada
+<code>sourceCommit</code> &mdash; resultando no <em>CodeBuild</em> tentando buscar uma ref chamada
+<code>&lt;sourceCommit></code>. <strong>Falo por experiência própria.</strong></p><p>Da referência ao recurso <em><code>aws_iam_role.eventbridge_codebuild.arn</code></em> você pode
+ver que mais uma role precisa ser criada. Essa é felizmente bem simples e
+precisa apenas da permissão <em><code>codebuild:StartBuild</code></em> para o projeto criado
+alguns passos atrás.</p><p>Com regra e target provisionados, criei um novo branch fazendo uma mudança
+pequena à configuração XMonad e criei uma pull request, o que <em>levou a um build
+acontecendo automaticamente!</em> Um push subsequente confirmou que mudanças feitas
+à PR também acionam novos builds.</p><h3 id=obtendo-aprovação-do-codebuild>Obtendo aprovação do CodeBuild</h3><p>Agora temos um repositório e uma pipeline. A pipeline roda toda vez que uma
+pull request é aberta ou atualizada, mas do jeito que as coisas estão, <em>pull
+requests ainda podem ser mergeadas se a pipeline falhar!</em> Afinal, não há uma
+relação semântica inerente entre o CodeBuild e pull requests no CodeCommit.
+Além disso, aprovações no CodeCommit também são feitas de uma maneira pouco
+usual. Permita-me explicar.</p><p>No CodeCommit, regras de aprovação podem ser adicionadas a pull requests
+individualmente. Isso mesmo, você pode criar uma regra de aprovação para uma
+pull request informando o número de aprovações necessárias e os grupos de
+identidades AWS que podem conceder tais aprovações. <strong>Você não pode criar uma
+regra para o repositório!</strong> Pelo menos não diretamente: você deve criar um
+template de regra de aprovação para o CodeCommit e associá-lo ao seu
+repositório.</p><p>Meu desejo é que qualquer pull request que esteja falhando o check de
+integração contínua não possa ser mergeada, então criarei um template de regra
+de aprovação e o associarei ao repositório <code>dotfiles</code>. Tal template requer
+apenas uma aprovação, que será chamada de <code>built-approval</code>, que por sua vez
+poderá ser concedida por qualquer identidade que assuma a role que o
+<em>CodeBuild</em> está usando:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-terraform data-lang=terraform><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_codecommit_approval_rule_template&#34;</span> <span style=color:#e6db74>&#34;ci&#34;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>name</span>        <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;build-approval&#34;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>description</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Approvals comings from CodeBuild.&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>content</span> <span style=color:#f92672>=</span> jsonencode({
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>Version</span>               <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;2018-11-08&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>DestinationReferences</span> <span style=color:#f92672>=</span> [<span style=color:#e6db74>&#34;refs/heads/master&#34;</span>]
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>Statements</span> <span style=color:#f92672>=</span> [{
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>Type</span>                    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;Approvers&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>NumberOfApprovalsNeeded</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>ApprovalPoolMembers</span> <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>replace(<span style=color:#a6e22e>aws_iam_role</span>.<span style=color:#a6e22e>codebuild</span>.<span style=color:#a6e22e>arn</span>, <span style=color:#e6db74>&#34;role&#34;</span>, <span style=color:#e6db74>&#34;assumed-role&#34;</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>/*&#34;</span>
+</span></span><span style=display:flex><span>      ]
+</span></span><span style=display:flex><span>    }]
+</span></span><span style=display:flex><span>  })
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>resource</span> <span style=color:#e6db74>&#34;aws_codecommit_approval_rule_template_association&#34;</span> <span style=color:#e6db74>&#34;ci&#34;</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>repository_name</span>             <span style=color:#f92672>=</span> <span style=color:#a6e22e>aws_codecommit_repository</span>.<span style=color:#a6e22e>dotfiles</span>.<span style=color:#a6e22e>id</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>approval_rule_template_name</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>aws_codecommit_approval_rule_template</span>.<span style=color:#a6e22e>ci</span>.<span style=color:#a6e22e>name</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Finalmente, precisamos da aprovação do CodeBuild no caso de um build bem
+sucedido, certo? Como eu disse, <strong>não há relações semânticas inerentes entre
+CodeBuild e CodeCommit.</strong> Os serviços são independentes um do outro, e não há
+integrações para tornar mais fácil usá-los juntos. Desde acionar builds até
+prevenir merges quebrados, cabe ao usuário se virar sozinho.</p><p>O CLI da AWS vem já instalado na imagem Ubuntu que escolhi para o projeto no
+CodeBuild, então depois de dar uma lida <a href=https://docs.aws.amazon.com/codecommit/latest/APIReference/API_UpdatePullRequestApprovalState.html>na referência de
+API</a>, pensei que aprovar a pull request poderia ser
+feito com um comando como:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ aws codecommit update-pull-request-approval-state <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --pull-request-id $PULL_REQUEST_ID <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --revision-id $REVISION_ID <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --approval-state APPROVE
+</span></span></code></pre></div><p>E aí eu só precisaria passar essas duas variáveis de ambiente a partir do
+evento disparado pelo CodeCommit atualizando o bloco <code>input_transformer</code> na
+declaração do target do EventBridge assim:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-terraform data-lang=terraform><span style=display:flex><span><span style=color:#a6e22e>input_transformer</span> {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>input_paths</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>sourceCommit</span>  <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#960050;background-color:#1e0010>$</span><span style=color:#e6db74>.detail.sourceCommit&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>pullRequestId</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#960050;background-color:#1e0010>$</span><span style=color:#e6db74>.detail.pullRequestId&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>revisionId</span>    <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;</span><span style=color:#960050;background-color:#1e0010>$</span><span style=color:#e6db74>.detail.revisionId&#34;</span>
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>input_template</span> <span style=color:#f92672>=</span> <span style=color:#f92672>&lt;&lt;-ENDOFINPUT</span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    {
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      &#34;sourceVersion&#34;: &#34;&lt;sourceCommit&gt;&#34;,
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      &#34;environmentVariablesOverride&#34;: [
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        { &#34;name&#34;: &#34;PULL_REQUEST_ID&#34;, &#34;value&#34;: &#34;&lt;pullRequestId&gt;&#34; },
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        { &#34;name&#34;: &#34;REVISION_ID&#34;,     &#34;value&#34;: &#34;&lt;revisionId&gt;&#34; }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      ]
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    }
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  </span><span style=color:#f92672>ENDOFINPUT</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Colocar o comando na especificação de build na fase de <em><code>post_build</code></em> levaria a
+uma aprovação sendo emitida toda vez, porque de acordo com a documentação, <a href=https://docs.aws.amazon.com/codebuild/latest/userguide/view-build-details.html#view-build-details-phases>a
+fase de <em>post-build</em> é executada independentemente do sucesso ou falha do
+build.</a> Mais uma emenda se faz necessária. Dessa vez, na
+especificação de build:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>build</span>:
+</span></span><span style=display:flex><span><span style=color:#f92672>commands</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>stack build</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>on-failure</span>: <span style=color:#ae81ff>ABORT </span> <span style=color:#75715e># Isso deve ser o suficiente!</span>
+</span></span></code></pre></div><p>Uma vez certos de que a role do CodeBuild tem permissão para atualizar o estado
+de aprovação de pull requests, abri uma pull request contendo uma mudança
+trivial que não quebraria nada e esperei por um build bem sucedido, seguido de
+uma aprovação na minha pull request. Os logs do build indicaram que tudo havia
+ocorrido como esperado, com uma fase de <em>post-build</em> bem sucedida:</p><figure><a href=/media/aws-codecommit-dotfiles-4.webp><img src=/media/aws-codecommit-dotfiles-4.webp alt="Logs mostrando um build bem sucedido e o comando de approval."></a></figure><p>E de fato apareceu uma aprovação na minha pull request, só não encaixada na
+regra como era de se esperar:</p><figure><a href=/media/aws-codecommit-dotfiles-5.webp><img src=/media/aws-codecommit-dotfiles-5.webp alt="Aprovação do CodeBuild em uma pull request."></a></figure><p><em>Por quê?</em> Porque o usuário que concedeu a aprovação não estava na pool de
+identidades AWS definida no template da regra. Descobri isso ao obter a lista
+de aprovações via CLI da AWS:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ aws codecommit get-pull-request-approval-states <span style=color:#ae81ff>\
+</span></span></span><span style=display:flex><span>    --pull-request-id <span style=color:#ae81ff>3</span> --revision-id the-revision-found-on-codebuild
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>    <span style=color:#e6db74>&#34;approvals&#34;</span>: <span style=color:#f92672>[</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>{</span>
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;userArn&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:sts::...:assumed-role/CodeBuildDotfilesRole/...&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#e6db74>&#34;approvalState&#34;</span>: <span style=color:#e6db74>&#34;APPROVE&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>}</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>}</span>
+</span></span></code></pre></div><p>O state do Terraform mostrava que os membros da pool de identidades do template
+eram identificados via <em><code>arn:aws:iam:...</code></em> e portanto usavam um prefixo IAM em
+vez de um STS. Atualizei a declaração do template e pensei que talvez isso
+consertaria tudo automaticamente:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-terraform data-lang=terraform><span style=display:flex><span><span style=color:#a6e22e>ApprovalPoolMembers</span> <span style=color:#f92672>=</span> [
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>&#34;</span><span style=color:#e6db74>${</span>replace(replace(<span style=color:#a6e22e>aws_iam_role</span>.<span style=color:#a6e22e>codebuild</span>.<span style=color:#a6e22e>arn</span>, <span style=color:#e6db74>&#34;role&#34;</span>, <span style=color:#e6db74>&#34;assumed-role&#34;</span>), <span style=color:#e6db74>&#34;iam&#34;</span>, <span style=color:#e6db74>&#34;sts&#34;</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>/*&#34;</span>
+</span></span><span style=display:flex><span>]
+</span></span></code></pre></div><p>Ficu bem feio, mas deve funcionar. <em>Só que isso não atualizou a regra de
+aprovação!</em> Acontece que o template da regra é avaliado apenas quando a pull
+request é criada e nunca mais. Então criei uma nova pull request e esperei por
+outro build para descobrir que o experimento foi um sucesso:</p><figure><a href=/media/aws-codecommit-dotfiles-7.webp><img src=/media/aws-codecommit-dotfiles-6.webp alt="Aprovação do CodeBuild em uma pull request."></a></figure><p>E agora? Foi nesse momento, com apenas um item restante na nossa checklist, que
+decidi desistir de vez.</p><h2 id=por-que-não-recomendo-esses-serviços>Por que não recomendo esses serviços</h2><p>A razão pela qual desisti de terminar esse experimento tem menos a ver com as
+limitações desses serviços da AWS e mais a ver com o fato de que não sinto uma
+pressão para usá-los no mercado atualmente. São ferramentas ainda imaturas, com
+funcionalidades limitadas e com idiossincrasias que só podemos chamar de
+falhas. Essas palavras podem muito bem descrever algumas ferramentas usadas
+diariamente na indústria de TI, mas não vejo por que essas em particular o
+deveriam ser.</p><p>Às startups, empresas estabelecidas e indivíduos, esses serviços provavelmente
+oferecerão menos valor do que encontrarão em outro lugar. Aqui está uma tabela
+comparando apenas alguns aspectos das ferramentas da AWS supracitadas com sua
+competição para mostrar o porquê:</p><table class=compare-table><thead><th></th><th>AWS</th><th>GitHub</th><th>GitLab</th></thead><tbody><tr><td>Local único para todos seus grupos e repositórios</td><td>❌</td><td>✅</td><td>✅</td></tr><tr><td>CLI dedicado para operações de Git diárias</td><td>❌</td><td>✅</td><td>✅</td></tr><tr><td>Habilidade de usar runners próprios nos builds</td><td>❌</td><td>✅</td><td>✅</td></tr><tr><td>CI e CD são definidos no mesmo formato e lugar</td><td>❌</td><td>✅</td><td>✅</td></tr><tr><td>Gerencia permissões dos runners automaticamente</td><td>❌</td><td>✅</td><td>✅</td></tr><tr><td>Pode-se configurar builds de CI/CD com puro Git</td><td>❌</td><td>✅</td><td>✅</td></tr><tr><td>Builds de CI falhos proibem que PRs sejam mergeadas</td><td>DIY</td><td>3 clicks</td><td>✅</td></tr><tr><td>Reporta o status do build para a página da PR</td><td>DIY</td><td>✅</td><td>✅</td></tr><tr><td>Builds de CI podem ser usadas para fazer auto-merge</td><td>DIY</td><td>✅</td><td>✅</td></tr></tbody></table><p>Acredite, <em>não estou querendo insultar a AWS.</em> Há oportunidade para acomodar
+muitos fluxos de trabalho elaborados, complicados e únicos, especialmente se
+você já usa a AWS para a infraestrutura que suporta suas aplicações &mdash; você
+não estaria usando esses serviços se todos os seus workloads estivessem em
+outro lugar &mdash;, mas eu simplesmente não consigo superar o quanto de
+configuração é necessária apenas para disparar um build ao abrir uma pull
+request.</p><p>Você não precisa usar todas as ofertas da AWS juntas: você pode hospedar seu
+repositório no GitHub ou GitLab enquanto usa o CodeBuild para seus builds de
+CI, ou até mesmo usar outros serviços não cobertos aqui, como o <em>CodeDeploy.</em>
+Na verdade, minha crítica aqui é principalmente direcionada ao CodeCommit,
+CodeBuild e CodePipeline.</p><h2 id=palavras-finais>Palavras finais</h2><p>Eu levei 2 semanas para terminar de escrever esse artigo. Não é porque mexer
+com a AWS ou Terraform é difícil, eu só fiquei ocupado e toda vez que eu
+lembrava que teria que voltar a escrever boilerplate, eu ia adiando. Espero que
+o que escrevi aqui tenha sido útil ou divertido para você. Em algum momento
+futuro pretendo experimentar o <em>CodeDeploy</em> e talvez escreva sobre ele também.</p><p>E se você é um dos engenheiros da AWS que trabalhou nessas ferramentas, por
+favor não leve minhas críticas para o lado pessoal. Tenho certeza de que vocês
+se orgulham do que construíram, e devem! Leve minhas palavras como as de um
+cliente que gostaria de ver algumas funcionalidades a mais. Não sei por que
+você estaria lendo meu blog, mas se estiver, vocês têm vagas abertas?
+Brincadeira. A não ser que&mldr;</p></article></main><footer id=page-footer><p id=commit><a href=https://github.com/d3adb5/website/commit/b4e90215669e2c85ca075aa9b82ab7ac5bbf3ccb><span class=commit-hash>b4e9021</span><span class=commit-subject>content(blog): translate aws ci/cd article to pt-br</span></a></p><p id=timestamp>Updated May 22, 2023</p></footer></body></html>

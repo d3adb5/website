@@ -1,0 +1,98 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="This year I decided to build myself a computer, and use it to start playing
+some graphically demanding PC games. The plan had existed for a while, but was
+accelerated after I broke my Arch Linux installation on my Dell Optiplex 3080
+Micro &mdash; I blogged about it previously &mdash; and decided I needed to ensure I
+had backup installations and SSDs to fall back onto in times of need. In this
+article I&rsquo;ll talk about what happened."><meta http-equiv=Content-Security-Policy content="default-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src *; object-src 'none'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; worker-src 'self' blob:; base-uri 'self'"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Building myself a desktop PC</title><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-600.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-600.woff2 crossorigin><style type=text/css>@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:400;src:url(/fonts/source-sans-pro-regular.woff2)format("woff2"),url(/fonts/source-sans-pro-regular.woff)format("woff")}@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:600;src:url(/fonts/source-sans-pro-600.woff2)format("woff2"),url(/fonts/source-sans-pro-600.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:400;src:url(/fonts/inconsolata-regular.woff2)format("woff2"),url(/fonts/inconsolata-regular.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:600;src:url(/fonts/inconsolata-600.woff2)format("woff2"),url(/fonts/inconsolata-600.woff)format("woff")}footer#page-footer,nav#site-nav{background:0 0;padding:1em}footer#page-footer,nav#site-nav{background:#282a2e;color:#c5c8c6;line-height:3em}nav#site-nav{display:flex;overflow:auto;scrollbar-width:none}nav#site-nav::-webkit-scrollbar{display:none}nav#site-nav a{display:inline-block;width:6em;font-weight:700;text-align:center;color:inherit;flex-shrink:0}@media screen and (min-width:60em){footer#page-footer,nav#site-nav{line-height:inherit}}html{background:#252628}body{width:100%;max-width:60em;margin:0 auto;line-height:1.5em;font-family:source sans pro,helvetica,liberation sans,open sans,sans-serif;font-size:100%;color:#c5c8c6}@media screen and (min-width:60em){body{margin:2em auto!important}}h1,h2,h3,h4,h5,h6{margin:1.1em 0 .83em}h1,h2,h3{color:#8c9440}h4,h5,h6{color:#b5bd68}h1{font-size:1.5em}h2{font-size:1.26em}h3{font-size:1.1em}h4{font-size:1.03em}h5{font-size:.67em}h6{font-size:.51em}a{text-decoration:initial;color:#de935f}a:hover{text-decoration:underline}em{color:#f0c674;font-style:normal}strong{color:#c66}nav#site-nav{border-radius:1em 1em 0 0;background:0 0;color:#c5c8c6}nav#site-nav a.push-right{margin-left:auto}nav#site-nav a.current{color:#81a2be}label#toc-toggle{display:flex;width:100%;margin-top:1em;height:3em;align-items:center;justify-content:center}input#toc-toggle-box{display:none}input#toc-toggle-box~nav#TableOfContents{display:none}input#toc-toggle-box:checked~nav#TableOfContents{display:block}nav#TableOfContents{margin:.5em 0 0;box-sizing:border-box;background:#282a2e;padding:1em;border-radius:.5em;overflow:hidden;font-weight:700;color:#de935f}nav#TableOfContents ul{margin:0;padding:0;list-style-type:none}nav#TableOfContents ul li{overflow:hidden;white-space:nowrap;text-overflow:' ...'}nav#TableOfContents ul li+li{margin-top:1em}nav#TableOfContents ul ul{padding-left:1em;margin-top:1em}@media screen and (min-width:60em){nav#TableOfContents{float:right;margin:1em 0 1em 1em;max-width:40%;font-size:85%}nav#TableOfContents ul li+li{margin-top:initial}nav#TableOfContents ul ul{margin-top:initial}}@media screen and (min-width:60em){label#toc-toggle{display:none}}@media screen and (min-width:60em){input#toc-toggle-box~nav#TableOfContents{display:initial}}footer#page-footer{background:0 0;color:#707880;display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr)}footer#page-footer a{color:#f0c674}footer#page-footer span.commit-subject{color:#de935f;margin-left:.5em}footer#page-footer p#commit{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}footer#page-footer p#commit span.commit-hash{font-family:inconsolata,dejavu sans mono,liberation mono,monospace}footer#page-footer p#timestamp,footer#page-footer p#commit{margin:0}footer#page-footer p#timestamp{text-align:right}article{background:#1d1f21;padding:.1em 1.5em .8em}@media screen and (min-width:60em){article{border-radius:.5em}}article header{font-weight:700}article header section.header-line{display:flex;justify-content:space-between;align-items:center}article header section.header-line h1{color:#8c9440;margin-bottom:.25em}article header section.header-line aside#translations{margin:1.1em 0 .25em}article header section.header-line aside#translations ul#translations{list-style:none;padding:0;margin:0;display:flex;justify-content:space-around;font-size:115%}article header section.header-line aside#translations ul#translations li:not(:first-child){margin-left:1em}article header section.subheader-line{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}article header section.subheader-line p.subtitle{color:#5e8d87;margin:0}article header section.subheader-line p.subtitle em{color:inherit;font-style:italic}article header section.subheader-line ul#article-tags{list-style-type:none;padding-left:0;margin:0;font-size:85%}article header section.subheader-line ul#article-tags li{display:inline-block}article header section.subheader-line ul#article-tags li:nth-child(n+2){margin-left:1em}article header section.subheader-line ul#article-tags li a{color:#f0c674}article blockquote{color:#979a98;padding-left:1em;border:0 solid #707880;border-left-width:.5em}article table{width:100%}article table th{color:#81a2be}article table td{color:#c5c8c6}article table td.date{width:1%;white-space:nowrap;padding:0 .5em 0 0}article table.compare-table{border-collapse:collapse}article table.compare-table th,article table.compare-table td{padding:.5em 1em;box-sizing:border-box}article table.compare-table th:first-child,article table.compare-table td:first-child{padding-left:0}article table.compare-table th:last-child,article table.compare-table td:last-child{padding-right:0}article table.compare-table th,article table.compare-table td:nth-child(n+2){text-align:center}article table.compare-table td{border-top:.1em solid #707880}article table.compare-table th:nth-child(n+2){min-width:4em}article li::marker{color:#f0c674}article figure{margin:1.25em 0;text-align:center}article figure img{min-height:5em;max-height:15em;width:100%;object-fit:cover;border-radius:1em}article figure figcaption p{margin-top:0}article code{font-family:inconsolata,dejavu sans mono,liberation mono,monospace;font-size:100%}article pre{background:#282a2e;border-radius:.5em;padding:.5em 1em;overflow-x:auto;line-height:initial}article>hr{color:#707880;opacity:.5;margin:2em 0}article p code,article li code{background:#282a2e;padding:0 .3em;border-radius:.25em}article>p a,article>ul li a,article>ol li a{text-decoration:underline}article.extra-pages h2~p{margin-left:2em}article section.dialog{display:flex;padding:1em;align-content:center;border-radius:.5em;border:.2em solid #707880;margin:.5em 0 0;box-sizing:border-box;max-width:100%}article section.dialog p:first-child{margin-top:0}article section.dialog p:last-child{margin-bottom:0}article section.dialog .dialog-icon{margin-right:1em}article section.dialog.dialog-info{border-color:#5f819d}article section.dialog.dialog-warning{border-color:#de935f}article section.dialog.dialog-error{border-color:#a54242}article section.dialog.dialog-success{border-color:#8c9440}@media screen and (min-width:60em){article section.dialog{margin:1em 0 0}}</style></head><body><nav id=site-nav><a href=/ class=[]>Home
+</a><a href=/blog/ class=[]>Blog
+</a><a href=/glob/ class=[]>Glob
+</a><a href=/projects/ class=[]>Projects
+</a><a href=/about/ class=push-right>About</a></nav><main role=main><article id=content><header><section class=header-line><h1>Building myself a desktop PC</h1></section><section class=subheader-line><p class=subtitle>Midlife crisis? Waste of money?</p><ul id=article-tags><li><a href=/tags/hardware>Hardware</a></li><li><a href=/tags/rants>Rants</a></li><li><a href=/tags/technology>Technology</a></li><li><a href=/tags/equipment>Equipment</a></li></ul></section></header><p>This year I decided to build myself a computer, and use it to start playing
+some graphically demanding PC games. The plan had existed for a while, but was
+accelerated after I broke my Arch Linux installation on my Dell Optiplex 3080
+Micro &mdash; I blogged about it previously &mdash; and decided I needed to ensure I
+had backup installations and SSDs to fall back onto in times of need. In this
+article I&rsquo;ll talk about what happened.</p><p>It might come as a surprise to some of the people who know me that I never
+built my own desktop computer before. While I won&rsquo;t claim to have the same
+knowledge as people who build computers as a job or hobby &mdash; that can be quite
+the <em>expensive</em> hobby &mdash; I&rsquo;ve known my way around computer hardware after
+messing with plenty of laptops and a pre-built desktop my mother gifted me
+circa 2013. Building the computer from scratch itself wasn&rsquo;t a challenge, but
+shopping for the right parts, saving the money up, and convincing myself it was
+a good idea to go click &ldquo;place order&rdquo; sure was.</p><figure><a href=/media/desktop-pc.webp><img src=/media/desktop-pc.webp alt="The behemoth that is the PC on my desk, next to a can of coke."></a><figcaption><p>The <em>behemoth</em> that is the PC on my desk, next to a can of coke.</p></figcaption></figure><p>I wrote on this blog about the performance of a micro form factor PC before.
+That&rsquo;s been my main computer since late 2021 or early 2022, and was an upgrade
+from a ThinkPad X220 that I bought used in 2018. That machine still works well,
+and I&rsquo;m likely to repurpose it to start a homelab, having it serve as a node in
+a Kubernetes cluster. I can&rsquo;t stick a GPU into that, however, and though the
+CPU is socketed, the chassis drastically limits the size of the CPU heatsink.
+So here&rsquo;s the configuration of the desktop I built:</p><ul><li><em>Motherboard:</em> ASUS PRIME X670E-PRO Wi-Fi, for no particular reason.</li><li><em>CPU:</em> AMD Ryzen 9 7950X, for the core count and AVX-512 support.</li><li><em>GPU:</em> AMD Radeon RX 7900 GRE, beefy, and with good Linux support.</li><li><em>RAM:</em> Kingston FURY Renegade 2x32 GB 6000 MT/s, because it was in the QVL.</li><li><em>SSD:</em> WD Black SN850X 2 TB, because I wanted an additional fast drive.</li><li><em>PSU:</em> Corsair RM850x, picked randomly from the Cybenetics list.</li><li><em>AIO:</em> be quiet! Pure Loop 2 FX 360, chosen because I heard their fans are
+quiet.</li><li><em>Case:</em> Fractal Pop XL Air, whimsically chosen while browsing cases in
+person.</li></ul><p>I also added some case fans and an extra 3 fans to the AIO for a push/pull
+configuration. If you want this list presented in a better way, well, <a href=https://ca.pcpartpicker.com/list/2KJC7R>this is
+the PC Part Picker link.</a> Note that I&rsquo;m not an RGB kind of
+person. The only reason I went for the <em>Pure Loop 2 FX</em> was because the <em>Pure
+Loop 2</em> was out of stock, and the only reason I went for a triple pack of the
+<em>Light Wings</em> fans for the AIO was to use the same model of fan for all 6 fans
+attached to the radiator.</p><h2 id=naming-the-machine>Naming the machine</h2><p>All my previous machines were easy to name: either I picked a theme for all
+home servers (e.g. Japanese northeastern prefectures) and went with that, or I
+named it after the product line (e.g. <code>optiplex</code>, <code>inspiron</code>). This time there
+was no theme &mdash; I have no space currently for any home servers &mdash; and there&rsquo;s
+no OEM to name it after. So I had to take inspiration from one of the goals I
+had for this machine: to be fail-safe, or in other words immortal.</p><p>A quick lookup of myths about immortality led me to the <em>Epic of Gilgamesh,</em> a
+tale about a king who becomes obsessed with immortality and ultimately accepts
+that he can&rsquo;t live forever. Heck, if that doesn&rsquo;t fit the theme of <em>&ldquo;redundant
+wherever it is possible,&rdquo;</em> I don&rsquo;t know what does. So I gave this desktop the
+hostname <code>gilgamesh</code>.</p><h2 id=redundancy>Redundancy</h2><p>Does this mean I&rsquo;ll have two drives in a RAID 1 configuration, perhaps with a
+spare GPU, motherboard and CPU, maybe even a spare power supply, AIO and a UPS?
+<strong>Well, no, I&rsquo;m not rich.</strong> What I&rsquo;ll endeavor to do is make the machine itself
+as reliable to myself as possible. That means <em>should any reasonable component
+fail, I can most likely still boot into a working system.</em> This is how I&rsquo;m
+planning to achieve such a feat:</p><ol><li><p>There should be multiple operating system installations, with at least one
+of them on a separate partition or drive. Since third party support,
+necessary for some firmware updates, is much better on Windows, I have
+installed <em>Windows 10 IoT Enterprise LTSC</em> &mdash; what a mouthful &mdash; on a
+separate partition.</p></li><li><p>While the main bootloader (<code>systemd-boot</code>) will be used to boot into any of
+the available operating systems, there should be a spare installed just in
+case. <em>EFI greatly helps with this,</em> as MBR would&rsquo;ve otherwise allowed for
+only one primary bootloader. Add the Windows bootloader to the list and I
+should have 3 bootloaders to choose from.</p></li><li><p>If the filesystem for one of the operating systems gets corrupted &mdash; more
+likely to happen with the BTRFS partitions being used for GNU/Linux
+distributions &mdash; there is a bootable operating system on the machine still.
+Since Windows cannot use BTRFS, <em>its mere existence already satisfies this
+requirement.</em></p></li><li><p>There should always be a bootable live USB lying around close by, for system
+rescue purposes. This of course isn&rsquo;t about the machine itself, but it&rsquo;s
+worth mentioning that there&rsquo;s a little tray in the PC case I chose, and
+that&rsquo;s where my USB drives, including this installation media, are now kept.</p></li><li><p>The machine should be able to function without a GPU, in case the GPU fails.
+This means the CPU should have integrated graphics. <em>The AMD Ryzen 9 7950X
+has integrated graphics,</em> so we&rsquo;re covered.</p></li></ol><p>All of these items are in one way or another about ensuring that the machine
+won&rsquo;t be a brick should something fail. I&rsquo;m not going to be able to replace the
+motherboard, CPU, GPU, RAM, PSU, AIO, or case fans on the spot, but in the
+event that I make a mistake and break something on the software side, it almost
+guarantees that I can still get some work done.</p><p>Besides, <strong>Gilgamesh fails to achieve immortality,</strong> so I shouldn&rsquo;t beat myself
+up over not getting there either.</p><h2 id=the-mediatek-mt7921k>The Mediatek MT7921K</h2><p>Apparently AMD and MediaTek have been working together for a few years and have
+a deal that encourages OEMs to use MediaTek&rsquo;s WiFi chips in their laptops and
+motherboards. The ASUS PRIME X670E-PRO Wi-Fi has the <em>Mediatek MT7921K</em>
+adapter, and while it works okay, it&rsquo;s not as good and consistent as the Intel
+WiFi adapters. I chose to deal with the MediaTek chip for the time being.</p><p>When testing hibernation on an encrypted swap partition, I found that upon
+rebooting not only did my resume configuration fail (for separate reasons), I
+found that suddenly my kernel detected no WiFi interface. Rebooting into
+Windows did not help. Trying to reboot back into Arch Linux showed that bootup
+wouldn&rsquo;t get to my USB keyboard until the &ldquo;USB initialization failed&rdquo; messages
+had gone on for about a minute. <strong>The only thing that worked was unplugging the
+computer from the wall and plugging it back in.</strong></p><p>Turns out power management for the MediaTek chip is a bit wonky, and once it
+is&mldr; powered down or put into a low power state, it has trouble coming back
+on. It&rsquo;s a good thing this is a desktop PC, because <em>the only way I found to
+curb this issue was to disable power management for the WiFi chip.</em> Here is how
+I did that:</p><ul><li><p>On Arch Linux, I <a href=https://wiki.archlinux.org/title/Power_management#Network_interfaces>followed the wiki</a> and installed <code>iw</code> then
+added the following to <code>/etc/udev/rules.d/81-wifi-powersave.rules</code>:</p><pre tabindex=0><code>ACTION==&#34;add&#34;, SUBSYSTEM==&#34;net&#34;, KERNEL==&#34;wl*&#34;, RUN+=&#34;/usr/bin/iw dev $name set power_save off&#34;
+</code></pre><p>By the way, if you want to know if power management is enabled for your
+adapter, you can run <code>iw dev</code> to get a list of devices and, let&rsquo;s say your
+device is <code>wlan0</code>, you can run this to get your answer:</p><pre tabindex=0><code>$ iw dev wlan0 get power_save
+Power save: off
+</code></pre></li><li><p>On Windows, I went to the device manager, found the MediaTek WiFi adapter,
+went to the power management tab, and unchecked the box that said &ldquo;Allow the
+computer to turn off this device to save power.&rdquo; I think. I&rsquo;m not sure, it&rsquo;s
+been a few days and with Windows your mileage may vary.</p></li></ul><p>It hasn&rsquo;t powered off on me while using the computer, and rebooting, resuming
+from hibernation, and so on have worked without a hitch ever since. Despite
+that, I recommend upgrading to another Wi-Fi adapter as I eventually will if
+and when I no longer wish to put up with this chip&rsquo;s problems.</p></article></main><footer id=page-footer><p id=commit><a href=https://github.com/d3adb5/website/commit/11ebc6bfdc5e744440aba569893a2c4824da6aa9><span class=commit-hash>11ebc6b</span><span class=commit-subject>blog: fix: remove typo talking about mediatek chip</span></a></p><p id=timestamp>Updated August 11, 2024</p></footer></body></html>

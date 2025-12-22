@@ -1,0 +1,151 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="In 2013, the landing page for GitLab.com described GitLab as Open Source Git
+Management Software. GitLab CI already existed &mdash; it was first
+created in 2012 &mdash; but it was only years later that GitLab started to market
+itself as a &ldquo;DevOps platform&rdquo;, pushing products that span the entirety of the
+software development lifecycle, from planning to deployment. So how good is
+their pipeline offering?
+GitLab CI is GitLab&rsquo;s built-in pipeline system. It&rsquo;s a CI/CD tool that allows
+you to define workflows for building, testing, and deploying software from
+GitLab by adding a .gitlab-ci.yml file to the root of the repository and
+ensuring there is an available runner to pick the job up. These could be hosted
+by GitLab or by the user, and they come in a variety of flavors."><meta http-equiv=Content-Security-Policy content="default-src 'self' cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src *; object-src 'none'; script-src 'self' 'unsafe-inline' cdn.jsdelivr.net; worker-src 'self' blob:; base-uri 'self'"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><title>Thoughts on GitLab CI</title><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/source-sans-pro-600.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-regular.woff2 crossorigin><link rel=preload as=font type=font/woff2 href=/fonts/inconsolata-600.woff2 crossorigin><style type=text/css>@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:400;src:url(/fonts/source-sans-pro-regular.woff2)format("woff2"),url(/fonts/source-sans-pro-regular.woff)format("woff")}@font-face{font-display:swap;font-family:source sans pro;font-style:normal;font-weight:600;src:url(/fonts/source-sans-pro-600.woff2)format("woff2"),url(/fonts/source-sans-pro-600.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:400;src:url(/fonts/inconsolata-regular.woff2)format("woff2"),url(/fonts/inconsolata-regular.woff)format("woff")}@font-face{font-display:swap;font-family:inconsolata;font-style:normal;font-weight:600;src:url(/fonts/inconsolata-600.woff2)format("woff2"),url(/fonts/inconsolata-600.woff)format("woff")}footer#page-footer,nav#site-nav{background:0 0;padding:1em}footer#page-footer,nav#site-nav{background:#282a2e;color:#c5c8c6;line-height:3em}nav#site-nav{display:flex;overflow:auto;scrollbar-width:none}nav#site-nav::-webkit-scrollbar{display:none}nav#site-nav a{display:inline-block;width:6em;font-weight:700;text-align:center;color:inherit;flex-shrink:0}@media screen and (min-width:60em){footer#page-footer,nav#site-nav{line-height:inherit}}html{background:#252628}body{width:100%;max-width:60em;margin:0 auto;line-height:1.5em;font-family:source sans pro,helvetica,liberation sans,open sans,sans-serif;font-size:100%;color:#c5c8c6}@media screen and (min-width:60em){body{margin:2em auto!important}}h1,h2,h3,h4,h5,h6{margin:1.1em 0 .83em}h1,h2,h3{color:#8c9440}h4,h5,h6{color:#b5bd68}h1{font-size:1.5em}h2{font-size:1.26em}h3{font-size:1.1em}h4{font-size:1.03em}h5{font-size:.67em}h6{font-size:.51em}a{text-decoration:initial;color:#de935f}a:hover{text-decoration:underline}em{color:#f0c674;font-style:normal}strong{color:#c66}nav#site-nav{border-radius:1em 1em 0 0;background:0 0;color:#c5c8c6}nav#site-nav a.push-right{margin-left:auto}nav#site-nav a.current{color:#81a2be}label#toc-toggle{display:flex;width:100%;margin-top:1em;height:3em;align-items:center;justify-content:center}input#toc-toggle-box{display:none}input#toc-toggle-box~nav#TableOfContents{display:none}input#toc-toggle-box:checked~nav#TableOfContents{display:block}nav#TableOfContents{margin:.5em 0 0;box-sizing:border-box;background:#282a2e;padding:1em;border-radius:.5em;overflow:hidden;font-weight:700;color:#de935f}nav#TableOfContents ul{margin:0;padding:0;list-style-type:none}nav#TableOfContents ul li{overflow:hidden;white-space:nowrap;text-overflow:' ...'}nav#TableOfContents ul li+li{margin-top:1em}nav#TableOfContents ul ul{padding-left:1em;margin-top:1em}@media screen and (min-width:60em){nav#TableOfContents{float:right;margin:1em 0 1em 1em;max-width:40%;font-size:85%}nav#TableOfContents ul li+li{margin-top:initial}nav#TableOfContents ul ul{margin-top:initial}}@media screen and (min-width:60em){label#toc-toggle{display:none}}@media screen and (min-width:60em){input#toc-toggle-box~nav#TableOfContents{display:initial}}footer#page-footer{background:0 0;color:#707880;display:grid;grid-auto-flow:column;grid-template-columns:minmax(0,1fr)}footer#page-footer a{color:#f0c674}footer#page-footer span.commit-subject{color:#de935f;margin-left:.5em}footer#page-footer p#commit{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}footer#page-footer p#commit span.commit-hash{font-family:inconsolata,dejavu sans mono,liberation mono,monospace}footer#page-footer p#timestamp,footer#page-footer p#commit{margin:0}footer#page-footer p#timestamp{text-align:right}article{background:#1d1f21;padding:.1em 1.5em .8em}@media screen and (min-width:60em){article{border-radius:.5em}}article header{font-weight:700}article header section.header-line{display:flex;justify-content:space-between;align-items:center}article header section.header-line h1{color:#8c9440;margin-bottom:.25em}article header section.header-line aside#translations{margin:1.1em 0 .25em}article header section.header-line aside#translations ul#translations{list-style:none;padding:0;margin:0;display:flex;justify-content:space-around;font-size:115%}article header section.header-line aside#translations ul#translations li:not(:first-child){margin-left:1em}article header section.subheader-line{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}article header section.subheader-line p.subtitle{color:#5e8d87;margin:0}article header section.subheader-line p.subtitle em{color:inherit;font-style:italic}article header section.subheader-line ul#article-tags{list-style-type:none;padding-left:0;margin:0;font-size:85%}article header section.subheader-line ul#article-tags li{display:inline-block}article header section.subheader-line ul#article-tags li:nth-child(n+2){margin-left:1em}article header section.subheader-line ul#article-tags li a{color:#f0c674}article blockquote{color:#979a98;padding-left:1em;border:0 solid #707880;border-left-width:.5em}article table{width:100%}article table th{color:#81a2be}article table td{color:#c5c8c6}article table td.date{width:1%;white-space:nowrap;padding:0 .5em 0 0}article table.compare-table{border-collapse:collapse}article table.compare-table th,article table.compare-table td{padding:.5em 1em;box-sizing:border-box}article table.compare-table th:first-child,article table.compare-table td:first-child{padding-left:0}article table.compare-table th:last-child,article table.compare-table td:last-child{padding-right:0}article table.compare-table th,article table.compare-table td:nth-child(n+2){text-align:center}article table.compare-table td{border-top:.1em solid #707880}article table.compare-table th:nth-child(n+2){min-width:4em}article li::marker{color:#f0c674}article figure{margin:1.25em 0;text-align:center}article figure img{min-height:5em;max-height:15em;width:100%;object-fit:cover;border-radius:1em}article figure figcaption p{margin-top:0}article code{font-family:inconsolata,dejavu sans mono,liberation mono,monospace;font-size:100%}article pre{background:#282a2e;border-radius:.5em;padding:.5em 1em;overflow-x:auto;line-height:initial}article>hr{color:#707880;opacity:.5;margin:2em 0}article p code,article li code{background:#282a2e;padding:0 .3em;border-radius:.25em}article>p a,article>ul li a,article>ol li a{text-decoration:underline}article.extra-pages h2~p{margin-left:2em}article section.dialog{display:flex;padding:1em;align-content:center;border-radius:.5em;border:.2em solid #707880;margin:.5em 0 0;box-sizing:border-box;max-width:100%}article section.dialog p:first-child{margin-top:0}article section.dialog p:last-child{margin-bottom:0}article section.dialog .dialog-icon{margin-right:1em}article section.dialog.dialog-info{border-color:#5f819d}article section.dialog.dialog-warning{border-color:#de935f}article section.dialog.dialog-error{border-color:#a54242}article section.dialog.dialog-success{border-color:#8c9440}@media screen and (min-width:60em){article section.dialog{margin:1em 0 0}}</style></head><body><nav id=site-nav><a href=/ class=[]>Home
+</a><a href=/blog/ class=[]>Blog
+</a><a href=/glob/ class=[]>Glob
+</a><a href=/projects/ class=[]>Projects
+</a><a href=/about/ class=push-right>About</a></nav><main role=main><article id=content><header><section class=header-line><h1>Thoughts on GitLab CI</h1></section><section class=subheader-line><p class=subtitle>Not terrible, but I&rsquo;m not a fan</p><ul id=article-tags><li><a href=/tags/gitlab>GitLab</a></li><li><a href=/tags/ci/cd>CI/CD</a></li><li><a href=/tags/devops>DevOps</a></li></ul></section></header><p>In 2013, the landing page for GitLab.com described GitLab as <a href=http://web.archive.org/web/20130403093627/http://www.gitlab.com/><em>Open Source Git
+Management Software</em></a>. GitLab CI already existed &mdash; it was first
+created in 2012 &mdash; but it was only years later that GitLab started to market
+itself as a &ldquo;DevOps platform&rdquo;, pushing products that span the entirety of the
+software development lifecycle, from planning to deployment. So how good is
+their pipeline offering?</p><p>GitLab CI is GitLab&rsquo;s built-in pipeline system. It&rsquo;s a CI/CD tool that allows
+you to define workflows for building, testing, and deploying software from
+GitLab by adding a <code>.gitlab-ci.yml</code> file to the root of the repository and
+ensuring there is an available runner to pick the job up. These could be hosted
+by GitLab or by the user, and they come in a variety of flavors.</p><p>The anatomy of a <code>.gitlab-ci.yml</code> file is as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>stages</span>:      <span style=color:#75715e># A list of stages the pipeline will follow. Jobs in the same</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>build   </span> <span style=color:#75715e># stage run in parallel and have no implicit ordering.</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>test    </span> <span style=color:#75715e>#</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>deploy  </span> <span style=color:#75715e># These can be arbitrary, and implicitly are build/test/deploy.</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>job-name</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>build</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>alpine:latest     </span> <span style=color:#75715e># Applicable to Docker and Kubernetes executors.</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:                   <span style=color:#75715e># A list of commands to run, these will show up in</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>echo &#34;Hello, World!&#34; </span> <span style=color:#75715e># the job logs. Maybe that is why it&#39;s a list.</span>
+</span></span></code></pre></div><p>The <code>job-name</code> is the name of the job, and it will be added to the resulting
+pipeline based on job rules and configured stages. <em>GitLab will interpret this
+file every time one tries to trigger a pipeline execution,</em> which for GitLab
+means &ldquo;creating a pipeline&rdquo;. Additionally, if the job name starts with a dot
+(<code>.</code>), it will be ignored by the pipeline and treated as extra YAML data.</p><p>There is a lot more to GitLab CI, but this is the basic idea. You can read more
+about it in the <a href=https://docs.gitlab.com/ee/ci/yaml/>official reference documentation</a>.</p><h2 id=composing-pipelines>Composing pipelines</h2><p>Something that GitHub Actions treats as a first-class citizen are reusable
+pipelines, or pipeline &ldquo;components&rdquo;. These components in GitHub Actions are
+treated as black boxes, with behavior customizable only through predefined
+inputs. This is unlike how GitLab CI handles pipeline composition, which
+largely revolves around how the <code>.gitlab-ci.yml</code> file is interpreted.</p><p>Take for example the following pipeline, used to build Docker images with
+Kaniko, inspecting them with Trivy afterward.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>stages</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>build</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>inspect</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>push</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>build-image-with-kaniko</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>build</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>gcr.io/kaniko-project/executor:debug</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>entrypoint</span>: [<span style=color:#e6db74>&#34;&#34;</span>]
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - &gt;-<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      /kaniko/executor
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        --context &#34;${CI_PROJECT_DIR}&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        --dockerfile &#34;${CI_PROJECT_DIR}/Dockerfile&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        --destination &#34;${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        --no-push --tar-path=image.tar</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>inspect-with-trivy</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>inspect</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>aquasec/trivy:latest</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>trivy image.tar</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>push-with-crane</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>push</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>name</span>: <span style=color:#ae81ff>gcr.io/go-containerregistry/crane:debug</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>entrypoint</span>: [<span style=color:#e6db74>&#34;&#34;</span>]
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#e6db74>&#39;crane push image.tar &#34;${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_SLUG}&#34;&#39;</span>
+</span></span></code></pre></div><p><em>Building a Docker image is only part of the CI process,</em> we definitely want to
+run some unit tests, scan the code using a SAST tool like SonarQube, and maybe
+even perform some integration and end-to-end testing. However, the logic of
+building, inspecting and pushing the image won&rsquo;t really change from one service
+to another, so it makes sense to extract it into a reusable pipeline.</p><p>Let&rsquo;s place the above snippet in a file called <code>docker.yaml</code>, in a GitLab
+project located at <code>cicd/pipelines</code>. The way to reuse it in our pipeline is to
+<code>include</code> it in our project&rsquo;s <code>.gitlab-ci.yml</code> file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>include</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>project</span>: <span style=color:#e6db74>&#39;cicd/pipelines&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>file</span>: <span style=color:#e6db74>&#39;docker.yaml&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ref</span>: <span style=color:#ae81ff>master</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>my-unit-tests</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>test</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>node:20</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npm install</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npm test</span>
+</span></span></code></pre></div><p>This isn&rsquo;t obvious, but the <code>my-unit-tests</code> job will cause this pipeline to
+break. The reason for that is a little obscure: upon rendering this pipeline
+definition, GitLab pretty much copies the included file in place of the include
+statement, <em>which comes with the stages property,</em> that in turn lacks the
+<code>test</code> stage.</p><p>A solution? Declare stages in the current pipeline:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>stages</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>test</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>build</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>push</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>include</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>project</span>: <span style=color:#e6db74>&#39;cicd/pipelines&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>file</span>: <span style=color:#e6db74>&#39;docker.yaml&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ref</span>: <span style=color:#ae81ff>master</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>my-unit-tests</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>stage</span>: <span style=color:#ae81ff>test</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>node:20</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npm install</span>
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>npm test</span>
+</span></span></code></pre></div><p><em>Whoops,</em> we forgot to include the <code>inspect</code> stage. Adding that fixes the
+pipeline and we get what we wanted, cumbersome as it may seem. If you have
+other jobs and snippets you&rsquo;d like to reuse, this will quickly get out of hand,
+causing you to have to juggle whatever stages they define within, and that&rsquo;s if
+they define stages within them.</p><p>It has become good practice to define specific stages in the reusable
+pipelines, so they won&rsquo;t cause conflicts with other pipelines that define the
+same stages: instead of <code>build</code>, <code>inspect</code>, and <code>push</code>, we could have
+<code>docker-build</code>, <code>docker-inspect</code>, and <code>docker-push</code>. <strong>Congratulations, you are
+fighting the pipeline tool you picked.</strong></p><h2 id=customizing-jobs>Customizing jobs</h2><p>Environment variables for the most part allow you to change the behavior of
+your pipelines, reusable or not. Sometimes, however, you want to change one of
+the job&rsquo;s <code>rules</code> or other properties. In those situations, you can just define
+a job with the same name and having only the property you wish to overwrite:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>include</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>project</span>: <span style=color:#e6db74>&#39;cicd/pipelines&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>file</span>: <span style=color:#e6db74>&#39;docker.yaml&#39;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>ref</span>: <span style=color:#ae81ff>master</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>build-image-with-kaniko</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>rules</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#f92672>if</span>: <span style=color:#ae81ff>$CI_COMMIT_TAG</span>
+</span></span></code></pre></div><p>Hang on, we have a job that inspects the image with Trivy, right? What if we&mldr;</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>inspect-with-trivy</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>script</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>echo &#34;No inspection for you!&#34;</span>
+</span></span></code></pre></div><p>Were you expecting this job to run before a deployment to production? <strong>Too
+bad, you cannot trust it to run what you wrote upstream.</strong> This is a problem
+that GitHub Actions doesn&rsquo;t have, as it doesn&rsquo;t allow you to overwrite parts of
+the actions you&rsquo;re using.</p><p>Thus, if you define your deployment logic in a pipeline you&rsquo;re expecting
+developers to include, that opens the door to a lot of potential problems. You
+can&rsquo;t trust the pipeline to do what you expect it to do, it is merely a
+suggestion. <em>There is, however, a janky way around this:</em> create a project that
+only you and some other trusted people have access to, and allow developers to
+trigger downstream pipelines there.</p><p><em>The catch?</em> You now have to accept upstream artifacts, run all your checks
+outside their CI, standardize everything you can so you don&rsquo;t run into
+surprises, etc. You also essentially communicate that <em>you don&rsquo;t trust the
+developers to write their own pipelines,</em> which is a bad look.</p><h2 id=it-doesnt-have-to-be-this-way>It doesn&rsquo;t have to be this way</h2><p>GitLab of course is aware of how cumbersome this may be. There is a beta
+feature that starts steering GitLab CI in the composable direction: CI/CD
+Components. This approximates GitLab CI and GitHub Actions, but so far it still
+works sort of the same way as the <code>include</code> statement.</p><p>You&rsquo;re still able to overwrite included jobs and everything else, but once
+people start adopting this, it will be all the much easier to lock them down.
+For now, I think your best bet is the Compliance Pipelines feature, exclusive
+to GitLab Ultimate subscribers as of the time of writing.</p></article></main><footer id=page-footer><p id=commit><a href=https://github.com/d3adb5/website/commit/515ee2327f045012698ee186364443bc13550a1c><span class=commit-hash>515ee23</span><span class=commit-subject>content(blog): add blogpost about gitlab ci</span></a></p><p id=timestamp>Updated February 17, 2024</p></footer></body></html>
