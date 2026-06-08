@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Programação on website pessoal de d3adb5</title><link>https://d3adb5.net/pt-br/tags/programa%C3%A7%C3%A3o/</link><description>Recent content in Programação on website pessoal de d3adb5</description><generator>Hugo</generator><language>pt-br</language><lastBuildDate>Fri, 09 Jun 2023 14:59:16 -0700</lastBuildDate><atom:link href="https://d3adb5.net/pt-br/tags/programa%C3%A7%C3%A3o/index.xml" rel="self" type="application/rss+xml"/><item><title>Programas escritos em C podem ser mais lentos</title><link>https://d3adb5.net/pt-br/blog/c-isnt-string-friendly/</link><pubDate>Thu, 08 Jun 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/pt-br/blog/c-isnt-string-friendly/</guid><description>&lt;p&gt;Há uma década, se vocẽ me pedisse para falar sobre programação, eu, &lt;em&gt;jovem e
+inexperiente,&lt;/em&gt; provavelmente diria que todo mundo deveria programar em C, para
+que todos os programas pudessem ter alta performance e que programadores que
+reclamavam da linguagem eram preguiçosos demais para lidar com alocação de
+memória e ponteiros. &lt;strong&gt;Que vergonha!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Tenho certeza que eu atribuía qualquer lentidão ou delay a &lt;em&gt;desenvolvedores
+Java preguiçosos:&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Vou apertar o botão direito do controle e vamos esperar a animação terminar.
+Viu só quanto tempo demorou? Isso tudo é culpa do Java e de programadores
+preguiçosos. Se tivesse sido escrito em C&amp;hellip;&lt;/p&gt;</description></item></channel></rss>

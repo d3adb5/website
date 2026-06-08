@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Novelty on d3adb5's personal website</title><link>https://d3adb5.net/tags/novelty/</link><description>Recent content in Novelty on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 14 May 2023 17:51:22 -0700</lastBuildDate><atom:link href="https://d3adb5.net/tags/novelty/index.xml" rel="self" type="application/rss+xml"/><item><title>Experiencing 64 GB of RAM + 80 GB of swap</title><link>https://d3adb5.net/blog/lots-of-ram/</link><pubDate>Fri, 17 Feb 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/lots-of-ram/</guid><description>&lt;p&gt;For the past couple of days I have been using a machine with &lt;em&gt;64 GB of RAM,&lt;/em&gt;
+and &lt;em&gt;80 GB of swap space.&lt;/em&gt; This amount of computer memory is more than I have
+ever conceived using. No, &lt;strong&gt;I&amp;rsquo;m not gaming on it,&lt;/strong&gt; and I&amp;rsquo;m not a Java
+developer running IntelliJ IDEA with 20+ projects open at the same time.
+However, language servers and other applications I use on a daily basis have
+made me rethink how much memory I really need.&lt;/p&gt;</description></item><item><title>Trying out Vale as a prose linter</title><link>https://d3adb5.net/blog/vale-linter/</link><pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/vale-linter/</guid><description>&lt;p&gt;I have recently discovered a linting tool for prose called &lt;a href="https://vale.sh"&gt;Vale&lt;/a&gt;. The
+way I discovered it was by going through &lt;a href="https://stakater.com"&gt;Stakater&lt;/a&gt;&amp;rsquo;s public
+repositories on GitHub. More specifically the &lt;a href="https://github.com/stakater/vocabulary"&gt;stakater/vocabulary&lt;/a&gt;
+repository, which contains a &lt;a href="https://vale.sh/docs/topics/vocab/"&gt;Vale vocabulary&lt;/a&gt; for Vale&amp;rsquo;s spell
+checker not to yell at them for using Kubernetes resource names in prose.&lt;/p&gt;
+&lt;p&gt;While I&amp;rsquo;m not a huge fan of tools that judge my writing, I do feel there are
+some recurrent typos I could eliminate without need for a code review prior to
+merging a new article to this website. And so I have decided to try out Vale
+when I&amp;rsquo;m writing new pages and blog posts like this one. As a bonus that comes
+with my Vale configuration, I get information on text readability, among other
+things.&lt;/p&gt;</description></item></channel></rss>

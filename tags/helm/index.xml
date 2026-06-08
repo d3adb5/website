@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Helm on d3adb5's personal website</title><link>https://d3adb5.net/tags/helm/</link><description>Recent content in Helm on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 02 Jul 2024 21:45:31 -0700</lastBuildDate><atom:link href="https://d3adb5.net/tags/helm/index.xml" rel="self" type="application/rss+xml"/><item><title>On excessive templating with Helm</title><link>https://d3adb5.net/blog/on-helm-templates/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/on-helm-templates/</guid><description>&lt;p&gt;I&amp;rsquo;ve mentioned in other blogposts that I&amp;rsquo;ve been involved in a project making
+extensive use of Helm. It is known by some as the Kubernetes package manager,
+so you&amp;rsquo;ll naturally use it as you deploy applications to your cluster. Other
+than release management, its main advantage is generating resources based on
+user configurable &lt;em&gt;values.&lt;/em&gt; Conditionals are a direct evolution of that, and
+loops come into play as need be. But it doesn&amp;rsquo;t stop there.&lt;/p&gt;</description></item><item><title>Implementing the Blue/Green deployment strategy with Helm</title><link>https://d3adb5.net/blog/blue-green-with-helm/</link><pubDate>Thu, 06 Oct 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/blue-green-with-helm/</guid><description>&lt;section class="dialog dialog-info"&gt;
+ &lt;section class="dialog-icon"&gt;ℹ️&lt;/section&gt;
+ &lt;section class="dialog-content"&gt;
+&lt;p&gt;&lt;strong&gt;DISCLAIMER:&lt;/strong&gt; Heed the warning in this article&amp;rsquo;s subtitle. Use the &lt;a href="https://argoproj.github.io/argo-rollouts/"&gt;right
+tool for the job,&lt;/a&gt; this is just for fun. Well, it wasn&amp;rsquo;t just
+for fun in the beginning, but now that I did it and found a better alternative
+that fits my use case, it became just for fun.&lt;/p&gt;
+ &lt;/section&gt;
+&lt;/section&gt;
+&lt;p&gt;For better or for worse, one of the principal tools for any developer or
+operator using Kubernetes is &lt;a href="https://helm.sh/"&gt;Helm.&lt;/a&gt; It&amp;rsquo;s a powerful tool for sure, but
+it uses Go templates, which doesn&amp;rsquo;t have the most intuitive syntax. On top of
+that, there are some weird decisions made by the developers of the tool &amp;mdash;
+semantic versioning is a requirement for chart versions, for instance.&lt;/p&gt;</description></item></channel></rss>

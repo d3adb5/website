@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>JavaScript on d3adb5's personal website</title><link>https://d3adb5.net/tags/javascript/</link><description>Recent content in JavaScript on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 03 Jul 2023 21:12:58 -0700</lastBuildDate><atom:link href="https://d3adb5.net/tags/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>Was I wrong about JavaScript?</title><link>https://d3adb5.net/blog/javascript-isnt-so-bad/</link><pubDate>Mon, 03 Jul 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/javascript-isnt-so-bad/</guid><description>&lt;p&gt;JavaScript was first introduced 27 years ago, initially as &lt;em&gt;LiveScript,&lt;/em&gt; in a
+beta version of Netscape, and later as &lt;em&gt;JavaScript,&lt;/em&gt; presumably as a marketing
+ploy to capitalize on the rising popularity of &lt;em&gt;Java.&lt;/em&gt; Its goal was to make it
+so webpages wouldn&amp;rsquo;t be static paintings users scrolled through, but rather
+interactive experiences that could react to user input.&lt;/p&gt;
+&lt;p&gt;This was a noble pursuit in many ways. &lt;strong&gt;We&amp;rsquo;re talking about 1995&lt;/strong&gt; here, when
+the Web was so young CSS hadn&amp;rsquo;t even been implemented yet &amp;mdash; the first version
+of CSS was implemented in 1996! In fact, if like me you were thinking &amp;ldquo;there
+was already user interactivity in HTML through Web forms&amp;rdquo;, you&amp;rsquo;d be wrong:
+official support for the &lt;code&gt;&amp;lt;form&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;input&amp;gt;&lt;/code&gt; tags was only added to HTML in
+November 1995 &amp;mdash; in version 2.0 of the HTML standard &amp;mdash; &lt;em&gt;two months after
+LiveScript,&lt;/em&gt; and just a month before its rename and official stable release.&lt;/p&gt;</description></item></channel></rss>

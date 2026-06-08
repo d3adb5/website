@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CI/CD on d3adb5's personal website</title><link>https://d3adb5.net/tags/ci/cd/</link><description>Recent content in CI/CD on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 17 Feb 2024 08:20:52 -0800</lastBuildDate><atom:link href="https://d3adb5.net/tags/ci/cd/index.xml" rel="self" type="application/rss+xml"/><item><title>Thoughts on GitLab CI</title><link>https://d3adb5.net/blog/gitlab-cicd-opinions/</link><pubDate>Fri, 16 Feb 2024 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/gitlab-cicd-opinions/</guid><description>&lt;p&gt;In 2013, the landing page for GitLab.com described GitLab as &lt;a href="http://web.archive.org/web/20130403093627/http://www.gitlab.com/"&gt;&lt;em&gt;Open Source Git
+Management Software&lt;/em&gt;&lt;/a&gt;. GitLab CI already existed &amp;mdash; it was first
+created in 2012 &amp;mdash; but it was only years later that GitLab started to market
+itself as a &amp;ldquo;DevOps platform&amp;rdquo;, pushing products that span the entirety of the
+software development lifecycle, from planning to deployment. So how good is
+their pipeline offering?&lt;/p&gt;
+&lt;p&gt;GitLab CI is GitLab&amp;rsquo;s built-in pipeline system. It&amp;rsquo;s a CI/CD tool that allows
+you to define workflows for building, testing, and deploying software from
+GitLab by adding a &lt;code&gt;.gitlab-ci.yml&lt;/code&gt; file to the root of the repository and
+ensuring there is an available runner to pick the job up. These could be hosted
+by GitLab or by the user, and they come in a variety of flavors.&lt;/p&gt;</description></item><item><title>Finding out I dislike the AWS CI/CD stack of tools</title><link>https://d3adb5.net/blog/disliking-aws-ci-cd/</link><pubDate>Sat, 29 Apr 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/disliking-aws-ci-cd/</guid><description>&lt;p&gt;This article was originally written as a walkthrough of my adventures using the
+suite of CI/CD services offered by AWS. However, as I hit obstacles during
+implementation, it slowly turned into a rant about how immature they are. A lot
+of what was written up until I decided to give up on the proof of concept was
+kept as-is. The rest has been adapted into what you are about to read.&lt;/p&gt;</description></item><item><title>Experiences with CI/CD and DevOps</title><link>https://d3adb5.net/blog/experiences-with-ci-cd/</link><pubDate>Wed, 16 Mar 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/experiences-with-ci-cd/</guid><description>&lt;p&gt;&lt;strong&gt;WARNING:&lt;/strong&gt; This became such a lengthy article despite the relative lack of
+detail that it forced me to include a table of contents. Hopefully it isn&amp;rsquo;t too
+tiresome to read through, and whoever reads it can jump to whatever topic might
+interest them.&lt;/p&gt;
+&lt;p&gt;The goal of this blogpost is to give the reader an overview of what it was like
+for me to get accustomed to and implement some &lt;em&gt;continuous integration (CI)&lt;/em&gt; and
+&lt;em&gt;continuous deployment (CD)&lt;/em&gt; solutions to my own personal projects. It was and
+is still being a bumpy ride, but it&amp;rsquo;s more gratifying than I thought it would be
+when I first started.&lt;/p&gt;</description></item></channel></rss>

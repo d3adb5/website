@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vale on d3adb5's personal website</title><link>https://d3adb5.net/tags/vale/</link><description>Recent content in Vale on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 14 May 2023 17:51:22 -0700</lastBuildDate><atom:link href="https://d3adb5.net/tags/vale/index.xml" rel="self" type="application/rss+xml"/><item><title>Trying out Vale as a prose linter</title><link>https://d3adb5.net/blog/vale-linter/</link><pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/vale-linter/</guid><description>&lt;p&gt;I have recently discovered a linting tool for prose called &lt;a href="https://vale.sh"&gt;Vale&lt;/a&gt;. The
+way I discovered it was by going through &lt;a href="https://stakater.com"&gt;Stakater&lt;/a&gt;&amp;rsquo;s public
+repositories on GitHub. More specifically the &lt;a href="https://github.com/stakater/vocabulary"&gt;stakater/vocabulary&lt;/a&gt;
+repository, which contains a &lt;a href="https://vale.sh/docs/topics/vocab/"&gt;Vale vocabulary&lt;/a&gt; for Vale&amp;rsquo;s spell
+checker not to yell at them for using Kubernetes resource names in prose.&lt;/p&gt;
+&lt;p&gt;While I&amp;rsquo;m not a huge fan of tools that judge my writing, I do feel there are
+some recurrent typos I could eliminate without need for a code review prior to
+merging a new article to this website. And so I have decided to try out Vale
+when I&amp;rsquo;m writing new pages and blog posts like this one. As a bonus that comes
+with my Vale configuration, I get information on text readability, among other
+things.&lt;/p&gt;</description></item></channel></rss>

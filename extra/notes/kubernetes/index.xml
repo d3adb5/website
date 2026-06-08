@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kubernetes on d3adb5's personal website</title><link>https://d3adb5.net/extra/notes/kubernetes/</link><description>Recent content in Kubernetes on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 06 May 2023 18:19:11 -0700</lastBuildDate><atom:link href="https://d3adb5.net/extra/notes/kubernetes/index.xml" rel="self" type="application/rss+xml"/><item><title>Kubernetes, the container orchestrator!</title><link>https://d3adb5.net/extra/notes/kubernetes/kubernetes/</link><pubDate>Tue, 27 Sep 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/extra/notes/kubernetes/kubernetes/</guid><description>&lt;p&gt;I&amp;rsquo;ve worked with Kubernetes for a while now, and while the name made it seem a
+little daunting at first, it&amp;rsquo;s actually quite simple. In fact it&amp;rsquo;s simple
+enough I got Kubernetes certified recently! If I can do it, anyone can. This
+page has a few notes on interesting Kubernetes tricks I&amp;rsquo;ve learned during my
+time working with it.&lt;/p&gt;
+&lt;h2 id="what-is-container-orchestration"&gt;What is container orchestration?&lt;/h2&gt;
+&lt;p&gt;It&amp;rsquo;s unclear. Well, it&amp;rsquo;s not unclear, but the words &amp;ldquo;container orchestration&amp;rdquo;
+don&amp;rsquo;t really mean anything. To summarize Kubernetes, it&amp;rsquo;s an aggregate of
+container runtimes operating on multiple machines &amp;mdash; which we call &lt;em&gt;nodes&lt;/em&gt; &amp;mdash;
+that host containerized processes grouped together in what we refer to as
+&lt;em&gt;Pods.&lt;/em&gt; The two main roles Kubernetes plays are:&lt;/p&gt;</description></item></channel></rss>

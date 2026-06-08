@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Xmobar on d3adb5's personal website</title><link>https://d3adb5.net/tags/xmobar/</link><description>Recent content in Xmobar on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 14 May 2023 17:51:22 -0700</lastBuildDate><atom:link href="https://d3adb5.net/tags/xmobar/index.xml" rel="self" type="application/rss+xml"/><item><title>Chronicles of XMonad and xmobar</title><link>https://d3adb5.net/blog/xmobar-and-xmonad-being-painful/</link><pubDate>Sun, 26 Feb 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/xmobar-and-xmonad-being-painful/</guid><description>&lt;p&gt;This is a story about how the Haskell toolset, Arch Linux package maintainers,
+and font rendering engines made me lose a few hours of my life. Of course, I
+consider myself equally guilty, for my choices and stubbornness inevitably led
+to the happenings I am about to relay onto you.&lt;/p&gt;
+&lt;h2 id="chapter-1-first-mistakes"&gt;Chapter 1: First Mistakes&lt;/h2&gt;
+&lt;p&gt;It was a dark and stormy night somewhere in the world. I was sitting in front
+of my laptop, speaking to a couple of friends over Mumble, when I accidentally
+&lt;em&gt;knocked over the glass of soda&lt;/em&gt; I&amp;rsquo;d just fetched from the kitchen. It would
+have been a minor inconvenience, had I not &lt;em&gt;spilled it directly onto my
+laptop.&lt;/em&gt; In a panic, I told my friends I&amp;rsquo;d be back later and immediately shut
+the system down to avoid any short circuits.&lt;/p&gt;</description></item></channel></rss>

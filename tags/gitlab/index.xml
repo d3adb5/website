@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>GitLab on d3adb5's personal website</title><link>https://d3adb5.net/tags/gitlab/</link><description>Recent content in GitLab on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 17 Feb 2024 08:20:52 -0800</lastBuildDate><atom:link href="https://d3adb5.net/tags/gitlab/index.xml" rel="self" type="application/rss+xml"/><item><title>Thoughts on GitLab CI</title><link>https://d3adb5.net/blog/gitlab-cicd-opinions/</link><pubDate>Fri, 16 Feb 2024 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/gitlab-cicd-opinions/</guid><description>&lt;p&gt;In 2013, the landing page for GitLab.com described GitLab as &lt;a href="http://web.archive.org/web/20130403093627/http://www.gitlab.com/"&gt;&lt;em&gt;Open Source Git
+Management Software&lt;/em&gt;&lt;/a&gt;. GitLab CI already existed &amp;mdash; it was first
+created in 2012 &amp;mdash; but it was only years later that GitLab started to market
+itself as a &amp;ldquo;DevOps platform&amp;rdquo;, pushing products that span the entirety of the
+software development lifecycle, from planning to deployment. So how good is
+their pipeline offering?&lt;/p&gt;
+&lt;p&gt;GitLab CI is GitLab&amp;rsquo;s built-in pipeline system. It&amp;rsquo;s a CI/CD tool that allows
+you to define workflows for building, testing, and deploying software from
+GitLab by adding a &lt;code&gt;.gitlab-ci.yml&lt;/code&gt; file to the root of the repository and
+ensuring there is an available runner to pick the job up. These could be hosted
+by GitLab or by the user, and they come in a variety of flavors.&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Hardware on d3adb5's personal website</title><link>https://d3adb5.net/tags/hardware/</link><description>Recent content in Hardware on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 11 Aug 2024 18:30:56 -0700</lastBuildDate><atom:link href="https://d3adb5.net/tags/hardware/index.xml" rel="self" type="application/rss+xml"/><item><title>Building myself a desktop PC</title><link>https://d3adb5.net/blog/building-a-computer/</link><pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/building-a-computer/</guid><description>&lt;p&gt;This year I decided to build myself a computer, and use it to start playing
+some graphically demanding PC games. The plan had existed for a while, but was
+accelerated after I broke my Arch Linux installation on my Dell Optiplex 3080
+Micro &amp;mdash; I blogged about it previously &amp;mdash; and decided I needed to ensure I
+had backup installations and SSDs to fall back onto in times of need. In this
+article I&amp;rsquo;ll talk about what happened.&lt;/p&gt;</description></item><item><title>Experiencing 64 GB of RAM + 80 GB of swap</title><link>https://d3adb5.net/blog/lots-of-ram/</link><pubDate>Fri, 17 Feb 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/lots-of-ram/</guid><description>&lt;p&gt;For the past couple of days I have been using a machine with &lt;em&gt;64 GB of RAM,&lt;/em&gt;
+and &lt;em&gt;80 GB of swap space.&lt;/em&gt; This amount of computer memory is more than I have
+ever conceived using. No, &lt;strong&gt;I&amp;rsquo;m not gaming on it,&lt;/strong&gt; and I&amp;rsquo;m not a Java
+developer running IntelliJ IDEA with 20+ projects open at the same time.
+However, language servers and other applications I use on a daily basis have
+made me rethink how much memory I really need.&lt;/p&gt;</description></item><item><title>How does a micro form factor PC perform?</title><link>https://d3adb5.net/blog/using-a-micro-pc/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/using-a-micro-pc/</guid><description>&lt;p&gt;Not too long ago, I started looking into building myself a reasonable desktop
+so I could finally graduate from my ThinkPad X220. Don&amp;rsquo;t get me wrong, the X220
+is pretty neat and will still work for a long time, but sometimes its fan would
+go turbo mode while running relatively simple programs like Telegram Desktop
+and Discord. You could chalk that up to the applications not being well
+optimized &lt;em&gt;&amp;mdash; and that is specially true for the latter example &amp;mdash;&lt;/em&gt; but at
+some point you give in and start looking to replace the hardware that was
+already meant for just office work &lt;strong&gt;when it came out back in 2011.&lt;/strong&gt;&lt;/p&gt;</description></item></channel></rss>

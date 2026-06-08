@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Opinions on d3adb5's personal website</title><link>https://d3adb5.net/tags/opinions/</link><description>Recent content in Opinions on d3adb5's personal website</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 03 Jul 2023 21:12:58 -0700</lastBuildDate><atom:link href="https://d3adb5.net/tags/opinions/index.xml" rel="self" type="application/rss+xml"/><item><title>Was I wrong about JavaScript?</title><link>https://d3adb5.net/blog/javascript-isnt-so-bad/</link><pubDate>Mon, 03 Jul 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/javascript-isnt-so-bad/</guid><description>&lt;p&gt;JavaScript was first introduced 27 years ago, initially as &lt;em&gt;LiveScript,&lt;/em&gt; in a
+beta version of Netscape, and later as &lt;em&gt;JavaScript,&lt;/em&gt; presumably as a marketing
+ploy to capitalize on the rising popularity of &lt;em&gt;Java.&lt;/em&gt; Its goal was to make it
+so webpages wouldn&amp;rsquo;t be static paintings users scrolled through, but rather
+interactive experiences that could react to user input.&lt;/p&gt;
+&lt;p&gt;This was a noble pursuit in many ways. &lt;strong&gt;We&amp;rsquo;re talking about 1995&lt;/strong&gt; here, when
+the Web was so young CSS hadn&amp;rsquo;t even been implemented yet &amp;mdash; the first version
+of CSS was implemented in 1996! In fact, if like me you were thinking &amp;ldquo;there
+was already user interactivity in HTML through Web forms&amp;rdquo;, you&amp;rsquo;d be wrong:
+official support for the &lt;code&gt;&amp;lt;form&amp;gt;&lt;/code&gt; and &lt;code&gt;&amp;lt;input&amp;gt;&lt;/code&gt; tags was only added to HTML in
+November 1995 &amp;mdash; in version 2.0 of the HTML standard &amp;mdash; &lt;em&gt;two months after
+LiveScript,&lt;/em&gt; and just a month before its rename and official stable release.&lt;/p&gt;</description></item><item><title>Writing your program in C can make it slower</title><link>https://d3adb5.net/blog/c-isnt-string-friendly/</link><pubDate>Thu, 11 May 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/c-isnt-string-friendly/</guid><description>&lt;p&gt;If you asked me what I thought of programming about a decade ago, my &lt;em&gt;young,
+inexperienced, zealot self&lt;/em&gt; would have likely told you everybody should be
+programming in C, so that all programs could be really fast, and that
+programmers who complained about the language were just too lazy to deal with
+memory allocation and pointers. &lt;strong&gt;How mistaken I was!&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m pretty sure I attributed every bit of slow software or transition to &lt;em&gt;lazy
+Java programmers:&lt;/em&gt;&lt;/p&gt;</description></item><item><title>Sonos speakers are actually pretty good</title><link>https://d3adb5.net/blog/sonos-speakers/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/sonos-speakers/</guid><description>&lt;p&gt;Last Christmas I got my wife a couple of Sonos One speakers so she wouldn&amp;rsquo;t
+have to listen to music through her phone&amp;rsquo;s tiny speaker. She does have a good
+pair of headphones, and the audio quality of AirPods is decent enough I&amp;rsquo;m in no
+hurry to replace any of those. However, when we listen to music together over a
+game of &lt;em&gt;Scrabble&lt;/em&gt; or &lt;em&gt;Bananagrams,&lt;/em&gt; iPhone or iPad speakers simply won&amp;rsquo;t cut
+it.&lt;/p&gt;</description></item><item><title>Updated Git opinions and lessons learned</title><link>https://d3adb5.net/blog/more-git-opinions/</link><pubDate>Tue, 01 Nov 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/more-git-opinions/</guid><description>&lt;p&gt;This is yet another foray into Git matters. I must say that, albeit not by
+much, my opinions have changed since &lt;a href="https://d3adb5.net/blog/git-rebase-vs-merge/"&gt;the last time I wrote down my thoughts on
+Git.&lt;/a&gt; While I&amp;rsquo;m still an advocate for linear history &amp;mdash;
+provided it doesn&amp;rsquo;t come at considerable expense &amp;mdash; I&amp;rsquo;ve come to revel in my
+laziness, appreciate the power of a Git merge, and hold in contempt the
+inability of suites like GitLab, GitHub, and BitBucket to handle conflict
+resolution in merge commits.&lt;/p&gt;</description></item><item><title>On excessive templating with Helm</title><link>https://d3adb5.net/blog/on-helm-templates/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/on-helm-templates/</guid><description>&lt;p&gt;I&amp;rsquo;ve mentioned in other blogposts that I&amp;rsquo;ve been involved in a project making
+extensive use of Helm. It is known by some as the Kubernetes package manager,
+so you&amp;rsquo;ll naturally use it as you deploy applications to your cluster. Other
+than release management, its main advantage is generating resources based on
+user configurable &lt;em&gt;values.&lt;/em&gt; Conditionals are a direct evolution of that, and
+loops come into play as need be. But it doesn&amp;rsquo;t stop there.&lt;/p&gt;</description></item><item><title>How does a micro form factor PC perform?</title><link>https://d3adb5.net/blog/using-a-micro-pc/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/using-a-micro-pc/</guid><description>&lt;p&gt;Not too long ago, I started looking into building myself a reasonable desktop
+so I could finally graduate from my ThinkPad X220. Don&amp;rsquo;t get me wrong, the X220
+is pretty neat and will still work for a long time, but sometimes its fan would
+go turbo mode while running relatively simple programs like Telegram Desktop
+and Discord. You could chalk that up to the applications not being well
+optimized &lt;em&gt;&amp;mdash; and that is specially true for the latter example &amp;mdash;&lt;/em&gt; but at
+some point you give in and start looking to replace the hardware that was
+already meant for just office work &lt;strong&gt;when it came out back in 2011.&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Some of my thoughts on The Legend of Zelda</title><link>https://d3adb5.net/blog/thoughts-on-zelda-games/</link><pubDate>Fri, 01 Jul 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/thoughts-on-zelda-games/</guid><description>&lt;p&gt;While I don&amp;rsquo;t spend a lot of my time playing video games, there are a few
+franchises that will compell me to spend some of my spare hours in front of a
+screen (or two). For the most part they are Nintendo franchises, but they also
+feature &lt;em&gt;Kingdom Hearts&lt;/em&gt; and &lt;em&gt;Puyo Puyo Tetris.&lt;/em&gt; The series that never fails to
+draw me in, however, is &lt;em&gt;The Legend of Zelda,&lt;/em&gt; which I&amp;rsquo;d like to talk about
+briefly in this article.&lt;/p&gt;</description></item><item><title>Using Git outside of programming</title><link>https://d3adb5.net/blog/git-outside-programming/</link><pubDate>Sat, 18 Jun 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/git-outside-programming/</guid><description>&lt;p&gt;It is public knowledge that versioning is important when writing documents, be
+it source code for a project written in a programming language, drafts of a
+book, or meeting minutes. GitHub, for instance, uses Git for their &lt;em&gt;site
+policy, documentation,&lt;/em&gt; and &lt;em&gt;roadmap,&lt;/em&gt; none of which involve or focus on
+programming. But what if we don&amp;rsquo;t care too much about versioning itself?&lt;/p&gt;
+&lt;p&gt;Keeping a history of versions of a piece of work doesn&amp;rsquo;t come to mind so
+naturally, especially for those of us who don&amp;rsquo;t want to show whatever we&amp;rsquo;re
+working on to anybody until we&amp;rsquo;re perfectly happy with it. We forget that the
+history being preserved serves us far more than it does anybody else: did you
+come up with a good idea for working around X limitation? &lt;em&gt;Write it down!&lt;/em&gt;&lt;/p&gt;</description></item><item><title>On linear history with Git: rebase, merge, squash</title><link>https://d3adb5.net/blog/git-rebase-vs-merge/</link><pubDate>Fri, 13 May 2022 00:00:00 +0000</pubDate><guid>https://d3adb5.net/blog/git-rebase-vs-merge/</guid><description>&lt;p&gt;&lt;strong&gt;DISCLAIMER:&lt;/strong&gt; I do not claim to be an expert on Git, nor do I claim to have a
+lot of experience in source code management tools. This article is being
+written as I decide what I want for my own projects, and how I position myself
+on the application of each &amp;ldquo;philosophy&amp;rdquo;, so to speak. This topic is
+controversial in ways I hadn&amp;rsquo;t even imagined before.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Note:&lt;/em&gt; Decent knowledge of Git and its terminology is assumed here. Some
+commands might be shown, but explanations about what a &lt;code&gt;commit&lt;/code&gt;, a &lt;code&gt;branch&lt;/code&gt;,
+etc. are will not be present. Links to documentation will be added on occasion.&lt;/p&gt;</description></item></channel></rss>
